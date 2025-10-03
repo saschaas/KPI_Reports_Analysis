@@ -1,0 +1,335 @@
+report_type:
+  id: "veeam_backup"
+  name: "Veeam Backup Report"
+  description: "Veeam backup job report analysis with success rate calculation"
+  enabled: true
+  priority: 1
+
+identification:
+  filename_patterns:
+    - ".*veeam.*backup.*\\.(pdf|html?|xlsx?)$"
+    - ".*backup.*report.*\\.(pdf|html?|xlsx?)$"
+    - ".*veeam.*monthly.*\\.(pdf|html?|xlsx?)$"
+    - ".*veeam.*\\.(pdf|html?|xlsx?)$"
+
+  content_identifiers:
+    required_columns:
+      - "vm name"
+      - "status"
+    optional_columns:
+      - "start time"
+      - "stop time"
+      - "duration"
+      - "total"
+      - "job name"
+    required_keywords:
+      - "veeam"
+      - "backup"
+    optional_keywords:
+      - "virtual machine"
+      - "vm"
+      - "success"
+      - "failed"
+    min_matches: 2
+
+  # Fuzzy matching configuration for tolerant field identification
+  fuzzy_matching:
+    enabled: true
+    threshold: 0.85
+    normalization:
+      - trim
+      - lowercase
+      - unicode_normalize
+      - remove_diacritics
+
+    field_mappings:
+      vm_name:
+        alternatives: ["vm name", "vmname", "virtual machine", "vm", "machine name"]
+        priority: "high"
+      start_time:
+        alternatives: ["start time", "starttime", "start", "begin time", "started"]
+        priority: "high"
+      stop_time:
+        alternatives: ["stop time", "stoptime", "stop", "end time", "ended", "finish time"]
+        priority: "medium"
+      duration:
+        alternatives: ["duration", "time taken", "elapsed", "runtime"]
+        priority: "medium"
+      total_gb:
+        alternatives: ["total (gb)", "total", "size (gb)", "size", "capacity", "total gb"]
+        priority: "low"
+      status:
+        alternatives: ["status", "result", "state"]
+        priority: "high"
+        values:
+          success: ["success", "successful", "succeeded", "ok", "passed"]
+          failed: ["failed", "failure", "error", "fail"]
+          warning: ["warning", "warn", "attention"]
+      job_name:
+        alternatives: ["job name", "jobname", "job", "backup job"]
+        priority: "low"
+
+  llm_classification:
+    enabled: true
+    confidence_threshold: 0.8
+    prompt: |
+      Analysiere den folgenden Dateiinhalt und bestimme, ob es sich um einen Veeam Backup Report handelt.
+
+      Kriterien:
+      - Enthält Informationen zu Backup-Jobs
+      - Enthält VM-Namen oder virtuelle Maschinen
+      - Enthält Status (Erfolgreich/Fehlgeschlagen)
+      - Enthält Zeitangaben (Start/Stop)
+      - Bezieht sich auf Veeam Backup Software
+
+      Inhalt: {content}
+
+      Antworte nur mit 'JA' oder 'NEIN' gefolgt von einer einzeiligen Begründung.
+
+supported_formats: ["pdf", "xlsx", "xls", "csv"]
+
+analysis:
+  algorithmic_checks:
+    - check_id: "completeness"
+      name: "Vollständigkeitsprüfung"
+      type: "column_validation"
+      parameters:
+        required_columns: ["vm_name", "status"]
+        severity: "high"
+        error_message: "Pflichtfelder (VM Name, Status) fehlen"
+
+    - check_id: "backup_failures"
+      name: "Fehlerhafte Backups"
+      type: "threshold"
+      parameters:
+        column: "status"
+        value: "failed"
+        max_count: 0
+        max_percentage: 0.05  # 5% max failure rate
+        severity: "high"
+        error_message: "Zu viele fehlgeschlagene Backups"
+
+    - check_id: "backup_warnings"
+      name: "Backup-Warnungen"
+      type: "threshold"
+      parameters:
+        column: "status"
+        value: "warning"
+        max_count: 0
+        max_percentage: 0.10  # 10% max warnings
+        severity: "medium"
+        error_message: "Zu viele Backup-Warnungen"
+
+    - check_id: "missing_backups"
+      name: "Fehlende Backups"
+      type: "date_continuity"
+      parameters:
+        column: "start_time"
+        check_daily: true
+        severity: "medium"
+        error_message: "Tage ohne Backups gefunden"
+
+    - check_id: "date_range"
+      name: "Datumsbereich-Prüfung"
+      type: "date_validation"
+      parameters:
+        column: "start_time"
+        check_continuity: false
+        severity: "low"
+
+  llm_analysis:
+    enabled: true
+    max_retries: 2
+    prompt: |
+      Analysiere diesen Veeam Backup Bericht und extrahiere:
+
+      1. Gesamtanzahl durchgeführter Backups
+      2. Anzahl erfolgreicher Backups
+      3. Anzahl fehlgeschlagener Backups
+      4. Anzahl von Backups mit Warnungen
+      5. Liste der VMs mit fehlgeschlagenen Backups
+      6. Zeitraum des Berichts (von - bis)
+      7. Auffälligkeiten oder kritische Probleme
+
+      Bericht: {content}
+
+      Antworte im JSON-Format:
+      {
+        "total_backups": 0,
+        "successful_backups": 0,
+        "failed_backups": 0,
+        "warning_backups": 0,
+        "failed_vms": [],
+        "period_start": "",
+        "period_end": "",
+        "issues": [],
+        "summary": ""
+      }
+
+  extraction_fields:
+    - field: "total_backups"
+      type: "count"
+      source: "all_rows"
+      required: true
+      default: 0
+
+    - field: "successful_backups"
+      type: "count"
+      source: "status == 'success'"
+      required: true
+      default: 0
+
+    - field: "failed_backups"
+      type: "count"
+      source: "status == 'failed'"
+      required: true
+      default: 0
+
+    - field: "warning_backups"
+      type: "count"
+      source: "status == 'warning'"
+      required: false
+      default: 0
+
+    - field: "success_rate"
+      type: "calculated"
+      formula: "(successful_backups / total_backups * 100) if total_backups > 0 else 100"
+      format: "percentage"
+      required: true
+      default: 100.0
+
+    - field: "failure_rate"
+      type: "calculated"
+      formula: "(failed_backups / total_backups * 100) if total_backups > 0 else 0"
+      format: "percentage"
+      required: true
+      default: 0.0
+
+    - field: "total_capacity_gb"
+      type: "sum"
+      source: "total_gb"
+      required: false
+      format: "float"
+      default: 0.0
+
+    - field: "period_start"
+      type: "min"
+      source: "start_time"
+      required: true
+      format: "date"
+
+    - field: "period_end"
+      type: "max"
+      source: "start_time"
+      required: true
+      format: "date"
+
+    - field: "unique_vms"
+      type: "count_distinct"
+      source: "vm_name"
+      required: false
+      default: 0
+
+    - field: "missing_backup_days"
+      type: "calculated"
+      formula: "get_missing_backup_days(start_time)"
+      required: false
+      default: []
+
+  scoring:
+    base_score: 100
+    deductions:
+      - condition: "failed_backups > 0"
+        points: 10
+        per_occurrence: true
+        max_deduction: 50
+        description: "Fehlgeschlagene Backups"
+
+      - condition: "warning_backups > 0"
+        points: 2
+        per_occurrence: true
+        max_deduction: 10
+        description: "Backup-Warnungen"
+
+      - condition: "missing_backup_days > 0"
+        points: 5
+        per_occurrence: true
+        max_deduction: 20
+        description: "Tage ohne Backups"
+
+      - condition: "success_rate < 95"
+        points: 15
+        per_occurrence: false
+        description: "Erfolgsrate unter 95%"
+
+      - condition: "success_rate < 90"
+        points: 25
+        per_occurrence: false
+        description: "Erfolgsrate unter 90%"
+
+      - condition: "missing_required_columns"
+        points: 30
+        per_occurrence: false
+        description: "Pflichtfelder fehlen"
+
+    risk_levels:
+      high:
+        score_range: [0, 60]
+        triggers:
+          - "failed_backups > 5"
+          - "success_rate < 90"
+          - "critical_errors > 0"
+        color: "#FF0000"
+      medium:
+        score_range: [61, 85]
+        triggers:
+          - "failed_backups > 0"
+          - "success_rate < 95"
+        color: "#FFA500"
+      low:
+        score_range: [86, 100]
+        color: "#00FF00"
+
+output:
+  custom_fields:
+    total_backups: "integer"
+    successful_backups: "integer"
+    failed_backups: "integer"
+    warning_backups: "integer"
+    success_rate: "percentage"
+    failure_rate: "percentage"
+    total_capacity_gb: "float"
+    unique_vms: "integer"
+    period_start: "date"
+    period_end: "date"
+    failed_vms: "array"
+    missing_backup_days: "array"
+
+  summary_template: |
+    === VEEAM BACKUP REPORT ===
+    Bericht: {report_name}
+    Zeitraum: {period_start} bis {period_end}
+    Status: {status}
+    Score: {score}/100
+    Risiko-Level: {risk_level}
+
+    === BACKUP STATISTIKEN ===
+    Gesamtanzahl Backups: {total_backups}
+    Erfolgreiche Backups: {successful_backups}
+    Fehlgeschlagene Backups: {failed_backups}
+    Warnungen: {warning_backups}
+
+    === ERFOLGSRATE ===
+    Erfolgsrate: {success_rate}%
+    Fehlerrate: {failure_rate}%
+
+    === WEITERE DETAILS ===
+    Anzahl VMs: {unique_vms}
+    Gesamtkapazität: {total_capacity_gb} GB
+    Tage ohne Backups: {missing_backup_days_count}
+
+    === FEHLGESCHLAGENE BACKUPS ===
+    {failed_backups_details}
+
+    === FEHLENDE BACKUP-TAGE ===
+    {missing_days_list}

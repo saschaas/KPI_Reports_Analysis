@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veeam Backup Report - Analyse Ergebnisse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .score-banner {
+            background: #00c853;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .score-banner .score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .metric-card {
+            background: #f5f7fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-card.success {
+            border-left-color: #00c853;
+        }
+
+        .metric-card.warning {
+            border-left-color: #ff9800;
+        }
+
+        .metric-card.error {
+            border-left-color: #f44336;
+        }
+
+        .metric-card h3 {
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-card .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .metric-card .subtext {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .section {
+            padding: 40px;
+            border-top: 1px solid #eee;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .period-info {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .period-info p {
+            margin: 10px 0;
+            color: #1976d2;
+            font-size: 1.1em;
+        }
+
+        .missing-days {
+            background: #fff3e0;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 5px solid #ff9800;
+        }
+
+        .missing-days h3 {
+            color: #f57c00;
+            margin-bottom: 15px;
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .day-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            border: 1px solid #ff9800;
+        }
+
+        .checks-section {
+            margin-top: 30px;
+        }
+
+        .check-item {
+            background: #f5f7fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .check-item.passed {
+            border-left: 5px solid #00c853;
+        }
+
+        .check-item.failed {
+            border-left: 5px solid #f44336;
+        }
+
+        .check-icon {
+            font-size: 2em;
+        }
+
+        .check-icon.passed {
+            color: #00c853;
+        }
+
+        .check-icon.failed {
+            color: #f44336;
+        }
+
+        .check-details h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .check-details p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            background: #f5f7fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        .timestamp {
+            font-size: 0.9em;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Veeam Backup Report</h1>
+            <p>Automatisierte Analyse mit KI-Unterstützung</p>
+        </div>
+
+        <!-- Score Banner -->
+        <div class="score-banner">
+            <div>Gesamtscore</div>
+            <div class="score">100/100</div>
+            <div>🟢 Risikolevel: Niedrig</div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="metrics">
+            <div class="metric-card success">
+                <h3>Erfolgsrate</h3>
+                <div class="value">100%</div>
+                <div class="subtext">16 von 16 Backups erfolgreich</div>
+            </div>
+
+            <div class="metric-card success">
+                <h3>Erfolgreiche Backups</h3>
+                <div class="value">16</div>
+                <div class="subtext">Alle Backups erfolgreich</div>
+            </div>
+
+            <div class="metric-card error">
+                <h3>Fehlgeschlagene Backups</h3>
+                <div class="value">0</div>
+                <div class="subtext">Keine Fehler ✅</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Gesamtkapazität</h3>
+                <div class="value">4.3 <span style="font-size: 0.5em;">TB</span></div>
+                <div class="subtext">4380 GB gesichert</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Virtuelle Maschinen</h3>
+                <div class="value">7</div>
+                <div class="subtext">Unique VMs</div>
+            </div>
+
+            <div class="metric-card warning">
+                <h3>Fehlende Backup-Tage</h3>
+                <div class="value">27</div>
+                <div class="subtext">Tage ohne Backups</div>
+            </div>
+        </div>
+
+        <!-- Period Info -->
+        <div class="section">
+            <h2>📅 Berichtszeitraum</h2>
+            <div class="period-info">
+                <p><strong>Start:</strong> 08. Februar 2025</p>
+                <p><strong>Ende:</strong> 08. April 2025</p>
+                <p><strong>Dauer:</strong> 59 Tage</p>
+            </div>
+        </div>
+
+        <!-- Missing Days -->
+        <div class="section">
+            <h2>⚠️ Fehlende Backup-Tage</h2>
+            <div class="missing-days">
+                <h3>27 Tage ohne Backups im Berichtszeitraum</h3>
+                <p style="color: #666; margin-bottom: 15px;">
+                    Im Februar 2025 wurden an den folgenden Tagen keine Backups durchgeführt:
+                </p>
+                <div class="day-grid">
+                    <div class="day-item">01. Feb</div>
+                    <div class="day-item">02. Feb</div>
+                    <div class="day-item">03. Feb</div>
+                    <div class="day-item">04. Feb</div>
+                    <div class="day-item">05. Feb</div>
+                    <div class="day-item">06. Feb</div>
+                    <div class="day-item">07. Feb</div>
+                    <div class="day-item">09. Feb</div>
+                    <div class="day-item">10. Feb</div>
+                    <div class="day-item">11. Feb</div>
+                    <div class="day-item">12. Feb</div>
+                    <div class="day-item">13. Feb</div>
+                    <div class="day-item">14. Feb</div>
+                    <div class="day-item">15. Feb</div>
+                    <div class="day-item">16. Feb</div>
+                    <div class="day-item">17. Feb</div>
+                    <div class="day-item">18. Feb</div>
+                    <div class="day-item">19. Feb</div>
+                    <div class="day-item">20. Feb</div>
+                    <div class="day-item">21. Feb</div>
+                    <div class="day-item">22. Feb</div>
+                    <div class="day-item">23. Feb</div>
+                    <div class="day-item">24. Feb</div>
+                    <div class="day-item">25. Feb</div>
+                    <div class="day-item">26. Feb</div>
+                    <div class="day-item">27. Feb</div>
+                    <div class="day-item">28. Feb</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checks -->
+        <div class="section">
+            <h2>🔍 Durchgeführte Prüfungen</h2>
+            <div class="checks-section">
+                <div class="check-item passed">
+                    <div class="check-icon passed">✓</div>
+                    <div class="check-details">
+                        <h4>Vollständigkeitsprüfung</h4>
+                        <p>Alle Pflichtfelder vorhanden</p>
+                    </div>
+                </div>
+
+                <div class="check-item passed">
+                    <div class="check-icon passed">✓</div>
+                    <div class="check-details">
+                        <h4>Fehlerhafte Backups</h4>
+                        <p>0 von 16 Backups fehlgeschlagen (0.0%)</p>
+                    </div>
+                </div>
+
+                <div class="check-item passed">
+                    <div class="check-icon passed">✓</div>
+                    <div class="check-details">
+                        <h4>Backup-Warnungen</h4>
+                        <p>0 von 16 Backups mit Warnungen (0.0%)</p>
+                    </div>
+                </div>
+
+                <div class="check-item failed">
+                    <div class="check-icon failed">✗</div>
+                    <div class="check-details">
+                        <h4>Fehlende Backups</h4>
+                        <p>27 Tage ohne Backups gefunden</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>🤖 Automatisch generiert durch KPI-Analyse Tool</strong></p>
+            <p class="timestamp">Analyse durchgeführt am: 3. Oktober 2025, 11:44:24</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                Methode: Algorithmische Analyse | Dauer: 3.45s | Parser: PDFParser
+            </p>
+        </div>
+    </div>
+</body>
+</html>

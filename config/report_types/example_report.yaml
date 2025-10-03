@@ -1,0 +1,176 @@
+report_type:
+  id: "example_report"
+  name: "Beispiel Monatsbericht"
+  description: "Template für neue Berichtstypen"
+  enabled: true
+  priority: 1
+
+identification:
+  filename_patterns:
+    - ".*beispiel.*\\.xlsx$"
+    - ".*example.*\\.csv$"
+    - ".*sample.*report.*\\.(pdf|xlsx)$"
+  
+  content_identifiers:
+    required_columns:
+      - "Datum"
+      - "Transaktions-ID"
+    optional_columns:
+      - "Betrag"
+      - "Status"
+    required_keywords:
+      - "Monatsbericht"
+      - "Zeitraum"
+    optional_keywords:
+      - "Zusammenfassung"
+      - "Übersicht"
+    min_matches: 2
+  
+  llm_classification:
+    enabled: true
+    confidence_threshold: 0.8
+    prompt: |
+      Analysiere den folgenden Dateiinhalt und bestimme, ob es sich um einen Beispiel-Monatsbericht handelt.
+      
+      Kriterien:
+      - Enthält Transaktionsdaten
+      - Monatliche Aggregation
+      - Spezifische Kennzahlen
+      
+      Inhalt: {content}
+      
+      Antworte nur mit 'JA' oder 'NEIN' gefolgt von einer einzeiligen Begründung.
+
+supported_formats: ["xlsx", "xls", "csv", "pdf"]
+
+analysis:
+  algorithmic_checks:
+    - check_id: "completeness"
+      name: "Vollständigkeitsprüfung"
+      type: "column_validation"
+      parameters:
+        required_columns: ["Datum", "Transaktions-ID", "Betrag"]
+        severity: "high"
+        error_message: "Pflichtfelder fehlen"
+    
+    - check_id: "threshold_check"
+      name: "Fehlerquoten-Prüfung"
+      type: "threshold"
+      parameters:
+        column: "Status"
+        value: "Fehler"
+        max_count: 5
+        max_percentage: 0.5
+        severity: "medium"
+        error_message: "Fehlerquote überschritten"
+    
+    - check_id: "date_range"
+      name: "Datumsbereich-Prüfung"
+      type: "date_validation"
+      parameters:
+        column: "Datum"
+        check_continuity: true
+        severity: "low"
+  
+  llm_analysis:
+    enabled: true
+    max_retries: 2
+    prompt: |
+      Analysiere diesen Bericht und extrahiere:
+      
+      1. Gesamtanzahl Transaktionen
+      2. Anzahl fehlgeschlagener Transaktionen
+      3. Auffälligkeiten oder Probleme
+      4. Zeitraum des Berichts
+      
+      Bericht: {content}
+      
+      Antworte im JSON-Format:
+      {
+        "total_transactions": 0,
+        "failed_transactions": 0,
+        "issues": [],
+        "period": "",
+        "summary": ""
+      }
+  
+  extraction_fields:
+    - field: "total_transactions"
+      type: "count"
+      source: "all_rows"
+      required: true
+      default: 0
+    
+    - field: "failed_transactions"
+      type: "count"
+      source: "Status == 'Fehler'"
+      required: true
+      default: 0
+    
+    - field: "total_amount"
+      type: "sum"
+      source: "Betrag"
+      required: false
+      format: "currency"
+      default: 0.0
+    
+    - field: "success_rate"
+      type: "calculated"
+      formula: "(total_transactions - failed_transactions) / total_transactions * 100"
+      format: "percentage"
+      required: true
+      default: 100.0
+
+  scoring:
+    base_score: 100
+    deductions:
+      - condition: "failed_transactions > 0"
+        points: 5
+        per_occurrence: true
+        max_deduction: 30
+        description: "Fehlgeschlagene Transaktionen"
+      
+      - condition: "missing_required_columns"
+        points: 20
+        per_occurrence: false
+        description: "Pflichtfelder fehlen"
+      
+      - condition: "data_quality_issues"
+        points: 10
+        per_occurrence: true
+        max_deduction: 20
+        description: "Datenqualitätsprobleme"
+    
+    risk_levels:
+      high:
+        score_range: [0, 60]
+        triggers:
+          - "failed_transactions > 10"
+          - "critical_errors > 0"
+        color: "#FF0000"
+      medium:
+        score_range: [61, 85]
+        color: "#FFA500"
+      low:
+        score_range: [86, 100]
+        color: "#00FF00"
+
+output:
+  custom_fields:
+    total_transactions: "integer"
+    failed_transactions: "integer"
+    total_amount: "float"
+    success_rate: "percentage"
+    issues_found: "array"
+    period: "string"
+    
+  summary_template: |
+    Bericht: {report_name}
+    Zeitraum: {period}
+    Status: {status}
+    Score: {score}/100
+    
+    Kennzahlen:
+    - Transaktionen: {total_transactions}
+    - Fehlerquote: {error_rate}%
+    - Gesamtbetrag: {total_amount}

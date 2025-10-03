@@ -1,0 +1,23 @@
+# Core dependencies
+ollama==0.6.0                       # laut pip / wheel index :contentReference[oaicite:0]{index=0}  
+langchain>=0.3.15                   # updated for numpy 2.x compatibility
+langchain-community>=0.3.15        # passend zur Hauptversion von langchain  
+pandas==2.3.3                       # laut PyPI (neueste)  
+numpy>=2.1.0                        # updated for Python 3.13 compatibility  
+openpyxl==3.1.5                     # (übernommene alte Version, keine neuere verlässlich gefunden)  
+xlrd==2.0.1                         # bleibt stabil  
+pdfplumber==0.11.7                  # neueste laut Socket / PyPI Indices :contentReference[oaicite:3]{index=3}  
+PyPDF2==3.0.1                       # keine neuere Version verlässlich gefunden  
+pyyaml==6.0.2                       # keine neuere Version verlässlich gefunden  
+python-dotenv==1.0.1                # keine neuere Version verlässlich gefunden  
+Jinja2==3.1.5                       # keine neuere Version verlässlich gefunden  
+
+# Additional utilities
+beautifulsoup4==4.12.3              # keine neuere Version verlässlich gefunden  
+lxml==5.3.0                          # keine neuere Version verlässlich gefunden  
+chardet==5.2.0                       # keine neuere Version verlässlich gefunden  
+python-dateutil==2.9.0              # keine neuere Version verlässlich gefunden  
+tqdm==4.67.1                         # keine neuere Version verlässlich gefunden  
+
+# Logging and monitoring
+colorlog==6.9.0                      # aktuell laut PyPI / Safety‑Datenbanken :contentReference[oaicite:4]{index=4}  

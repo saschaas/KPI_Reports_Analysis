@@ -1,0 +1,44 @@
+ollama:
+  model: "llama3.2"
+  base_url: "http://localhost:11434"
+  timeout: 60
+  temperature: 0.1
+  max_tokens: 4096
+
+paths:
+  input_directory: "./input"
+  output_directory: "./output"
+  report_configs: "./config/report_types"
+  logs: "./logs"
+
+processing:
+  max_retries: 3
+  fallback_to_llm: true
+  parallel_processing: false
+  supported_formats: ["pdf", "xlsx", "xls", "csv", "html", "htm"]
+  batch_size: 10
+  cache_parsed_files: true
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  console: true
+  file: true
+  max_file_size_mb: 10
+  backup_count: 5
+
+analysis:
+  default_timeout: 120
+  enable_caching: true
+  cache_ttl_hours: 24
+  risk_thresholds:
+    high: 60
+    medium: 85
+    low: 100
+
+output:
+  format: "json"
+  pretty_print: true
+  include_metadata: true
+  generate_html_report: true
+  timestamp_format: "%Y-%m-%dT%H:%M:%SZ"

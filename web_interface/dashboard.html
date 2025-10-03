@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Analysis Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-gray: #ecf0f1;
+            --dark-gray: #34495e;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-gray));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .dashboard-header {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            padding: 30px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .metric-card .card-body {
+            padding: 25px;
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #6c757d;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .metric-change {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .report-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .report-body {
+            padding: 25px;
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-ok { background-color: rgba(39, 174, 96, 0.1); color: var(--success-color); }
+        .status-warning { background-color: rgba(243, 156, 18, 0.1); color: var(--warning-color); }
+        .status-error { background-color: rgba(231, 76, 60, 0.1); color: var(--danger-color); }
+
+        .risk-niedrig { 
+            background: linear-gradient(135deg, #d4edda, #c3e6cb); 
+            color: #155724; 
+        }
+        .risk-mittel { 
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7); 
+            color: #856404; 
+        }
+        .risk-hoch { 
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb); 
+            color: #721c24; 
+        }
+
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: white;
+            margin-left: auto;
+        }
+
+        .score-high { background: linear-gradient(135deg, var(--success-color), #2ecc71); }
+        .score-medium { background: linear-gradient(135deg, var(--warning-color), #e67e22); }
+        .score-low { background: linear-gradient(135deg, var(--danger-color), #c0392b); }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .data-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .data-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        .data-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .search-filter {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+            border: none;
+            color: white;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #2980b9, var(--secondary-color));
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 25px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--light-gray);
+        }
+
+        @media (max-width: 768px) {
+            .metric-card {
+                margin-bottom: 20px;
+            }
+            
+            .dashboard-header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .chart-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-chart-line me-2"></i>
+                Report Analysis Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="refreshData()">
+                            <i class="fas fa-sync-alt me-1"></i> Refresh
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="exportResults()">
+                            <i class="fas fa-download me-1"></i> Export
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header fade-in">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-3">
+                        <i class="fas fa-tachometer-alt text-primary me-3"></i>
+                        Analysis Dashboard
+                    </h1>
+                    <p class="text-muted mb-0">
+                        Überblick über alle analysierten Berichte und deren Status
+                    </p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="me-3">
+                            <small class="text-muted">Letzte Aktualisierung:</small><br>
+                            <span id="lastUpdate" class="fw-bold">--</span>
+                        </div>
+                        <button class="btn btn-custom" onclick="loadLatestResults()">
+                            <i class="fas fa-search me-2"></i>
+                            Load Latest
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Row -->
+        <div class="row mb-4" id="metricsRow">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="metric-card h-100 fade-in">
+                    <div class="card-body text-center">
+                        <div class="metric-icon bg-primary text-white mx-auto">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="metric-value text-primary" id="totalFiles">--</div>
+                        <div class="metric-label">Total Reports</div>
+                        <div class="metric-change text-success mt-2">
+                            <i class="fas fa-arrow-up"></i> <span id="filesChange">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="metric-card h-100 fade-in">
+                    <div class="card-body text-center">
+                        <div class="metric-icon bg-success text-white mx-auto">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="metric-value text-success" id="successfulFiles">--</div>
+                        <div class="metric-label">Successful</div>
+                        <div class="metric-change text-success mt-2">
+                            <i class="fas fa-percentage"></i> <span id="successRate">--</span>%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="metric-card h-100 fade-in">
+                    <div class="card-body text-center">
+                        <div class="metric-icon bg-warning text-white mx-auto">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="metric-value text-warning" id="avgScore">--</div>
+                        <div class="metric-label">Average Score</div>
+                        <div class="metric-change text-info mt-2">
+                            <i class="fas fa-chart-line"></i> Trend: <span id="scoreTrend">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="metric-card h-100 fade-in">
+                    <div class="card-body text-center">
+                        <div class="metric-icon bg-info text-white mx-auto">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-value text-info" id="avgProcessingTime">--</div>
+                        <div class="metric-label">Avg Processing Time</div>
+                        <div class="metric-change text-muted mt-2">
+                            <i class="fas fa-stopwatch"></i> <span id="totalTime">--</span>s total
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4">
+                <div class="chart-container">
+                    <h5 class="mb-4">
+                        <i class="fas fa-pie-chart text-primary me-2"></i>
+                        Risk Distribution
+                    </h5>
+                    <canvas id="riskChart" height="200"></canvas>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="chart-container">
+                    <h5 class="mb-4">
+                        <i class="fas fa-bar-chart text-primary me-2"></i>
+                        Report Types
+                    </h5>
+                    <canvas id="reportTypesChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-filter">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" class="form-control" id="searchInput" 
+                               placeholder="Search reports..." onkeyup="filterReports()">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="statusFilter" onchange="filterReports()">
+                        <option value="">All Status</option>
+                        <option value="ok">OK</option>
+                        <option value="mit_einschraenkungen">With Limitations</option>
+                        <option value="fehler">Error</option>
+                        <option value="nicht_erfolgreich_analysiert">Failed</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="riskFilter" onchange="filterReports()">
+                        <option value="">All Risk Levels</option>
+                        <option value="niedrig">Low Risk</option>
+                        <option value="mittel">Medium Risk</option>
+                        <option value="hoch">High Risk</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-secondary w-100" onclick="clearFilters()">
+                        <i class="fas fa-times me-1"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports List -->
+        <div id="reportsList">
+            <!-- Reports will be loaded here -->
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Loading reports...</p>
+        </div>
+
+        <!-- No Data Message -->
+        <div id="noDataMessage" class="text-center py-5" style="display: none;">
+            <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No reports found</h4>
+            <p class="text-muted">Try adjusting your filters or load the latest results.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+    
+    <script>
+        // Global variables
+        let analysisData = null;
+        let allReports = [];
+        let filteredReports = [];
+        let charts = {};
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
+
+        function initializeDashboard() {
+            console.log('Initializing dashboard...');
+            loadLatestResults();
+        }
+
+        function loadLatestResults() {
+            showLoading(true);
+            
+            // Simulate loading data (replace with actual AJAX call)
+            setTimeout(() => {
+                loadSampleData();
+                showLoading(false);
+            }, 1000);
+        }
+
+        function loadSampleData() {
+            // Sample data for demonstration
+            analysisData = {
+                analysis_metadata: {
+                    tool_version: "1.0.0",
+                    analysis_timestamp: new Date().toISOString(),
+                    total_files: 25,
+                    successful: 22,
+                    failed: 3,
+                    success_rate: 88.0,
+                    average_score: 82.5,
+                    total_processing_time_seconds: 125.7,
+                    report_types: {
+                        "backup_report": 8,
+                        "server_status": 6,
+                        "email_usage": 5,
+                        "incident_report": 4,
+                        "performance_metrics": 2
+                    },
+                    risk_distribution: {
+                        "niedrig": 15,
+                        "mittel": 7,
+                        "hoch": 3
+                    }
+                },
+                reports: generateSampleReports()
+            };
+
+            updateDashboard();
+        }
+
+        function generateSampleReports() {
+            const reportTypes = ['backup_report', 'server_status', 'email_usage', 'incident_report'];
+            const statuses = ['ok', 'mit_einschraenkungen', 'fehler'];
+            const risks = ['niedrig', 'mittel', 'hoch'];
+            
+            const reports = [];
+            
+            for (let i = 1; i <= 25; i++) {
+                const score = Math.floor(Math.random() * 100);
+                reports.push({
+                    file_info: {
+                        name: `report_${String(i).padStart(3, '0')}_202410.xlsx`,
+                        size_bytes: Math.floor(Math.random() * 5000000) + 100000,
+                        format: 'xlsx',
+                        report_period: '2024-10'
+                    },
+                    report_type: reportTypes[Math.floor(Math.random() * reportTypes.length)],
+                    result_status: statuses[score > 80 ? 0 : score > 60 ? 1 : 2],
+                    risk_level: risks[score > 80 ? 0 : score > 60 ? 1 : 2],
+                    score: score,
+                    analysis_details: {
+                        method: Math.random() > 0.7 ? 'llm' : 'algorithmic',
+                        checks_performed: Math.floor(Math.random() * 10) + 3,
+                        checks_passed: Math.floor(Math.random() * 8) + 2,
+                        checks_failed: Math.floor(Math.random() * 3),
+                        issues: score < 70 ? ['Data quality issues', 'Missing values'] : []
+                    },
+                    extracted_data: {
+                        total_transactions: Math.floor(Math.random() * 10000) + 1000,
+                        failed_transactions: Math.floor(Math.random() * 100),
+                        success_rate: (95 + Math.random() * 5).toFixed(1)
+                    },
+                    processing_info: {
+                        processing_time_seconds: (Math.random() * 10 + 1).toFixed(2)
+                    },
+                    timestamp: new Date().toISOString()
+                });
+            }
+            
+            return reports;
+        }
+
+        function updateDashboard() {
+            updateMetrics();
+            updateCharts();
+            updateReportsList();
+            updateLastUpdate();
+        }
+
+        function updateMetrics() {
+            const metadata = analysisData.analysis_metadata;
+            
+            document.getElementById('totalFiles').textContent = metadata.total_files;
+            document.getElementById('successfulFiles').textContent = metadata.successful;
+            document.getElementById('successRate').textContent = metadata.success_rate.toFixed(1);
+            document.getElementById('avgScore').textContent = metadata.average_score.toFixed(1);
+            document.getElementById('avgProcessingTime').textContent = 
+                (metadata.total_processing_time_seconds / metadata.total_files).toFixed(1) + 's';
+            document.getElementById('totalTime').textContent = metadata.total_processing_time_seconds.toFixed(1);
+            
+            // Update change indicators (simulated)
+            document.getElementById('filesChange').textContent = '+' + Math.floor(Math.random() * 5 + 1);
+            document.getElementById('scoreTrend').textContent = Math.random() > 0.5 ? 'Up' : 'Stable';
+        }
+
+        function updateCharts() {
+            updateRiskChart();
+            updateReportTypesChart();
+        }
+
+        function updateRiskChart() {
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            
+            if (charts.riskChart) {
+                charts.riskChart.destroy();
+            }
+
+            const riskData = analysisData.analysis_metadata.risk_distribution;
+
+            charts.riskChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+                    datasets: [{
+                        data: [riskData.niedrig, riskData.mittel, riskData.hoch],
+                        backgroundColor: ['#27ae60', '#f39c12', '#e74c3c'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateReportTypesChart() {
+            const ctx = document.getElementById('reportTypesChart').getContext('2d');
+            
+            if (charts.reportTypesChart) {
+                charts.reportTypesChart.destroy();
+            }
+
+            const reportTypes = analysisData.analysis_metadata.report_types;
+
+            charts.reportTypesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(reportTypes).map(key => key.replace('_', ' ')),
+                    datasets: [{
+                        label: 'Number of Reports',
+                        data: Object.values(reportTypes),
+                        backgroundColor: '#3498db',
+                        borderColor: '#2980b9',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateReportsList() {
+            allReports = analysisData.reports;
+            filteredReports = [...allReports];
+            renderReports();
+        }
+
+        function renderReports() {
+            const container = document.getElementById('reportsList');
+            
+            if (filteredReports.length === 0) {
+                document.getElementById('noDataMessage').style.display = 'block';
+                container.innerHTML = '';
+                return;
+            }
+
+            document.getElementById('noDataMessage').style.display = 'none';
+
+            const html = filteredReports.map(report => `
+                <div class="report-card fade-in">
+                    <div class="report-header risk-${report.risk_level}">
+                        <div class="d-flex align-items-center flex-grow-1">
+                            <i class="fas fa-file-alt me-3"></i>
+                            <div>
+                                <h6 class="mb-1">${report.file_info.name}</h6>
+                                <small>${report.report_type.replace('_', ' ')}</small>
+                            </div>
+                        </div>
+                        <div class="score-circle ${getScoreClass(report.score)}">
+                            ${report.score}
+                        </div>
+                    </div>
+                    <div class="report-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <span class="status-badge status-${report.result_status}">
+                                        ${getStatusText(report.result_status)}
+                                    </span>
+                                    <span class="badge bg-secondary ms-2">
+                                        Risk: ${report.risk_level}
+                                    </span>
+                                </div>
+                                <div class="data-grid">
+                                    <div class="data-item">
+                                        <div class="data-label">Processing Time</div>
+                                        <div class="data-value">${report.processing_info.processing_time_seconds}s</div>
+                                    </div>
+                                    <div class="data-item">
+                                        <div class="data-label">Method</div>
+                                        <div class="data-value">${report.analysis_details.method}</div>
+                                    </div>
+                                    <div class="data-item">
+                                        <div class="data-label">Checks</div>
+                                        <div class="data-value">${report.analysis_details.checks_passed}/${report.analysis_details.checks_performed}</div>
+                                    </div>
+                                    <div class="data-item">
+                                        <div class="data-label">File Size</div>
+                                        <div class="data-value">${formatBytes(report.file_info.size_bytes)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="mb-3">Extracted Data</h6>
+                                <div class="data-grid">
+                                    ${Object.entries(report.extracted_data).map(([key, value]) => `
+                                        <div class="data-item">
+                                            <div class="data-label">${key.replace('_', ' ')}</div>
+                                            <div class="data-value">${formatValue(key, value)}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                ${report.analysis_details.issues.length > 0 ? `
+                                    <div class="mt-3">
+                                        <h6 class="text-danger">Issues Found:</h6>
+                                        <ul class="list-unstyled">
+                                            ${report.analysis_details.issues.map(issue => `
+                                                <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>${issue}</li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = html;
+        }
+
+        function filterReports() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const riskFilter = document.getElementById('riskFilter').value;
+
+            filteredReports = allReports.filter(report => {
+                const matchesSearch = report.file_info.name.toLowerCase().includes(searchTerm) ||
+                                    report.report_type.toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || report.result_status === statusFilter;
+                const matchesRisk = !riskFilter || report.risk_level === riskFilter;
+
+                return matchesSearch && matchesStatus && matchesRisk;
+            });
+
+            renderReports();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('riskFilter').value = '';
+            filterReports();
+        }
+
+        function refreshData() {
+            loadLatestResults();
+        }
+
+        function exportResults() {
+            if (!analysisData) {
+                alert('No data to export');
+                return;
+            }
+
+            const dataStr = JSON.stringify(analysisData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `analysis_results_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function updateLastUpdate() {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = now.toLocaleString();
+        }
+
+        function showLoading(show) {
+            document.getElementById('loadingSpinner').style.display = show ? 'block' : 'none';
+        }
+
+        // Helper functions
+        function getScoreClass(score) {
+            if (score >= 80) return 'score-high';
+            if (score >= 60) return 'score-medium';
+            return 'score-low';
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'ok': 'OK',
+                'mit_einschraenkungen': 'With Limitations',
+                'fehler': 'Error',
+                'nicht_erfolgreich_analysiert': 'Analysis Failed'
+            };
+            return statusMap[status] || status;
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function formatValue(key, value) {
+            if (key.includes('rate')) {
+                return value + '%';
+            }
+            if (key.includes('time')) {
+                return value + 's';
+            }
+            if (typeof value === 'number') {
+                return value.toLocaleString();
+            }
+            return value;
+        }
+    </script>
+</body>
+</html>

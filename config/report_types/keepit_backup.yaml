@@ -1,0 +1,322 @@
+report_type:
+  id: "keepit_backup"
+  name: "Keepit Backup Report"
+  description: "Keepit backup report analysis for Microsoft 365 services (OneDrive, SharePoint, Exchange, Teams)"
+  enabled: true
+  priority: 2
+
+identification:
+  filename_patterns:
+    - ".*keepit.*backup.*\\.(csv|pdf|xlsx?)$"
+    - ".*keepit.*\\.(csv|pdf|xlsx?)$"
+    - ".*donner.*reuschel.*microsoft.*365.*\\.(csv|pdf|xlsx?)$"
+    - ".*microsoft.*365.*backup.*\\.(csv|pdf|xlsx?)$"
+
+  content_identifiers:
+    required_columns:
+      - "connector"
+      - "status"
+    optional_columns:
+      - "initiated by"
+      - "type"
+      - "description"
+      - "start time"
+      - "end time"
+    required_keywords:
+      - "keepit"
+      - "backup"
+      - "microsoft 365"
+    optional_keywords:
+      - "onedrive"
+      - "sharepoint"
+      - "exchange"
+      - "teams"
+      - "donner-reuschel"
+    min_matches: 2
+
+  # Fuzzy matching configuration for tolerant field identification
+  fuzzy_matching:
+    enabled: true
+    threshold: 0.85
+    normalization:
+      - trim
+      - lowercase
+      - unicode_normalize
+      - remove_diacritics
+
+    field_mappings:
+      connector:
+        alternatives: ["connector", "service", "service type", "backup service"]
+        priority: "high"
+      initiated_by:
+        alternatives: ["initiated by", "initiated", "started by", "user"]
+        priority: "medium"
+      type:
+        alternatives: ["type", "backup type", "job type", "operation"]
+        priority: "medium"
+      status:
+        alternatives: ["status", "result", "state", "outcome"]
+        priority: "high"
+        values:
+          success: ["success", "successful", "succeeded", "completed", "ok", "passed"]
+          failed: ["failed", "failure", "error", "fail", "unsuccessful"]
+          warning: ["warning", "warn", "attention", "partial"]
+      description:
+        alternatives: ["description", "details", "message", "info"]
+        priority: "low"
+      start_time:
+        alternatives: ["start time", "starttime", "start", "begin time", "started", "begin"]
+        priority: "high"
+      end_time:
+        alternatives: ["end time", "endtime", "end", "finish time", "finished", "completed"]
+        priority: "medium"
+
+  llm_classification:
+    enabled: true
+    confidence_threshold: 0.8
+    prompt: |
+      Analysiere den folgenden Dateiinhalt und bestimme, ob es sich um einen Keepit Backup Report handelt.
+
+      Kriterien:
+      - Enthält Informationen zu Backup-Jobs für Microsoft 365 Dienste
+      - Enthält Connector-Typen (OneDrive, SharePoint, Exchange, Teams)
+      - Enthält Status (Erfolgreich/Fehlgeschlagen)
+      - Enthält Zeitangaben (Start/End Time)
+      - Bezieht sich auf Keepit Backup oder "Donner-Reuschel_Microsoft 365"
+
+      Inhalt: {content}
+
+      Antworte nur mit 'JA' oder 'NEIN' gefolgt von einer einzeiligen Begründung.
+
+supported_formats: ["csv", "pdf", "xlsx", "xls"]
+
+analysis:
+  algorithmic_checks:
+    - check_id: "completeness"
+      name: "Vollständigkeitsprüfung"
+      type: "column_validation"
+      parameters:
+        required_columns: ["connector", "status"]
+        severity: "high"
+        error_message: "Pflichtfelder (Connector, Status) fehlen"
+
+    - check_id: "backup_failures"
+      name: "Fehlerhafte Backups"
+      type: "threshold"
+      parameters:
+        column: "status"
+        value: "failed"
+        max_count: 0
+        max_percentage: 0.05  # 5% max failure rate
+        severity: "high"
+        error_message: "Zu viele fehlgeschlagene Backups"
+
+    - check_id: "backup_warnings"
+      name: "Backup-Warnungen"
+      type: "threshold"
+      parameters:
+        column: "status"
+        value: "warning"
+        max_count: 0
+        max_percentage: 0.10  # 10% max warnings
+        severity: "medium"
+        error_message: "Zu viele Backup-Warnungen"
+
+    - check_id: "missing_backups"
+      name: "Fehlende Backups"
+      type: "date_continuity"
+      parameters:
+        column: "start_time"
+        check_daily: true
+        severity: "medium"
+        error_message: "Tage ohne Backups gefunden"
+
+  llm_analysis:
+    enabled: true
+    max_retries: 2
+    prompt: |
+      Analysiere diesen Keepit Backup Bericht und extrahiere:
+
+      1. Gesamtanzahl durchgeführter Backups
+      2. Anzahl erfolgreicher Backups
+      3. Anzahl fehlgeschlagener Backups
+      4. Anzahl von Backups mit Warnungen
+      5. Liste der Services mit fehlgeschlagenen Backups
+      6. Zeitraum des Berichts (von - bis)
+      7. Auffälligkeiten oder kritische Probleme
+
+      Bericht: {content}
+
+      Antworte im JSON-Format:
+      {
+        "total_backups": 0,
+        "successful_backups": 0,
+        "failed_backups": 0,
+        "warning_backups": 0,
+        "failed_services": [],
+        "period_start": "",
+        "period_end": "",
+        "issues": [],
+        "summary": ""
+      }
+
+  extraction_fields:
+    - field: "total_backups"
+      type: "count"
+      source: "all_rows"
+      required: true
+      default: 0
+
+    - field: "successful_backups"
+      type: "count"
+      source: "status == 'success'"
+      required: true
+      default: 0
+
+    - field: "failed_backups"
+      type: "count"
+      source: "status == 'failed'"
+      required: true
+      default: 0
+
+    - field: "warning_backups"
+      type: "count"
+      source: "status == 'warning'"
+      required: false
+      default: 0
+
+    - field: "success_rate"
+      type: "calculated"
+      formula: "(successful_backups / total_backups * 100) if total_backups > 0 else 100"
+      format: "percentage"
+      required: true
+      default: 100.0
+
+    - field: "failure_rate"
+      type: "calculated"
+      formula: "(failed_backups / total_backups * 100) if total_backups > 0 else 0"
+      format: "percentage"
+      required: true
+      default: 0.0
+
+    - field: "period_start"
+      type: "min"
+      source: "start_time"
+      required: true
+      format: "date"
+
+    - field: "period_end"
+      type: "max"
+      source: "start_time"
+      required: true
+      format: "date"
+
+    - field: "unique_connectors"
+      type: "count_distinct"
+      source: "connector"
+      required: false
+      default: 0
+
+    - field: "missing_backup_days"
+      type: "calculated"
+      formula: "get_missing_backup_days(start_time)"
+      required: false
+      default: []
+
+  scoring:
+    base_score: 100
+    deductions:
+      - condition: "failed_backups > 0"
+        points: 10
+        per_occurrence: true
+        max_deduction: 50
+        description: "Fehlgeschlagene Backups"
+
+      - condition: "warning_backups > 0"
+        points: 2
+        per_occurrence: true
+        max_deduction: 10
+        description: "Backup-Warnungen"
+
+      - condition: "missing_backup_days > 0"
+        points: 5
+        per_occurrence: true
+        max_deduction: 20
+        description: "Tage ohne Backups"
+
+      - condition: "success_rate < 95"
+        points: 15
+        per_occurrence: false
+        description: "Erfolgsrate unter 95%"
+
+      - condition: "success_rate < 90"
+        points: 25
+        per_occurrence: false
+        description: "Erfolgsrate unter 90%"
+
+      - condition: "missing_required_columns"
+        points: 30
+        per_occurrence: false
+        description: "Pflichtfelder fehlen"
+
+    risk_levels:
+      high:
+        score_range: [0, 60]
+        triggers:
+          - "failed_backups > 5"
+          - "success_rate < 90"
+          - "critical_errors > 0"
+        color: "#FF0000"
+      medium:
+        score_range: [61, 85]
+        triggers:
+          - "failed_backups > 0"
+          - "success_rate < 95"
+        color: "#FFA500"
+      low:
+        score_range: [86, 100]
+        color: "#00FF00"
+
+output:
+  custom_fields:
+    total_backups: "integer"
+    successful_backups: "integer"
+    failed_backups: "integer"
+    warning_backups: "integer"
+    success_rate: "percentage"
+    failure_rate: "percentage"
+    unique_connectors: "integer"
+    period_start: "date"
+    period_end: "date"
+    failed_backup_details: "array"
+    missing_backup_days: "array"
+    connector_breakdown: "dict"
+    type_breakdown: "dict"
+
+  summary_template: |
+    === KEEPIT BACKUP REPORT ===
+    Bericht: {report_name}
+    Zeitraum: {period_start} bis {period_end}
+    Status: {status}
+    Score: {score}/100
+    Risiko-Level: {risk_level}
+
+    === BACKUP STATISTIKEN ===
+    Gesamtanzahl Backups: {total_backups}
+    Erfolgreiche Backups: {successful_backups}
+    Fehlgeschlagene Backups: {failed_backups}
+    Warnungen: {warning_backups}
+
+    === ERFOLGSRATE ===
+    Erfolgsrate: {success_rate}%
+    Fehlerrate: {failure_rate}%
+
+    === WEITERE DETAILS ===
+    Anzahl Services: {unique_connectors}
+    Tage ohne Backups: {missing_backup_days_count}
+
+    === FEHLGESCHLAGENE BACKUPS ===
+    {failed_backups_details}
+
+    === FEHLENDE BACKUP-TAGE ===
+    {missing_days_list}
