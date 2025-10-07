@@ -44,7 +44,8 @@ class ReportDetector:
             'xlsx': ExcelParser(),
             'xls': ExcelParser(),
             'csv': CSVParser(),
-            'html': HTMLParser()
+            'html': HTMLParser(),
+            'htm': HTMLParser()
         }
         
         logger.info(f"Loaded {len(self.report_configs)} report configurations")

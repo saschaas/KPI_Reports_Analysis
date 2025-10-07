@@ -173,3 +173,31 @@
 2025-10-03 14:59:35,498 - report_analyzer - INFO - Analysis complete | file=LogOfKeepITEntireMonthAllStatus.csv | report_type=unknown | timestamp=2025-10-03T14:59:35.497986 | status=ok | duration=0.32s
 2025-10-03 14:59:35,499 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL - VEEAM Monthly Backup Reporting.htm | report_type=unknown | timestamp=2025-10-03T14:59:35.499941 | status=ok | duration=0.32s
 2025-10-03 14:59:35,681 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL - VEEAM Monthly Backup Reporting.htm | report_type=unknown | timestamp=2025-10-03T14:59:35.681132 | status=ok | duration=0.18s
+2025-10-03 15:23:40,618 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:23:43,353 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:23:43.353283
+2025-10-03 15:24:07,710 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:24:07.710185 | status=ok | duration=0.23s
+2025-10-03 15:33:02,298 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:33:05,036 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:33:05.036362
+2025-10-03 15:37:19,876 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:37:22,462 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:37:22.462723
+2025-10-03 15:38:36,128 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:38:38,733 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:38:38.733077
+2025-10-03 15:38:38,857 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:38:38.857936 | status=ok | duration=0.12s
+2025-10-03 15:39:15,657 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:39:18,238 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:39:18.238442
+2025-10-03 15:39:18,364 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL.htm | report_type=unknown | timestamp=2025-10-03T15:39:18.364579 | status=ok | duration=0.12s
+2025-10-03 15:41:08,698 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:41:11,297 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=veeam_backup | timestamp=2025-10-03T15:41:11.297613
+2025-10-03 15:41:11,419 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL.htm | report_type=veeam_backup | timestamp=2025-10-03T15:41:11.419675 | status=ok | duration=0.12s
+2025-10-03 15:41:22,841 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:41:25,425 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL.htm | report_type=veeam_backup | timestamp=2025-10-03T15:41:25.425323
+2025-10-03 15:41:25,545 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL.htm | report_type=veeam_backup | timestamp=2025-10-03T15:41:25.545948 | status=ok | duration=0.12s
+2025-10-03 15:43:27,682 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:46:15,498 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL_20251003_154322.htm | report_type=unknown | timestamp=2025-10-03T15:46:15.498064
+2025-10-03 15:50:36,441 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:51:08,175 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:51:10,850 - report_analyzer - INFO - Starting analysis | file=test_report.htm | report_type=veeam_backup | timestamp=2025-10-03T15:51:10.850559
+2025-10-03 15:51:10,964 - report_analyzer - INFO - Analysis complete | file=test_report.htm | report_type=veeam_backup | timestamp=2025-10-03T15:51:10.964620 | status=ok | duration=0.11s
+2025-10-03 15:52:51,574 - report_analyzer - INFO - Logging initialized - Level: INFO, Console: True, File: True
+2025-10-03 15:52:54,252 - report_analyzer - INFO - Starting analysis | file=DONNER&REUSCHEL_20251003_154322_20251003_154615.htm | report_type=veeam_backup | timestamp=2025-10-03T15:52:54.252639
+2025-10-03 15:52:54,363 - report_analyzer - INFO - Analysis complete | file=DONNER&REUSCHEL_20251003_154322_20251003_154615.htm | report_type=veeam_backup | timestamp=2025-10-03T15:52:54.363898 | status=ok | duration=0.11s

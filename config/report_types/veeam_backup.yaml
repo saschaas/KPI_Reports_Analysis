@@ -12,6 +12,7 @@ identification:
     - ".*veeam.*monthly.*\\.(pdf|html?|xlsx?)$"
     - ".*veeam.*\\.(pdf|html?|xlsx?)$"
 
+
   content_identifiers:
     required_columns:
       - "vm name"

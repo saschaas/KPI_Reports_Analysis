@@ -1,0 +1,67 @@
+{
+  "analysis_metadata": {
+    "tool_version": "1.0.0",
+    "analysis_timestamp": "2025-10-03T15:50:39.193724",
+    "total_files": 1,
+    "successful": 0,
+    "failed": 1,
+    "success_rate": 0.0,
+    "average_score": 0.0,
+    "total_processing_time_seconds": 0,
+    "report_types": {
+      "unknown": 1
+    },
+    "risk_distribution": {
+      "niedrig": 0,
+      "mittel": 0,
+      "hoch": 1,
+      "kritisch": 0
+    },
+    "config_used": {
+      "ollama_model": "llama3.2",
+      "supported_formats": [
+        "pdf",
+        "xlsx",
+        "xls",
+        "csv",
+        "html",
+        "htm"
+      ],
+      "fallback_to_llm": true
+    }
+  },
+  "reports": [
+    {
+      "file_info": {
+        "name": "test_report.htm",
+        "path": "input\\test_report.htm",
+        "size_bytes": 114118,
+        "format": "htm",
+        "report_period": "unknown"
+      },
+      "report_type": "unknown",
+      "result_status": "nicht_erfolgreich_analysiert",
+      "risk_level": "hoch",
+      "score": 0,
+      "analysis_details": {
+        "method": "failed",
+        "checks_performed": 0,
+        "checks_passed": 0,
+        "checks_failed": 0,
+        "issues": [
+          "EOF when reading a line"
+        ],
+        "warnings": []
+      },
+      "extracted_data": {},
+      "processing_info": {
+        "processing_time_seconds": 0,
+        "retry_count": 0,
+        "parser_used": "none",
+        "error": "EOF when reading a line"
+      },
+      "timestamp": "2025-10-03T15:50:39Z",
+      "summary": "Bericht: Unknown\n        Zeitraum: unknown\n        Status: nicht_erfolgreich_analysiert\n        Score: 0/100\n        Risiko: hoch\n        \n        Verarbeitung:\n        - Methode: failed\n        - Dauer: 0s\n        - Checks: 0/0\n        \n        \n        \n        Probleme:\n- EOF when reading a line"
+    }
+  ]
+}

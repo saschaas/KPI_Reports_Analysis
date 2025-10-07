@@ -15,7 +15,9 @@
       "Bash(start \"output/2025-10/analysis_results_20251003_140117.html\")",
       "Bash(start \"output/2025-10/analysis_results_20251003_141153.html\")",
       "Bash(start \"output/2025-10/analysis_results_20251003_143107.html\")",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(playwright install:*)",
+      "Bash(start \"output/2025-10/analysis_results_20251003_154125.html\")"
     ],
     "deny": [],
     "ask": []

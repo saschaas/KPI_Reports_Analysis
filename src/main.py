@@ -159,17 +159,19 @@ class ReportAnalysisTool:
     def _process_single_file(self, file_path: Path):
         """Process a single file through the complete pipeline."""
         # Step 1: Detect report type
-        self.analysis_logger.log_analysis_start(file_path.name, "unknown")
-        
         detection_result = self.detector.detect(file_path)
-        
+
         if not detection_result:
+            self.analysis_logger.log_analysis_start(file_path.name, "unknown")
             logger.error(f"Could not detect report type for: {file_path.name}")
             return self._create_failed_result(file_path, "Unknown report type")
-        
+
+        # Log with detected report type
+        self.analysis_logger.log_analysis_start(file_path.name, detection_result.report_type)
+
         logger.info(f"Detected as: {detection_result.report_name} "
                    f"(confidence: {detection_result.confidence:.2f})")
-        
+
         # Step 2: Analyze report
         analysis_result = self.analyzer.analyze(file_path, detection_result)
         
