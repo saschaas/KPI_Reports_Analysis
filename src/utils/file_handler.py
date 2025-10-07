@@ -44,26 +44,26 @@ class FileHandler:
     
     def scan_input_directory(self) -> List[Path]:
         """
-        Scan input directory for supported file formats.
-        
+        Scan input directory for supported file formats (only direct children, not subdirectories).
+
         Returns:
             List of file paths found in input directory
         """
         if not self.input_dir.exists():
             logger.warning(f"Input directory does not exist: {self.input_dir}")
             return []
-        
+
         files = []
         for ext in self.supported_formats:
             pattern = f"*.{ext}"
-            found_files = list(self.input_dir.rglob(pattern))
+            found_files = list(self.input_dir.glob(pattern))
             files.extend(found_files)
             if found_files:
                 logger.info(f"Found {len(found_files)} {ext} files")
-        
+
         # Sort files by modification time (newest first)
         files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
-        
+
         logger.info(f"Total files found: {len(files)}")
         return files
     

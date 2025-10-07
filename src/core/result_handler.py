@@ -535,7 +535,7 @@ class ResultHandler:
                 {% for report in reports %}
                 <div class="report-card">
                     <div class="report-header risk-{{ report.risk_level }}">
-                        <span>{{ report.file_info.name }}</span>
+                        <span>{{ report.report_type.replace('_', ' ').title() }} - {{ report.file_info.name }}</span>
                         <span class="score">{{ report.score }}/100</span>
                     </div>
                     <div class="report-content">

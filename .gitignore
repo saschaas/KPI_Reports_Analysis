@@ -1,0 +1,44 @@
+# Log files
+*.log
+logs/
+
+# Output directory
+output/
+
+# Input directory
+input/
+
+# Cache directory
+cache/
+
+# Test directory
+tests/
+
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Screenshots
+Screenshot*.png
