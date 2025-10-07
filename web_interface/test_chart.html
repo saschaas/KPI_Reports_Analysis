@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart.js Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+</head>
+<body>
+    <h1>Chart.js Test</h1>
+    <canvas id="testChart" width="400" height="200"></canvas>
+
+    <script>
+        console.log('Chart.js loaded:', typeof Chart);
+
+        const ctx = document.getElementById('testChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3],
+                    backgroundColor: ['red', 'blue', 'yellow']
+                }]
+            }
+        });
+
+        console.log('Chart created:', myChart);
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "generated_at": "2025-10-07T15:19:37.671424",
+  "months": {
+    "2025-10": {
+      "count": 1,
+      "files": [
+        {
+          "filename": "analysis_results_20251007_150727.json",
+          "path": "../output/2025-10/analysis_results_20251007_150727.json",
+          "size": 23432,
+          "modified": "2025-10-07T15:07:27.227185"
+        }
+      ],
+      "latest": "analysis_results_20251007_150727.json"
+    }
+  }
+}

@@ -42,3 +42,7 @@ output:
   include_metadata: true
   generate_html_report: true
   timestamp_format: "%Y-%m-%dT%H:%M:%SZ"
+
+dashboard:
+  max_months_to_load: 6  # Number of recent months to load into dashboard
+  max_recent_reports: 6  # Number of reports to show in "Recent Reports" section
