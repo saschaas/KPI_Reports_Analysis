@@ -2336,7 +2336,7 @@
 };
 
         const EMBEDDED_MANIFEST = {
-  "generated_at": "2025-10-08T15:07:29.175610",
+  "generated_at": "2025-10-08T15:23:43.965387",
   "months": {
     "2025-08": {
       "count": 1,
@@ -2354,7 +2354,7 @@
         const DATA_SOURCE = {
             defaultMonth: "2025-08",
             totalMonths: 1,
-            generated: "2025-10-08T15:07:29.228669"
+            generated: "2025-10-08T15:23:44.011985"
         };
 
         const CONFIG = {
@@ -2807,8 +2807,19 @@
 
             console.log('allReportsWithMonth:', allReportsWithMonth.length, 'reports found');
 
-            // Sort by timestamp descending and take configured number
-            allReportsWithMonth.sort((a, b) => b.timestamp - a.timestamp);
+            // Sort by category first, then by timestamp descending, and take configured number
+            allReportsWithMonth.sort((a, b) => {
+                const categoryA = a.report_config?.report_type?.category || 'Sonstige';
+                const categoryB = b.report_config?.report_type?.category || 'Sonstige';
+
+                // Sort by category first
+                if (categoryA !== categoryB) {
+                    return categoryA.localeCompare(categoryB);
+                }
+
+                // Within same category, sort by timestamp descending
+                return b.timestamp - a.timestamp;
+            });
             const maxRecentReports = (typeof CONFIG !== 'undefined' && CONFIG.maxRecentReports) || 6;
             const recentReports = allReportsWithMonth.slice(0, maxRecentReports);
 
@@ -2828,6 +2839,8 @@
                 const reportUrl = getReportHtmlUrl(report, report.month);
                 console.log(`  reportUrl:`, reportUrl);
                 const reportTypeName = report.report_type.replace('_', ' ').toUpperCase();
+                const category = report.report_config?.report_type?.category || 'Sonstige';
+                const categoryBadge = getCategoryBadge(category);
 
                 return `
                     <div class="timeline-item">
@@ -2839,6 +2852,7 @@
                                         '<a href="' + reportUrl + '" class="report-link" target="_blank" title="Detailbericht öffnen"><strong>' + reportTypeName + '</strong> <i class="fas fa-external-link-alt ms-1" style="font-size: 0.8em;"></i></a>' :
                                         '<strong>' + reportTypeName + '</strong>'
                                     }
+                                    ${categoryBadge}
                                 </h6>
                                 <small class="text-muted d-block">${report.file_info.name}</small>
                                 <small class="text-muted">
@@ -3212,6 +3226,19 @@
             html += ` <i class="${metrics.metric2_icon} ms-2 me-1"></i> ${metric2Value} ${metrics.metric2_label}`;
 
             return html;
+        }
+
+        function getCategoryBadge(category) {
+            const categoryConfig = {
+                'Backup': { icon: 'fas fa-hdd', color: 'bg-primary' },
+                'Devices': { icon: 'fas fa-laptop', color: 'bg-info' },
+                'Sonstige': { icon: 'fas fa-folder', color: 'bg-secondary' }
+            };
+
+            const config = categoryConfig[category] || categoryConfig['Sonstige'];
+            return `<span class="badge ${config.color} ms-2" style="font-size: 0.7em;">
+                <i class="${config.icon} me-1"></i>${category}
+            </span>`;
         }
 
         function getScoreClass(score) {
