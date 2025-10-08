@@ -55,28 +55,42 @@ class ResultHandler:
         
         return output
     
-    def save_results(self, results: List[AnalysisResult], 
+    def save_results(self, results: List[AnalysisResult],
                     filename: Optional[str] = None) -> Path:
         """
         Save results to JSON file.
-        
+
         Args:
             results: List of analysis results
             filename: Optional filename
-            
+
         Returns:
             Path to saved file
         """
         output = self.process_results(results)
-        
+
         if not filename:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"analysis_results_{timestamp}.json"
-        
-        # Create subdirectory for current month
-        month_dir = self.output_dir / datetime.now().strftime("%Y-%m")
+
+        # Determine report month from first result (all should be from same month typically)
+        report_month = None
+        if results:
+            report_period = self._extract_report_period(results[0])
+            if report_period != "unknown":
+                # Use report period as directory (e.g., "2025-08")
+                report_month = report_period
+
+        # Create subdirectory based on report month or fall back to current month
+        if report_month:
+            month_dir = self.output_dir / report_month
+            logger.info(f"Using report month for output directory: {report_month}")
+        else:
+            month_dir = self.output_dir / datetime.now().strftime("%Y-%m")
+            logger.warning(f"Could not determine report month, using current month")
+
         month_dir.mkdir(parents=True, exist_ok=True)
-        
+
         output_path = month_dir / filename
         
         try:
@@ -172,25 +186,38 @@ class ResultHandler:
     
     def _extract_report_period(self, result: AnalysisResult) -> str:
         """Extract report period from filename or extracted data."""
-        # Try to get from extracted data first
+        import re
+
+        # Priority 1: Check vm_analysis.report_month (most accurate for Veeam)
+        vm_analysis = result.extracted_data.get('vm_analysis', {})
+        if isinstance(vm_analysis, dict) and 'report_month' in vm_analysis:
+            report_month = vm_analysis['report_month']
+            if report_month:
+                return str(report_month)
+
+        # Priority 2: Extract from period_start (accurate for all reports with dates)
+        period_start = result.extracted_data.get('period_start')
+        if period_start and period_start != 'N/A':
+            # Extract YYYY-MM from date like "2025-08-01"
+            match = re.match(r'(\d{4})-(\d{2})-\d{2}', str(period_start))
+            if match:
+                return f"{match.group(1)}-{match.group(2)}"
+
+        # Priority 3: Check for explicit period or zeitraum fields
         period = result.extracted_data.get('period') or result.extracted_data.get('zeitraum')
-        
         if period:
             return str(period)
-        
-        # Try to extract from filename
+
+        # Priority 4: Try to extract from filename
         filename = result.file_info.get("name", "")
-        
-        # Look for date patterns in filename
-        import re
-        
+
         # Pattern for YYYY-MM or YYYY_MM or YYYYMM
         date_patterns = [
             r'(20\d{2})[_-]?(\d{2})',  # 2024-01 or 2024_01 or 202401
             r'(\d{2})[_-]?(20\d{2})',  # 01-2024 or 01_2024
             r'(20\d{2})',              # Just year
         ]
-        
+
         for pattern in date_patterns:
             match = re.search(pattern, filename)
             if match:
@@ -202,7 +229,7 @@ class ResultHandler:
                         return f"{groups[1]}-{groups[0]}"
                 else:
                     return groups[0]  # Just year
-        
+
         return "unknown"
     
     def _create_summary(self, result: AnalysisResult) -> str:

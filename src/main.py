@@ -117,25 +117,30 @@ class ReportAnalysisTool:
             
             # Process each file
             results = []
-            
+
             for i, file_path in enumerate(files, 1):
                 logger.info(f"\n--- Processing file {i}/{len(files)}: {file_path.name} ---")
-                
+
                 try:
                     result = self._process_single_file(file_path)
                     if result:
                         results.append(result)
-                    
+
                 except Exception as e:
                     logger.error(f"Failed to process {file_path.name}: {e}")
                     # Create failed result
                     failed_result = self._create_failed_result(file_path, str(e))
                     results.append(failed_result)
-                
+
                 # Archive processed file if requested
                 if archive_processed and input_path is None:  # Don't archive when processing single file
                     try:
-                        self.file_handler.archive_processed_file(file_path)
+                        # Extract report month from the result for proper archiving
+                        report_month = None
+                        if result:
+                            report_month = self._extract_report_month(result)
+
+                        self.file_handler.archive_processed_file(file_path, report_month)
                     except Exception as e:
                         logger.warning(f"Failed to archive {file_path.name}: {e}")
             
@@ -156,6 +161,57 @@ class ReportAnalysisTool:
             logger.error(f"Analysis pipeline failed: {e}")
             return False
     
+    def _extract_report_month(self, result) -> Optional[str]:
+        """
+        Extract report month from analysis result.
+
+        Args:
+            result: AnalysisResult object
+
+        Returns:
+            Report month in format "YYYY-MM" or None
+        """
+        import re
+
+        # Priority 1: Check vm_analysis.report_month (most accurate for Veeam)
+        vm_analysis = result.extracted_data.get('vm_analysis', {})
+        if isinstance(vm_analysis, dict) and 'report_month' in vm_analysis:
+            report_month = vm_analysis['report_month']
+            if report_month:
+                return str(report_month)
+
+        # Priority 2: Extract from period_start (accurate for all reports with dates)
+        period_start = result.extracted_data.get('period_start')
+        if period_start and period_start != 'N/A':
+            # Extract YYYY-MM from date like "2025-08-01"
+            match = re.match(r'(\d{4})-(\d{2})-\d{2}', str(period_start))
+            if match:
+                return f"{match.group(1)}-{match.group(2)}"
+
+        # Priority 3: Check for explicit period or zeitraum fields
+        period = result.extracted_data.get('period') or result.extracted_data.get('zeitraum')
+        if period:
+            return str(period)
+
+        # Priority 4: Try to extract from filename
+        filename = result.file_info.get("name", "")
+        date_patterns = [
+            r'(20\d{2})[_-]?(\d{2})',  # 2024-01 or 2024_01 or 202401
+            r'(\d{2})[_-]?(20\d{2})',  # 01-2024 or 01_2024
+        ]
+
+        for pattern in date_patterns:
+            match = re.search(pattern, filename)
+            if match:
+                groups = match.groups()
+                if len(groups) == 2:
+                    if len(groups[0]) == 4:  # First is year
+                        return f"{groups[0]}-{groups[1]}"
+                    else:  # Second is year
+                        return f"{groups[1]}-{groups[0]}"
+
+        return None
+
     def _process_single_file(self, file_path: Path):
         """Process a single file through the complete pipeline."""
         # Step 1: Detect report type

@@ -198,17 +198,26 @@ class FileHandler:
             logger.error(f"Failed to save results: {e}")
             raise
     
-    def archive_processed_file(self, file_path: Path) -> bool:
+    def archive_processed_file(self, file_path: Path, report_month: Optional[str] = None) -> bool:
         """
         Move processed file to archive directory.
-        
+
         Args:
             file_path: Path to the file to archive
-            
+            report_month: Report month in format "YYYY-MM" (if None, uses current month)
+
         Returns:
             True if successful, False otherwise
         """
-        archive_dir = self.input_dir / "archive" / datetime.now().strftime("%Y-%m")
+        # Use report month if provided, otherwise fall back to current month
+        if report_month:
+            archive_subdir = report_month
+            logger.info(f"Archiving to report month directory: {report_month}")
+        else:
+            archive_subdir = datetime.now().strftime("%Y-%m")
+            logger.warning(f"No report month provided, using current month for archiving")
+
+        archive_dir = self.input_dir / "archive" / archive_subdir
         archive_dir.mkdir(parents=True, exist_ok=True)
         
         try:

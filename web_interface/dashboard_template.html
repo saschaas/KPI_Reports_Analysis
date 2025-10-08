@@ -265,6 +265,18 @@
             box-shadow: 0 0 0 3px var(--light-gray);
         }
 
+        .report-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .report-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .metric-card {
                 margin-bottom: 20px;
@@ -722,20 +734,29 @@
                 }
             });
 
+            console.log('allReportsWithMonth:', allReportsWithMonth.length, 'reports found');
+
             // Sort by timestamp descending and take configured number
             allReportsWithMonth.sort((a, b) => b.timestamp - a.timestamp);
             const maxRecentReports = (typeof CONFIG !== 'undefined' && CONFIG.maxRecentReports) || 6;
             const recentReports = allReportsWithMonth.slice(0, maxRecentReports);
 
+            console.log('recentReports to display:', recentReports.length);
+
             const container = document.getElementById('recentReportsList');
 
             if (recentReports.length === 0) {
+                console.log('No recent reports, showing empty message');
                 container.innerHTML = '<p class="text-muted">Keine Berichte verfügbar</p>';
                 return;
             }
 
-            const html = recentReports.map(report => {
+            const html = recentReports.map((report, index) => {
+                console.log(`Processing report ${index}:`, report.report_type);
                 const monthLabel = formatMonthLabel(report.month);
+                const reportUrl = getReportHtmlUrl(report, report.month);
+                console.log(`  reportUrl:`, reportUrl);
+                const reportTypeName = report.report_type.replace('_', ' ').toUpperCase();
 
                 return `
                     <div class="timeline-item">
@@ -743,7 +764,10 @@
                             <div class="flex-grow-1">
                                 <h6 class="mb-1">
                                     <i class="fas fa-file-alt text-primary me-2"></i>
-                                    <strong>${report.report_type.replace('_', ' ').toUpperCase()}</strong>
+                                    ${reportUrl ?
+                                        '<a href="' + reportUrl + '" class="report-link" target="_blank" title="Detailbericht öffnen"><strong>' + reportTypeName + '</strong> <i class="fas fa-external-link-alt ms-1" style="font-size: 0.8em;"></i></a>' :
+                                        '<strong>' + reportTypeName + '</strong>'
+                                    }
                                 </h6>
                                 <small class="text-muted d-block">${report.file_info.name}</small>
                                 <small class="text-muted">
@@ -765,7 +789,7 @@
                                 <i class="fas fa-check-circle text-success me-1"></i>
                                 ${report.extracted_data.successful_backups || 0} erfolgreich
                                 ${report.extracted_data.failed_backups > 0 ?
-                                    `<i class="fas fa-times-circle text-danger ms-2 me-1"></i>${report.extracted_data.failed_backups} fehlgeschlagen` :
+                                    '<i class="fas fa-times-circle text-danger ms-2 me-1"></i>' + report.extracted_data.failed_backups + ' fehlgeschlagen' :
                                     ''}
                             </small>
                         </div>
@@ -773,13 +797,43 @@
                 `;
             }).join('');
 
+            console.log('Generated HTML length:', html.length);
+            console.log('Setting innerHTML...');
             container.innerHTML = html;
+            console.log('innerHTML set successfully');
         }
 
         function formatMonthLabel(monthStr) {
             const [year, month] = monthStr.split('-');
             const date = new Date(parseInt(year), parseInt(month) - 1, 1);
             return date.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
+        }
+
+        function getReportHtmlUrl(report, month) {
+            // Generate URL to the detailed HTML report
+            // The HTML file has the same name as the JSON file (from timestamp)
+
+            // Get the original timestamp string from the report (before it was converted to Date)
+            // We need to use the original report object, not the modified one with Date timestamp
+            let timestampStr = report.timestamp;
+
+            // If timestamp is already a Date object, get the ISO string
+            if (timestampStr instanceof Date) {
+                timestampStr = timestampStr.toISOString();
+            }
+
+            if (!timestampStr) return null;
+
+            // Extract timestamp from ISO format (e.g., "2025-10-08T08:02:57Z")
+            const match = timestampStr.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+            if (!match) return null;
+
+            const [_, year, mon, day, hour, min, sec] = match;
+            const filename = `analysis_results_${year}${mon}${day}_${hour}${min}${sec}.html`;
+
+            // Build relative path from dashboard to the HTML report
+            // Dashboard is in web_interface/, reports are in output/YYYY-MM/
+            return `../output/${month}/${filename}`;
         }
 
         function formatDate(date) {

@@ -717,9 +717,16 @@ class VeeamBackupAnalyzer(BaseAnalyzer):
         else:
             fields['total_capacity_gb'] = 0.0
 
-        # Period start/end
+        # Period start/end - use same parsing logic as VM analysis
         if 'start_time' in df.columns:
-            dates = pd.to_datetime(df['start_time'], errors='coerce').dropna()
+            # Check if column is already datetime
+            if pd.api.types.is_datetime64_any_dtype(df['start_time']):
+                dates = df['start_time'].dropna()
+            else:
+                # Extract from string (dd/mm/yyyy format - European format!)
+                date_str = df['start_time'].astype(str).str.extract(r'(\d{2}/\d{2}/\d{4})')[0]
+                dates = pd.to_datetime(date_str, format='%d/%m/%Y', errors='coerce').dropna()
+
             if not dates.empty:
                 fields['period_start'] = dates.min().strftime('%Y-%m-%d')
                 fields['period_end'] = dates.max().strftime('%Y-%m-%d')
