@@ -188,14 +188,19 @@ class ResultHandler:
         """Extract report period from filename or extracted data."""
         import re
 
-        # Priority 1: Check vm_analysis.report_month (most accurate for Veeam)
+        # Priority 1: Check direct report_month field (for Entra devices, etc.)
+        report_month = result.extracted_data.get('report_month')
+        if report_month and report_month != 'N/A':
+            return str(report_month)
+
+        # Priority 2: Check vm_analysis.report_month (for Veeam backups)
         vm_analysis = result.extracted_data.get('vm_analysis', {})
         if isinstance(vm_analysis, dict) and 'report_month' in vm_analysis:
-            report_month = vm_analysis['report_month']
-            if report_month:
-                return str(report_month)
+            vm_report_month = vm_analysis['report_month']
+            if vm_report_month:
+                return str(vm_report_month)
 
-        # Priority 2: Extract from period_start (accurate for all reports with dates)
+        # Priority 3: Extract from period_start (accurate for all reports with dates)
         period_start = result.extracted_data.get('period_start')
         if period_start and period_start != 'N/A':
             # Extract YYYY-MM from date like "2025-08-01"
@@ -575,11 +580,15 @@ class ResultHandler:
                                     <div class="info-value">
                                         {% if report.extracted_data.vm_analysis and report.extracted_data.vm_analysis.report_month %}
                                             {{ format_month(report.extracted_data.vm_analysis.report_month) }}
+                                        {% elif report.extracted_data.report_month %}
+                                            {{ format_month(report.extracted_data.report_month) }}
                                         {% else %}
                                             {{ format_month(report.file_info.report_period) }}
                                         {% endif %}
                                     </div>
                                 </div>
+
+                                {% if report.report_type in ['veeam_backup', 'keepit_backup'] %}
                                 <div class="info-item">
                                     <div class="info-label">Gesamtanzahl Backups</div>
                                     <div class="info-value">{{ report.extracted_data.total_backups }}</div>
@@ -605,6 +614,41 @@ class ResultHandler:
                                 <div class="info-item">
                                     <div class="info-label">Anzahl Services</div>
                                     <div class="info-value">{{ report.extracted_data.unique_connectors }}</div>
+                                </div>
+                                {% endif %}
+
+                                {% elif report.report_type == 'entra_devices' %}
+                                <div class="info-item">
+                                    <div class="info-label">Gesamtanzahl Geräte</div>
+                                    <div class="info-value">{{ report.extracted_data.total_devices }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Inaktive Geräte (>90 Tage)</div>
+                                    <div class="info-value" style="color: #dc3545;">{{ report.extracted_data.inactive_devices }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Inaktivitätsrate</div>
+                                    <div class="info-value">{{ "%.1f"|format(report.extracted_data.inactive_rate) }}%</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Geräte ohne Besitzer</div>
+                                    <div class="info-value" style="color: #ffc107;">{{ report.extracted_data.devices_without_owner }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Nicht-konforme Geräte</div>
+                                    <div class="info-value" style="color: #dc3545;">{{ report.extracted_data.non_compliant_devices }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Compliance-Rate</div>
+                                    <div class="info-value" style="color: #28a745;">{{ "%.1f"|format(report.extracted_data.compliance_rate) }}%</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Kürzlich registriert (30 Tage)</div>
+                                    <div class="info-value">{{ report.extracted_data.recent_registrations }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Verwaltete Geräte</div>
+                                    <div class="info-value">{{ report.extracted_data.managed_devices }}</div>
                                 </div>
                                 {% endif %}
                             </div>
@@ -775,6 +819,89 @@ class ResultHandler:
                             </div>
                             {% endif %}
                         </div>
+                        {% endif %}
+
+                        {% if report.report_type == 'entra_devices' %}
+                        <div class="section">
+                            <h3>💻 Betriebssystem-Verteilung</h3>
+                            {% if report.extracted_data.os_breakdown %}
+                            <div class="summary-box">
+                                <strong>Geräte nach Betriebssystem:</strong><br>
+                                {% for os, count in report.extracted_data.os_breakdown.items() %}
+                                    {{ os }}: {{ count }}<br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% if report.extracted_data.trust_type_breakdown %}
+                        <div class="section">
+                            <h3>🔐 Trust Type-Verteilung</h3>
+                            <div class="summary-box">
+                                <strong>Geräte nach Trust Type:</strong><br>
+                                {% for trust_type, count in report.extracted_data.trust_type_breakdown.items() %}
+                                    {{ trust_type }}: {{ count }}<br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if report.extracted_data.devices_without_owner_list and report.extracted_data.devices_without_owner_list|length > 0 %}
+                        <div class="section">
+                            <h3>👤 Geräte ohne Besitzer ({{ report.extracted_data.devices_without_owner_list|length }})</h3>
+                            <div class="summary-box">
+                                {% for device in report.extracted_data.devices_without_owner_list[:20] %}
+                                    <strong>{{ device.displayName }}</strong><br>
+                                    <span style="font-size: 0.9em; color: #666;">
+                                        OS: {{ device.operatingSystem }}
+                                        {% if device.operatingSystemVersion %} ({{ device.operatingSystemVersion }}){% endif %}
+                                        | Registriert: {{ device.registrationTime }}
+                                    </span><br><br>
+                                {% endfor %}
+                                {% if report.extracted_data.devices_without_owner_list|length > 20 %}
+                                <em>... und {{ report.extracted_data.devices_without_owner_list|length - 20 }} weitere Geräte ohne Besitzer</em>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if report.extracted_data.inactive_devices_list and report.extracted_data.inactive_devices_list|length > 0 %}
+                        <div class="section">
+                            <h3>⏰ Inaktive Geräte >90 Tage ({{ report.extracted_data.inactive_devices_list|length }})</h3>
+                            <div class="summary-box">
+                                {% for device in report.extracted_data.inactive_devices_list[:20] %}
+                                    <strong>{{ device.displayName }}</strong><br>
+                                    <span style="font-size: 0.9em; color: #666;">
+                                        OS: {{ device.operatingSystem }}
+                                        | Besitzer: {{ device.registeredOwners if device.registeredOwners else 'Kein Besitzer' }}
+                                        | Letzter Sign-In: {{ device.approximateLastSignInDateTime }}
+                                    </span><br><br>
+                                {% endfor %}
+                                {% if report.extracted_data.inactive_devices_list|length > 20 %}
+                                <em>... und {{ report.extracted_data.inactive_devices_list|length - 20 }} weitere inaktive Geräte</em>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if report.extracted_data.recent_registrations_list and report.extracted_data.recent_registrations_list|length > 0 %}
+                        <div class="section">
+                            <h3>🆕 Kürzlich registrierte Geräte ({{ report.extracted_data.recent_registrations_list|length }})</h3>
+                            <div class="summary-box">
+                                {% for device in report.extracted_data.recent_registrations_list[:15] %}
+                                    <strong>{{ device.displayName }}</strong><br>
+                                    <span style="font-size: 0.9em; color: #666;">
+                                        OS: {{ device.operatingSystem }}
+                                        | Besitzer: {{ device.registeredOwners if device.registeredOwners else 'Kein Besitzer' }}
+                                        | Registriert: {{ device.registrationTime }}
+                                    </span><br><br>
+                                {% endfor %}
+                                {% if report.extracted_data.recent_registrations_list|length > 15 %}
+                                <em>... und {{ report.extracted_data.recent_registrations_list|length - 15 }} weitere kürzlich registrierte Geräte</em>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
                         {% endif %}
 
                         {% if report.analysis_details.issues %}

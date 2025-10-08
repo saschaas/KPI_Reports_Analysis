@@ -21,7 +21,13 @@
       "Bash(pip show:*)",
       "Bash(copy dashboard.html dashboard_template.html)",
       "Bash(start \"\" \"C:\\Users\\sseidel\\Coding\\ClaudeCode\\KPI-Analyse Tool\\report_analysis_tool\\web_interface\\dashboard.html\")",
-      "Bash(start \"\" \"C:\\Users\\sseidel\\Coding\\ClaudeCode\\KPI-Analyse Tool\\report_analysis_tool\\web_interface\\test_chart.html\")"
+      "Bash(start \"\" \"C:\\Users\\sseidel\\Coding\\ClaudeCode\\KPI-Analyse Tool\\report_analysis_tool\\web_interface\\test_chart.html\")",
+      "Bash(start \"\" \"output/2025-10/analysis_results_20251008_115140.html\")",
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_115411.html\")",
+      "Bash(start \"\" \"web_interface/dashboard.html\")",
+      "Bash(find:*)",
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_121233.html\")",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

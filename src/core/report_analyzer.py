@@ -9,7 +9,7 @@ from utils import RiskScorer, CheckResult, ScoreResult
 from parsers import PDFParser, ExcelParser, CSVParser, HTMLParser
 from core.llm_handler import OllamaHandler
 from core.report_detector import DetectionResult
-from analyzers import VeeamBackupAnalyzer, KeeepitBackupAnalyzer
+from analyzers import VeeamBackupAnalyzer, KeeepitBackupAnalyzer, EntraDevicesAnalyzer
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,8 @@ class ReportAnalyzer:
         # Report-specific analyzers
         self.analyzers = {
             'veeam_backup': VeeamBackupAnalyzer,
-            'keepit_backup': KeeepitBackupAnalyzer
+            'keepit_backup': KeeepitBackupAnalyzer,
+            'entra_devices': EntraDevicesAnalyzer
         }
     
     def analyze(self, file_path: Path, detection_result: DetectionResult) -> AnalysisResult:

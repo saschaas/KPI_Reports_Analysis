@@ -811,21 +811,19 @@
 
         function getReportHtmlUrl(report, month) {
             // Generate URL to the detailed HTML report
-            // The HTML file has the same name as the JSON file (from timestamp)
+            // Since multiple reports are analyzed together in one batch,
+            // they all share the same combined HTML file.
+            // The combined HTML file has the timestamp from when the batch was saved.
 
-            // Get the original timestamp string from the report (before it was converted to Date)
-            // We need to use the original report object, not the modified one with Date timestamp
-            let timestampStr = report.timestamp;
+            // Use the batch_timestamp from embedded data metadata
+            const monthData = EMBEDDED_DATA_ALL_MONTHS[month];
+            if (!monthData || !monthData.analysis_metadata) return null;
 
-            // If timestamp is already a Date object, get the ISO string
-            if (timestampStr instanceof Date) {
-                timestampStr = timestampStr.toISOString();
-            }
+            const metadataTimestamp = monthData.analysis_metadata.analysis_timestamp;
+            if (!metadataTimestamp) return null;
 
-            if (!timestampStr) return null;
-
-            // Extract timestamp from ISO format (e.g., "2025-10-08T08:02:57Z")
-            const match = timestampStr.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+            // Extract timestamp from ISO format (e.g., "2025-10-08T12:58:52.123456")
+            const match = metadataTimestamp.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
             if (!match) return null;
 
             const [_, year, mon, day, hour, min, sec] = match;

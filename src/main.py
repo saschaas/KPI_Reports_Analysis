@@ -173,14 +173,19 @@ class ReportAnalysisTool:
         """
         import re
 
-        # Priority 1: Check vm_analysis.report_month (most accurate for Veeam)
+        # Priority 1: Check direct report_month field (for Entra devices, etc.)
+        report_month = result.extracted_data.get('report_month')
+        if report_month and report_month != 'N/A':
+            return str(report_month)
+
+        # Priority 2: Check vm_analysis.report_month (for Veeam backups)
         vm_analysis = result.extracted_data.get('vm_analysis', {})
         if isinstance(vm_analysis, dict) and 'report_month' in vm_analysis:
-            report_month = vm_analysis['report_month']
-            if report_month:
-                return str(report_month)
+            vm_report_month = vm_analysis['report_month']
+            if vm_report_month:
+                return str(vm_report_month)
 
-        # Priority 2: Extract from period_start (accurate for all reports with dates)
+        # Priority 3: Extract from period_start (accurate for all reports with dates)
         period_start = result.extracted_data.get('period_start')
         if period_start and period_start != 'N/A':
             # Extract YYYY-MM from date like "2025-08-01"

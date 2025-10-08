@@ -23,33 +23,41 @@ class CSVParser(BaseParser):
         self.delimiter: Optional[str] = None
         self.detected_encoding: Optional[str] = None
     
-    def parse(self, file_path: Path, delimiter: Optional[str] = None, 
+    def parse(self, file_path: Path, delimiter: Optional[str] = None,
              encoding: Optional[str] = None) -> pd.DataFrame:
         """
         Parse CSV file and return DataFrame.
-        
+
         Args:
             file_path: Path to the CSV file
             delimiter: CSV delimiter (auto-detect if None)
             encoding: File encoding (auto-detect if None)
-            
+
         Returns:
             DataFrame containing CSV data
         """
+        logger.info(f"CSVParser.parse() called for {file_path.name}")
+        logger.info(f"Parameters: delimiter={delimiter}, encoding={encoding}")
+
         if not self.validate_file(file_path):
+            logger.warning(f"File validation failed for {file_path.name}")
             return pd.DataFrame()
-        
+
         try:
             # Detect encoding if not provided
             if not encoding:
+                logger.info("Detecting encoding...")
                 encoding = self._detect_encoding(file_path)
                 self.detected_encoding = encoding
-            
+                logger.info(f"Detected encoding: {encoding}")
+
             # Detect delimiter if not provided
             if not delimiter:
+                logger.info("Detecting delimiter...")
                 delimiter = self._detect_delimiter(file_path, encoding)
                 self.delimiter = delimiter
-            
+                logger.info(f"Detected delimiter: {repr(delimiter)}")
+
             # Try to parse CSV with various strategies
             df = self._parse_with_fallback(file_path, delimiter, encoding)
             
@@ -72,10 +80,10 @@ class CSVParser(BaseParser):
     def _detect_encoding(self, file_path: Path) -> str:
         """
         Detect file encoding using chardet.
-        
+
         Args:
             file_path: Path to the CSV file
-            
+
         Returns:
             Detected encoding
         """
@@ -83,117 +91,137 @@ class CSVParser(BaseParser):
             with open(file_path, 'rb') as f:
                 # Read first 10KB for detection
                 raw_data = f.read(10000)
+
+                # Check for UTF-8 BOM
+                if raw_data.startswith(b'\xef\xbb\xbf'):
+                    logger.info("Detected UTF-8 BOM, using utf-8-sig encoding")
+                    return 'utf-8-sig'
+
                 result = chardet.detect(raw_data)
-                
+
                 if result['confidence'] > 0.7:
                     detected = result['encoding']
                     # Handle common encoding aliases
                     if detected.lower() in ['ascii', 'iso-8859-1']:
                         return 'latin-1'
                     return detected
-                
+
         except Exception as e:
             logger.debug(f"Encoding detection failed: {e}")
-        
+
         # Default fallback chain
         return 'utf-8'
     
     def _detect_delimiter(self, file_path: Path, encoding: str) -> str:
         """
         Detect CSV delimiter using csv.Sniffer.
-        
+
         Args:
             file_path: Path to the CSV file
             encoding: File encoding to use
-            
+
         Returns:
             Detected delimiter
         """
+        # List of common delimiters to validate against
+        common_delimiters = [',', ';', '\t', '|', ':']
+
         try:
             with open(file_path, 'r', encoding=encoding, errors='ignore') as f:
                 # Read sample for detection
                 sample = f.read(8192)
                 sniffer = csv.Sniffer()
                 delimiter = sniffer.sniff(sample).delimiter
-                
-                logger.debug(f"Detected delimiter: {repr(delimiter)}")
-                return delimiter
-                
+
+                # Validate that Sniffer found a common delimiter
+                if delimiter in common_delimiters:
+                    logger.info(f"Sniffer detected valid delimiter: {repr(delimiter)}")
+                    return delimiter
+                else:
+                    logger.info(f"Sniffer detected unusual delimiter {repr(delimiter)}, using fallback method")
+
         except Exception as e:
-            logger.debug(f"Delimiter detection failed: {e}")
-        
-        # Try common delimiters by frequency
-        delimiters_to_try = [',', ';', '\t', '|', ':']
-        
+            logger.info(f"Delimiter detection with Sniffer failed: {e}, using fallback method")
+
+        # Fallback: Count common delimiters in first line
         try:
             with open(file_path, 'r', encoding=encoding, errors='ignore') as f:
                 first_line = f.readline()
-                
+
                 # Count occurrences of each delimiter
                 delimiter_counts = {}
-                for delim in delimiters_to_try:
+                for delim in common_delimiters:
                     delimiter_counts[delim] = first_line.count(delim)
-                
+
+                logger.info(f"Delimiter counts in first line: {delimiter_counts}")
+
                 # Return delimiter with highest count
                 if delimiter_counts:
                     best_delimiter = max(delimiter_counts, key=delimiter_counts.get)
                     if delimiter_counts[best_delimiter] > 0:
+                        logger.info(f"Selected delimiter: {repr(best_delimiter)} (count: {delimiter_counts[best_delimiter]})")
                         return best_delimiter
-        
-        except Exception:
-            pass
-        
+
+        except Exception as e:
+            logger.warning(f"Fallback delimiter detection failed: {e}")
+
         # Default to comma
+        logger.info("Using default delimiter: comma")
         return ','
     
-    def _parse_with_fallback(self, file_path: Path, delimiter: str, 
+    def _parse_with_fallback(self, file_path: Path, delimiter: str,
                            encoding: str) -> Optional[pd.DataFrame]:
         """
         Parse CSV with multiple fallback strategies.
-        
+
         Args:
             file_path: Path to the CSV file
             delimiter: CSV delimiter
             encoding: File encoding
-            
+
         Returns:
             DataFrame or None if all strategies fail
         """
+        logger.info(f"Starting CSV parsing with delimiter={repr(delimiter)}, encoding={encoding}")
+
         strategies = [
             # Strategy 1: Standard parsing
             lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding),
-            
+
             # Strategy 2: With error handling
-            lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding, 
+            lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding,
                               on_bad_lines='skip'),
-            
+
             # Strategy 3: Different encoding
-            lambda: pd.read_csv(file_path, sep=delimiter, encoding='latin-1', 
+            lambda: pd.read_csv(file_path, sep=delimiter, encoding='latin-1',
                               on_bad_lines='skip'),
-            
+
             # Strategy 4: No header
-            lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding, 
+            lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding,
                               header=None, on_bad_lines='skip'),
-            
+
             # Strategy 5: Different quote character
             lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding,
                               quotechar='"', on_bad_lines='skip'),
-            
+
             # Strategy 6: Python engine (slower but more flexible)
             lambda: pd.read_csv(file_path, sep=delimiter, encoding=encoding,
                               engine='python', on_bad_lines='skip')
         ]
-        
+
         for i, strategy in enumerate(strategies, 1):
             try:
+                logger.info(f"Trying strategy {i}...")
                 df = strategy()
                 if df is not None and not df.empty:
-                    logger.debug(f"CSV parsed successfully with strategy {i}")
+                    logger.info(f"✓ Strategy {i} succeeded: {len(df)} rows, {len(df.columns)} columns")
+                    logger.info(f"Column names: {list(df.columns)[:5]}..." if len(df.columns) > 5 else f"Column names: {list(df.columns)}")
                     return df
             except Exception as e:
-                logger.debug(f"Strategy {i} failed: {e}")
+                logger.info(f"✗ Strategy {i} failed: {e}")
                 continue
-        
+
+        logger.error("All parsing strategies failed")
         return None
     
     def _infer_dtypes(self, df: pd.DataFrame) -> pd.DataFrame:

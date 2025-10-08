@@ -300,19 +300,20 @@
   "2025-08": {
     "analysis_metadata": {
       "tool_version": "1.0.0",
-      "analysis_timestamp": "2025-10-08T08:30:42.479118",
-      "total_files": 2,
-      "successful": 2,
+      "analysis_timestamp": "2025-10-08T12:58:52.190258",
+      "total_files": 3,
+      "successful": 3,
       "failed": 0,
       "success_rate": 100.0,
       "average_score": 100.0,
-      "total_processing_time_seconds": 0.46,
+      "total_processing_time_seconds": 4.63,
       "report_types": {
         "keepit_backup": 1,
+        "entra_devices": 1,
         "veeam_backup": 1
       },
       "risk_distribution": {
-        "niedrig": 2,
+        "niedrig": 3,
         "mittel": 0,
         "hoch": 0,
         "kritisch": 0
@@ -376,13 +377,351 @@
           }
         },
         "processing_info": {
-          "processing_time_seconds": 0.31,
+          "processing_time_seconds": 0.32,
           "retry_count": 0,
           "parser_used": "CSVParser",
           "data_shape": "248 rows x 7 columns"
         },
-        "timestamp": "2025-10-08T08:30:42Z",
-        "summary": "Bericht: Keepit Backup\n        Zeitraum: 2025-08\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 0.31s\n        - Checks: 4/4\n        \n        Kennzahlen:\n- total_backups: 248\n- successful_backups: 248\n- failed_backups: 0\n- warning_backups: 0\n- success_rate: 100.0%\n- failure_rate: 0.0%\n- period_start: 2025-08-01\n- period_end: 2025-08-31\n- connector_breakdown: {'Donner-Reuschel_Microsoft 365 Backup User Teams Chats': 62, 'Donner-Reuschel_Microsoft 365 Backup OneDrive': 62, 'Donner-Reuschel_Microsoft 365 Backup SharePoint and Groups & Teams': 62, 'Donner-Reuschel_Microsoft 365 Backup Exchange': 62}\n- unique_connectors: 4\n- failed_backup_details: []\n- missing_backup_days: []\n- missing_backup_days_count: 0\n- type_breakdown: {'Backup': 248}\n        \n        "
+        "timestamp": "2025-10-08T12:58:47Z",
+        "summary": "Bericht: Keepit Backup\n        Zeitraum: 2025-08\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 0.32s\n        - Checks: 4/4\n        \n        Kennzahlen:\n- total_backups: 248\n- successful_backups: 248\n- failed_backups: 0\n- warning_backups: 0\n- success_rate: 100.0%\n- failure_rate: 0.0%\n- period_start: 2025-08-01\n- period_end: 2025-08-31\n- connector_breakdown: {'Donner-Reuschel_Microsoft 365 Backup User Teams Chats': 62, 'Donner-Reuschel_Microsoft 365 Backup OneDrive': 62, 'Donner-Reuschel_Microsoft 365 Backup SharePoint and Groups & Teams': 62, 'Donner-Reuschel_Microsoft 365 Backup Exchange': 62}\n- unique_connectors: 4\n- failed_backup_details: []\n- missing_backup_days: []\n- missing_backup_days_count: 0\n- type_breakdown: {'Backup': 248}\n        \n        "
+      },
+      {
+        "file_info": {
+          "name": "Entra_registered.csv",
+          "path": "C:\\Users\\sseidel\\Coding\\ClaudeCode\\KPI-Analyse Tool\\report_analysis_tool\\input\\Entra_registered.csv",
+          "size_bytes": 15324,
+          "format": "csv",
+          "report_period": "2025-08"
+        },
+        "report_type": "entra_devices",
+        "result_status": "ok",
+        "risk_level": "niedrig",
+        "score": 100,
+        "analysis_details": {
+          "method": "algorithmic",
+          "checks_performed": 3,
+          "checks_passed": 1,
+          "checks_failed": 2,
+          "issues": [
+            "36 inaktive Geräte gefunden (55.4%)",
+            "12 nicht-konforme Geräte gefunden (18.5%)"
+          ],
+          "warnings": [],
+          "score_details": []
+        },
+        "extracted_data": {
+          "total_devices": 65,
+          "report_month": "2025-08",
+          "devices_without_owner": 11,
+          "devices_without_owner_list": [
+            {
+              "displayName": "displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object",
+              "operatingSystem": "IPhone",
+              "deviceId": "a6762661-bcd5-4195-9695-9752bbc74c92"
+            },
+            {
+              "displayName": "displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "00c70eba-b6a0-41f1-bf6b-abf4a3deb5ec"
+            },
+            {
+              "displayName": "displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object",
+              "operatingSystem": "iOS",
+              "deviceId": "a6c88d3f-d3c4-4645-8b61-d25e8891f500"
+            },
+            {
+              "displayName": "displayName    iPhone XS Max\ndisplayName              NaN\nName: 23, dtype: object",
+              "operatingSystem": "iOS",
+              "deviceId": "8b7fa14a-fb31-4590-a724-489e6735b2fb"
+            },
+            {
+              "displayName": "displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "1921dc38-2687-4a0f-9c14-27b3fde021e1"
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object",
+              "operatingSystem": "Windows",
+              "deviceId": "f18e3e52-4b92-4624-a761-36485f7c27e2"
+            },
+            {
+              "displayName": "displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "1ac256c1-bde2-4aa7-93a7-4a2041c4d264"
+            },
+            {
+              "displayName": "displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "d001c720-c466-48c8-ab59-95b83ed36dc7"
+            },
+            {
+              "displayName": "displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 45, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "23817784-aa16-4c88-aa89-c88a17661726"
+            },
+            {
+              "displayName": "displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object",
+              "operatingSystem": "IPad",
+              "deviceId": "d6e86df5-ed4b-4315-9a77-026d78b0bfbc"
+            },
+            {
+              "displayName": "displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 63, dtype: object",
+              "operatingSystem": "iOS",
+              "deviceId": "2bbbab11-810f-4436-b85b-0972cc23a3aa"
+            }
+          ],
+          "inactive_devices": 36,
+          "inactive_devices_list": [
+            {
+              "displayName": "displayName    iPhone RBS\ndisplayName           NaN\nName: 0, dtype: object",
+              "operatingSystem": "IPhone",
+              "approximateLastSignInDateTime": "2023-11-17 17:26:00",
+              "days_since_signin": 652
+            },
+            {
+              "displayName": "displayName    DURLAP01\ndisplayName         NaN\nName: 1, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2020-12-08 07:12:00",
+              "days_since_signin": 1726
+            },
+            {
+              "displayName": "displayName    iPhone 11\ndisplayName          NaN\nName: 2, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-02-04 16:46:00",
+              "days_since_signin": 573
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 4, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-18 16:23:00",
+              "days_since_signin": 408
+            },
+            {
+              "displayName": "displayName    HUAWEISTF-L09\ndisplayName              NaN\nName: 5, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-02-16 10:34:00",
+              "days_since_signin": 561
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 6, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2023-04-30 12:08:00",
+              "days_since_signin": 853
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 8, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-07-15 09:13:00",
+              "days_since_signin": 411
+            },
+            {
+              "displayName": "displayName    iPad\ndisplayName     NaN\nName: 9, dtype: object",
+              "operatingSystem": "IPad",
+              "approximateLastSignInDateTime": "2024-07-02 13:12:00",
+              "days_since_signin": 424
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 10, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-15 07:42:00",
+              "days_since_signin": 838
+            },
+            {
+              "displayName": "displayName    iPhone 8\ndisplayName         NaN\nName: 11, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-01-04 09:18:00",
+              "days_since_signin": 604
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 12, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-24 09:42:00",
+              "days_since_signin": 829
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 15, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-07-11 07:46:00",
+              "days_since_signin": 415
+            },
+            {
+              "displayName": "displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object",
+              "operatingSystem": "IPhone",
+              "approximateLastSignInDateTime": "2023-05-04 08:22:00",
+              "days_since_signin": 849
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 18, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-23 06:36:00",
+              "days_since_signin": 403
+            },
+            {
+              "displayName": "displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2025-01-05 09:14:00",
+              "days_since_signin": 237
+            },
+            {
+              "displayName": "displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-04-11 09:09:00",
+              "days_since_signin": 506
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 21, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-24 12:20:00",
+              "days_since_signin": 829
+            },
+            {
+              "displayName": "displayName    iPad\ndisplayName     NaN\nName: 22, dtype: object",
+              "operatingSystem": "IPad",
+              "approximateLastSignInDateTime": "2025-03-20 09:24:00",
+              "days_since_signin": 163
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 24, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-09-26 06:13:00",
+              "days_since_signin": 338
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 27, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-07 10:29:00",
+              "days_since_signin": 419
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 28, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-24 10:17:00",
+              "days_since_signin": 829
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 29, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-06-11 15:39:00",
+              "days_since_signin": 445
+            },
+            {
+              "displayName": "displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-04-03 10:58:00",
+              "days_since_signin": 514
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-02-29 09:29:00",
+              "days_since_signin": 548
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 35, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-07 10:29:00",
+              "days_since_signin": 419
+            },
+            {
+              "displayName": "displayName    iPhone (3)\ndisplayName           NaN\nName: 37, dtype: object",
+              "operatingSystem": "IPhone",
+              "approximateLastSignInDateTime": "2024-03-17 12:52:00",
+              "days_since_signin": 531
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 38, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-09-20 17:23:00",
+              "days_since_signin": 710
+            },
+            {
+              "displayName": "displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2023-05-09 15:45:00",
+              "days_since_signin": 844
+            },
+            {
+              "displayName": "displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2023-07-05 18:15:00",
+              "days_since_signin": 787
+            },
+            {
+              "displayName": "displayName    DURTSVCTX01\ndisplayName            NaN\nName: 41, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-06-26 08:08:00",
+              "days_since_signin": 796
+            },
+            {
+              "displayName": "displayName    iPhone 8\ndisplayName         NaN\nName: 47, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-10-09 06:22:00",
+              "days_since_signin": 325
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 49, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-08-06 08:20:00",
+              "days_since_signin": 389
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 50, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-09-21 12:37:00",
+              "days_since_signin": 343
+            },
+            {
+              "displayName": "displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object",
+              "operatingSystem": "IPad",
+              "approximateLastSignInDateTime": "2024-12-05 07:07:00",
+              "days_since_signin": 268
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 54, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-09-03 18:35:00",
+              "days_since_signin": 361
+            },
+            {
+              "displayName": "displayName    samsungSM-S921B\ndisplayName                NaN\nName: 60, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-11-21 10:22:00",
+              "days_since_signin": 282
+            }
+          ],
+          "recent_registrations": 1,
+          "recent_registrations_list": [
+            {
+              "displayName": "displayName    iPhone 15 Pro\ndisplayName              NaN\nName: 64, dtype: object",
+              "operatingSystem": "iOS",
+              "registrationDateTime": "2025-08-14 14:41:00"
+            }
+          ],
+          "compliant_devices": 3,
+          "non_compliant_devices": 12,
+          "enabled_devices": 65,
+          "managed_devices": 4,
+          "inactive_rate": 55.38,
+          "compliance_rate": 4.62,
+          "os_breakdown": {
+            "Android": 20,
+            "Windows": 18,
+            "iOS": 17,
+            "IPad": 6,
+            "IPhone": 4
+          },
+          "trust_type_breakdown": {
+            "Azure AD registered": 65
+          }
+        },
+        "processing_info": {
+          "processing_time_seconds": 4.12,
+          "retry_count": 0,
+          "parser_used": "CSVParser",
+          "data_shape": "65 rows x 16 columns"
+        },
+        "timestamp": "2025-10-08T12:58:51Z",
+        "summary": "Bericht: Entra Devices\n        Zeitraum: 2025-08\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 4.12s\n        - Checks: 1/3\n        \n        Kennzahlen:\n- total_devices: 65\n- report_month: 2025-08\n- devices_without_owner: 11\n- devices_without_owner_list: [{'displayName': displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object, 'operatingSystem': 'IPhone', 'deviceId': 'a6762661-bcd5-4195-9695-9752bbc74c92'}, {'displayName': displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object, 'operatingSystem': 'Android', 'deviceId': '00c70eba-b6a0-41f1-bf6b-abf4a3deb5ec'}, {'displayName': displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object, 'operatingSystem': 'iOS', 'deviceId': 'a6c88d3f-d3c4-4645-8b61-d25e8891f500'}, {'displayName': displayName    iPhone XS Max\ndisplayName              NaN\nName: 23, dtype: object, 'operatingSystem': 'iOS', 'deviceId': '8b7fa14a-fb31-4590-a724-489e6735b2fb'}, {'displayName': displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object, 'operatingSystem': 'Android', 'deviceId': '1921dc38-2687-4a0f-9c14-27b3fde021e1'}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object, 'operatingSystem': 'Windows', 'deviceId': 'f18e3e52-4b92-4624-a761-36485f7c27e2'}, {'displayName': displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object, 'operatingSystem': 'Android', 'deviceId': '1ac256c1-bde2-4aa7-93a7-4a2041c4d264'}, {'displayName': displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object, 'operatingSystem': 'Android', 'deviceId': 'd001c720-c466-48c8-ab59-95b83ed36dc7'}, {'displayName': displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 45, dtype: object, 'operatingSystem': 'Android', 'deviceId': '23817784-aa16-4c88-aa89-c88a17661726'}, {'displayName': displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object, 'operatingSystem': 'IPad', 'deviceId': 'd6e86df5-ed4b-4315-9a77-026d78b0bfbc'}, {'displayName': displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 63, dtype: object, 'operatingSystem': 'iOS', 'deviceId': '2bbbab11-810f-4436-b85b-0972cc23a3aa'}]\n- inactive_devices: 36\n- inactive_devices_list: [{'displayName': displayName    iPhone RBS\ndisplayName           NaN\nName: 0, dtype: object, 'operatingSystem': 'IPhone', 'approximateLastSignInDateTime': Timestamp('2023-11-17 17:26:00'), 'days_since_signin': 652}, {'displayName': displayName    DURLAP01\ndisplayName         NaN\nName: 1, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2020-12-08 07:12:00'), 'days_since_signin': 1726}, {'displayName': displayName    iPhone 11\ndisplayName          NaN\nName: 2, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-02-04 16:46:00'), 'days_since_signin': 573}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 4, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-18 16:23:00'), 'days_since_signin': 408}, {'displayName': displayName    HUAWEISTF-L09\ndisplayName              NaN\nName: 5, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-02-16 10:34:00'), 'days_since_signin': 561}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 6, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2023-04-30 12:08:00'), 'days_since_signin': 853}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 8, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-07-15 09:13:00'), 'days_since_signin': 411}, {'displayName': displayName    iPad\ndisplayName     NaN\nName: 9, dtype: object, 'operatingSystem': 'IPad', 'approximateLastSignInDateTime': Timestamp('2024-07-02 13:12:00'), 'days_since_signin': 424}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 10, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-15 07:42:00'), 'days_since_signin': 838}, {'displayName': displayName    iPhone 8\ndisplayName         NaN\nName: 11, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-01-04 09:18:00'), 'days_since_signin': 604}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 12, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-24 09:42:00'), 'days_since_signin': 829}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 15, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-07-11 07:46:00'), 'days_since_signin': 415}, {'displayName': displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object, 'operatingSystem': 'IPhone', 'approximateLastSignInDateTime': Timestamp('2023-05-04 08:22:00'), 'days_since_signin': 849}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 18, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-23 06:36:00'), 'days_since_signin': 403}, {'displayName': displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2025-01-05 09:14:00'), 'days_since_signin': 237}, {'displayName': displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-04-11 09:09:00'), 'days_since_signin': 506}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 21, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-24 12:20:00'), 'days_since_signin': 829}, {'displayName': displayName    iPad\ndisplayName     NaN\nName: 22, dtype: object, 'operatingSystem': 'IPad', 'approximateLastSignInDateTime': Timestamp('2025-03-20 09:24:00'), 'days_since_signin': 163}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 24, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-09-26 06:13:00'), 'days_since_signin': 338}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 27, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-07 10:29:00'), 'days_since_signin': 419}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 28, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-24 10:17:00'), 'days_since_signin': 829}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 29, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-06-11 15:39:00'), 'days_since_signin': 445}, {'displayName': displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-04-03 10:58:00'), 'days_since_signin': 514}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-02-29 09:29:00'), 'days_since_signin': 548}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 35, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-07 10:29:00'), 'days_since_signin': 419}, {'displayName': displayName    iPhone (3)\ndisplayName           NaN\nName: 37, dtype: object, 'operatingSystem': 'IPhone', 'approximateLastSignInDateTime': Timestamp('2024-03-17 12:52:00'), 'days_since_signin': 531}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 38, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-09-20 17:23:00'), 'days_since_signin': 710}, {'displayName': displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2023-05-09 15:45:00'), 'days_since_signin': 844}, {'displayName': displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2023-07-05 18:15:00'), 'days_since_signin': 787}, {'displayName': displayName    DURTSVCTX01\ndisplayName            NaN\nName: 41, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-06-26 08:08:00'), 'days_since_signin': 796}, {'displayName': displayName    iPhone 8\ndisplayName         NaN\nName: 47, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-10-09 06:22:00'), 'days_since_signin': 325}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 49, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-08-06 08:20:00'), 'days_since_signin': 389}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 50, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-09-21 12:37:00'), 'days_since_signin': 343}, {'displayName': displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object, 'operatingSystem': 'IPad', 'approximateLastSignInDateTime': Timestamp('2024-12-05 07:07:00'), 'days_since_signin': 268}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 54, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-09-03 18:35:00'), 'days_since_signin': 361}, {'displayName': displayName    samsungSM-S921B\ndisplayName                NaN\nName: 60, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-11-21 10:22:00'), 'days_since_signin': 282}]\n- recent_registrations: 1\n- recent_registrations_list: [{'displayName': displayName    iPhone 15 Pro\ndisplayName              NaN\nName: 64, dtype: object, 'operatingSystem': 'iOS', 'registrationDateTime': Timestamp('2025-08-14 14:41:00')}]\n- compliant_devices: 3\n- non_compliant_devices: 12\n- enabled_devices: 65\n- managed_devices: 4\n- inactive_rate: 55.4%\n- compliance_rate: 4.6%\n- os_breakdown: {'Android': 20, 'Windows': 18, 'iOS': 17, 'IPad': 6, 'IPhone': 4}\n- trust_type_breakdown: {'Azure AD registered': 65}\n        \n        Probleme:\n- 36 inaktive Geräte gefunden (55.4%)\n- 12 nicht-konforme Geräte gefunden (18.5%)"
       },
       {
         "file_info": {
@@ -782,33 +1121,28 @@
           "missing_backup_days_count": 0
         },
         "processing_info": {
-          "processing_time_seconds": 0.15,
+          "processing_time_seconds": 0.19,
           "retry_count": 0,
           "parser_used": "HTMLParser",
           "data_shape": "211 rows x 14 columns"
         },
-        "timestamp": "2025-10-08T08:30:42Z",
-        "summary": "Bericht: Veeam Backup\n        Zeitraum: 2025-08\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 0.15s\n        - Checks: 4/4\n        \n        Kennzahlen:\n- total_backups: 211\n- successful_backups: 210\n- failed_backups: 1\n- warning_backups: 0\n- success_rate: 99.5%\n- failure_rate: 0.5%\n- total_capacity_gb: 46950\n- period_start: 2025-08-02\n- period_end: 2025-08-31\n- unique_vms: 7\n- failed_vms: [{'vm_name': '0012-DURPRDC02', 'start_time': '10/08/2025 23:00:30'}]\n- vm_analysis: {'report_month': '2025-08', 'vms': {'0012-DURPRBS02': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRCCC01.Stopped': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRCTXMCS01': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRDC02': {'total_backups': 31, 'successful_backups': 30, 'failed_backups': 1, 'warning_backups': 0, 'success_rate': 96.77, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [{'VM Name': '0012-DURPRDC02', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '10/08/2025 23:00:30', 'Stop Time': '10/08/2025 23:08:00', 'Duration (HH:MM:SS)': '0:07:30', 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Processing 0012-DURPRDC02 Error: VSSControl: Failed to freeze guest over Hypervisor API, wait timeout Unable to release guest. Error: VSSControl: Failed to freeze guest over Hypervisor API, wait timeout Error: VSSControl: Failed to freeze guest over Hypervisor API, wait timeout', 'Status': 'Failed'}], 'score': 96.77, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPREXC02': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRMGT01': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRNS01': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}}, 'summary': {'total_vms': 7, 'vms_with_failures': 1, 'vms_with_missing_days': 0, 'average_success_rate': 99.54, 'average_score': 99.54}}\n- missing_backup_days: []\n- missing_backup_days_count: 0\n        \n        "
+        "timestamp": "2025-10-08T12:58:52Z",
+        "summary": "Bericht: Veeam Backup\n        Zeitraum: 2025-08\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 0.19s\n        - Checks: 4/4\n        \n        Kennzahlen:\n- total_backups: 211\n- successful_backups: 210\n- failed_backups: 1\n- warning_backups: 0\n- success_rate: 99.5%\n- failure_rate: 0.5%\n- total_capacity_gb: 46950\n- period_start: 2025-08-02\n- period_end: 2025-08-31\n- unique_vms: 7\n- failed_vms: [{'vm_name': '0012-DURPRDC02', 'start_time': '10/08/2025 23:00:30'}]\n- vm_analysis: {'report_month': '2025-08', 'vms': {'0012-DURPRBS02': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRCCC01.Stopped': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRCTXMCS01': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRDC02': {'total_backups': 31, 'successful_backups': 30, 'failed_backups': 1, 'warning_backups': 0, 'success_rate': 96.77, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [{'VM Name': '0012-DURPRDC02', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '10/08/2025 23:00:30', 'Stop Time': '10/08/2025 23:08:00', 'Duration (HH:MM:SS)': '0:07:30', 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Processing 0012-DURPRDC02 Error: VSSControl: Failed to freeze guest over Hypervisor API, wait timeout Unable to release guest. Error: VSSControl: Failed to freeze guest over Hypervisor API, wait timeout Error: VSSControl: Failed to freeze guest over Hypervisor API, wait timeout', 'Status': 'Failed'}], 'score': 96.77, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPREXC02': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRMGT01': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}, '0012-DURPRNS01': {'total_backups': 30, 'successful_backups': 30, 'failed_backups': 0, 'warning_backups': 0, 'success_rate': 100.0, 'missing_days_total': 1, 'missing_days_recoverable': 1, 'missing_days_critical': 0, 'missing_days_list': ['2025-08-01'], 'failed_backup_details': [], 'score': 100.0, 'backup_dates': ['2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05', '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10', '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15', '2025-08-16', '2025-08-17', '2025-08-18', '2025-08-19', '2025-08-20', '2025-08-21', '2025-08-22', '2025-08-23', '2025-08-24', '2025-08-25', '2025-08-26', '2025-08-27', '2025-08-28', '2025-08-29', '2025-08-30', '2025-08-31']}}, 'summary': {'total_vms': 7, 'vms_with_failures': 1, 'vms_with_missing_days': 0, 'average_success_rate': 99.54, 'average_score': 99.54}}\n- missing_backup_days: []\n- missing_backup_days_count: 0\n        \n        "
       }
     ]
   }
 };
 
         const EMBEDDED_MANIFEST = {
-  "generated_at": "2025-10-08T08:31:09.817018",
+  "generated_at": "2025-10-08T13:02:11.804599",
   "months": {
     "2025-08": {
-      "count": 2,
+      "count": 1,
       "files": [
         {
-          "filename": "analysis_results_20251008_083042.json",
-          "size": 23432,
-          "modified": "2025-10-08T08:30:42.483890"
-        },
-        {
-          "filename": "analysis_results_20251008_080257.json",
-          "size": 23432,
-          "modified": "2025-10-08T08:02:57.024070"
+          "filename": "analysis_results_20251008_125852.json",
+          "size": 50049,
+          "modified": "2025-10-08T12:58:52.235306"
         }
       ]
     }
@@ -818,7 +1152,7 @@
         const DATA_SOURCE = {
             defaultMonth: "2025-08",
             totalMonths: 1,
-            generated: "2025-10-08T08:31:09.862882"
+            generated: "2025-10-08T13:02:11.854998"
         };
 
         const CONFIG = {
@@ -1346,21 +1680,19 @@
 
         function getReportHtmlUrl(report, month) {
             // Generate URL to the detailed HTML report
-            // The HTML file has the same name as the JSON file (from timestamp)
+            // Since multiple reports are analyzed together in one batch,
+            // they all share the same combined HTML file.
+            // The combined HTML file has the timestamp from when the batch was saved.
 
-            // Get the original timestamp string from the report (before it was converted to Date)
-            // We need to use the original report object, not the modified one with Date timestamp
-            let timestampStr = report.timestamp;
+            // Use the batch_timestamp from embedded data metadata
+            const monthData = EMBEDDED_DATA_ALL_MONTHS[month];
+            if (!monthData || !monthData.analysis_metadata) return null;
 
-            // If timestamp is already a Date object, get the ISO string
-            if (timestampStr instanceof Date) {
-                timestampStr = timestampStr.toISOString();
-            }
+            const metadataTimestamp = monthData.analysis_metadata.analysis_timestamp;
+            if (!metadataTimestamp) return null;
 
-            if (!timestampStr) return null;
-
-            // Extract timestamp from ISO format (e.g., "2025-10-08T08:02:57Z")
-            const match = timestampStr.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+            // Extract timestamp from ISO format (e.g., "2025-10-08T12:58:52.123456")
+            const match = metadataTimestamp.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
             if (!match) return null;
 
             const [_, year, mon, day, hour, min, sec] = match;

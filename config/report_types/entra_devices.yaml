@@ -1,0 +1,324 @@
+report_type:
+  id: "entra_devices"
+  name: "Entra Devices Report"
+  description: "Microsoft Entra (Azure AD) devices report analysis - tracks device registrations, compliance, and ownership"
+  enabled: true
+  priority: 3
+
+identification:
+  filename_patterns:
+    - ".*entra.*devices.*\\.(csv|pdf|xlsx?|html?)$"
+    - ".*azure.*ad.*devices.*\\.(csv|pdf|xlsx?|html?)$"
+    - ".*aad.*devices.*\\.(csv|pdf|xlsx?|html?)$"
+    - ".*devices.*entra.*\\.(csv|pdf|xlsx?|html?)$"
+
+  content_identifiers:
+    required_columns:
+      - "displayName"
+      - "operatingSystem"
+    optional_columns:
+      - "trustType"
+      - "accountEnabled"
+      - "approximateLastSignInDateTime"
+      - "registeredOwners"
+      - "registrationDateTime"
+      - "deviceId"
+      - "isCompliant"
+      - "isManaged"
+    required_keywords:
+      - "entra"
+      - "device"
+      - "azure"
+    optional_keywords:
+      - "displayName"
+      - "operatingSystem"
+      - "trustType"
+      - "registeredOwners"
+      - "approximateLastSignInDateTime"
+    min_matches: 2
+
+  # Fuzzy matching configuration for tolerant field identification
+  fuzzy_matching:
+    enabled: true
+    threshold: 0.85
+    normalization:
+      - trim
+      - lowercase
+      - unicode_normalize
+      - remove_diacritics
+
+    field_mappings:
+      displayName:
+        alternatives: ["displayName", "display name", "device name", "name", "devicename", "displayname"]
+        priority: "high"
+      operatingSystem:
+        alternatives: ["operatingSystem", "operating system", "os", "platform", "system", "operatingsystem"]
+        priority: "high"
+      trustType:
+        alternatives: ["trustType", "trust type", "type", "device type", "joinType (trustType)", "jointype", "join type"]
+        priority: "medium"
+      accountEnabled:
+        alternatives: ["accountEnabled", "account enabled", "enabled", "active", "is enabled", "accountenabled"]
+        priority: "medium"
+      approximateLastSignInDateTime:
+        alternatives: ["approximateLastSignInDateTime", "approximate last sign in date time", "last sign in", "last signin", "lastsignin", "last activity", "approximatelastsignindatetime"]
+        priority: "high"
+      registeredOwners:
+        alternatives: ["registeredOwners", "registered owners", "owner", "owners", "assigned to", "registeredowners"]
+        priority: "medium"
+      registrationDateTime:
+        alternatives: ["registrationDateTime", "registration date time", "registration date", "created", "created date", "registered", "registrationTime", "registration time", "registrationdatetime", "registrationtime"]
+        priority: "high"
+      deviceId:
+        alternatives: ["deviceId", "device id", "id", "device identifier"]
+        priority: "low"
+      isCompliant:
+        alternatives: ["isCompliant", "is compliant", "compliant", "compliance"]
+        priority: "medium"
+      isManaged:
+        alternatives: ["isManaged", "is managed", "managed", "management"]
+        priority: "medium"
+
+  llm_classification:
+    enabled: true
+    confidence_threshold: 0.8
+    prompt: |
+      Analysiere den folgenden Dateiinhalt und bestimme, ob es sich um einen Microsoft Entra (Azure AD) Devices Report handelt.
+
+      Kriterien:
+      - Enthält Informationen zu registrierten Geräten
+      - Enthält Gerätenamen (displayName) und Betriebssysteme
+      - Enthält Device-IDs oder Trust-Types
+      - Enthält Zeitangaben wie Registrierungsdatum oder letzter Sign-In
+      - Bezieht sich auf Microsoft Entra, Azure AD, oder AAD
+
+      Inhalt: {content}
+
+      Antworte nur mit 'JA' oder 'NEIN' gefolgt von einer einzeiligen Begründung.
+
+supported_formats: ["csv", "xlsx", "xls", "pdf", "html", "htm"]
+
+analysis:
+  algorithmic_checks:
+    - check_id: "completeness"
+      name: "Vollständigkeitsprüfung"
+      type: "column_validation"
+      parameters:
+        required_columns: ["displayName", "operatingSystem"]
+        severity: "high"
+        error_message: "Pflichtfelder (displayName, operatingSystem) fehlen"
+
+    - check_id: "inactive_devices"
+      name: "Inaktive Geräte (>90 Tage)"
+      type: "threshold"
+      parameters:
+        column: "_inactive_device"
+        value: true
+        max_count: 0
+        max_percentage: 0.15  # 15% max inactive devices
+        severity: "medium"
+        error_message: "Zu viele inaktive Geräte (>90 Tage ohne Sign-In)"
+
+    - check_id: "non_compliant_devices"
+      name: "Nicht-konforme Geräte"
+      type: "threshold"
+      parameters:
+        column: "isCompliant"
+        value: "false"
+        max_count: 0
+        max_percentage: 0.10  # 10% max non-compliant
+        severity: "medium"
+        error_message: "Zu viele nicht-konforme Geräte"
+
+  llm_analysis:
+    enabled: true
+    max_retries: 2
+    prompt: |
+      Analysiere diesen Microsoft Entra Devices Bericht und extrahiere:
+
+      1. Gesamtanzahl registrierter Geräte
+      2. Aufschlüsselung nach Betriebssystem (Windows, iOS, Android, etc.)
+      3. Anzahl Geräte ohne Besitzer (Owner)
+      4. Anzahl inaktiver Geräte (>90 Tage kein Sign-In)
+      5. Anzahl kürzlich registrierter Geräte (letzte 30 Tage)
+      6. Compliance-Status
+      7. Auffälligkeiten oder kritische Probleme
+
+      Bericht: {content}
+
+      Antworte im JSON-Format:
+      {
+        "total_devices": 0,
+        "os_breakdown": {},
+        "devices_without_owner": 0,
+        "inactive_devices": 0,
+        "recent_registrations": 0,
+        "compliant_devices": 0,
+        "non_compliant_devices": 0,
+        "issues": [],
+        "summary": ""
+      }
+
+  extraction_fields:
+    - field: "total_devices"
+      type: "count"
+      source: "all_rows"
+      required: true
+      default: 0
+
+    - field: "devices_without_owner"
+      type: "count"
+      source: "registeredOwners == ''"
+      required: true
+      default: 0
+
+    - field: "inactive_devices"
+      type: "count"
+      source: "_inactive_device == True"
+      required: true
+      default: 0
+
+    - field: "recent_registrations"
+      type: "count"
+      source: "_recent_registration == True"
+      required: true
+      default: 0
+
+    - field: "compliant_devices"
+      type: "count"
+      source: "isCompliant == 'true'"
+      required: false
+      default: 0
+
+    - field: "non_compliant_devices"
+      type: "count"
+      source: "isCompliant == 'false'"
+      required: false
+      default: 0
+
+    - field: "enabled_devices"
+      type: "count"
+      source: "accountEnabled == 'true'"
+      required: false
+      default: 0
+
+    - field: "managed_devices"
+      type: "count"
+      source: "isManaged == 'true'"
+      required: false
+      default: 0
+
+    - field: "inactive_rate"
+      type: "calculated"
+      formula: "(inactive_devices / total_devices * 100) if total_devices > 0 else 0"
+      format: "percentage"
+      required: true
+      default: 0.0
+
+    - field: "compliance_rate"
+      type: "calculated"
+      formula: "(compliant_devices / total_devices * 100) if total_devices > 0 else 0"
+      format: "percentage"
+      required: false
+      default: 0.0
+
+  scoring:
+    base_score: 100
+    deductions:
+      - condition: "inactive_devices > 0"
+        points: 2
+        per_occurrence: true
+        max_deduction: 30
+        description: "Inaktive Geräte (>90 Tage)"
+
+      - condition: "non_compliant_devices > 0"
+        points: 3
+        per_occurrence: true
+        max_deduction: 25
+        description: "Nicht-konforme Geräte"
+
+      - condition: "inactive_rate > 20"
+        points: 15
+        per_occurrence: false
+        description: "Inaktivitätsrate über 20%"
+
+      - condition: "inactive_rate > 30"
+        points: 25
+        per_occurrence: false
+        description: "Inaktivitätsrate über 30%"
+
+      - condition: "missing_required_columns"
+        points: 30
+        per_occurrence: false
+        description: "Pflichtfelder fehlen"
+
+    risk_levels:
+      high:
+        score_range: [0, 60]
+        triggers:
+          - "inactive_devices > 20"
+          - "inactive_rate > 30"
+          - "non_compliant_devices > 10"
+        color: "#FF0000"
+      medium:
+        score_range: [61, 85]
+        triggers:
+          - "inactive_devices > 5"
+          - "inactive_rate > 15"
+          - "non_compliant_devices > 5"
+        color: "#FFA500"
+      low:
+        score_range: [86, 100]
+        color: "#00FF00"
+
+output:
+  custom_fields:
+    total_devices: "integer"
+    devices_without_owner: "integer"
+    inactive_devices: "integer"
+    recent_registrations: "integer"
+    compliant_devices: "integer"
+    non_compliant_devices: "integer"
+    enabled_devices: "integer"
+    managed_devices: "integer"
+    inactive_rate: "percentage"
+    compliance_rate: "percentage"
+    os_breakdown: "dict"
+    trust_type_breakdown: "dict"
+    devices_without_owner_list: "array"
+    inactive_devices_list: "array"
+    recent_registrations_list: "array"
+    report_month: "string"
+
+  summary_template: |
+    === ENTRA DEVICES REPORT ===
+    Bericht: {report_name}
+    Berichtszeitraum: {report_month}
+    Status: {status}
+    Score: {score}/100
+    Risiko-Level: {risk_level}
+
+    === GERÄTE STATISTIKEN ===
+    Gesamtanzahl Geräte: {total_devices}
+    Geräte ohne Besitzer: {devices_without_owner}
+    Inaktive Geräte (>90 Tage): {inactive_devices}
+    Kürzlich registriert (30 Tage): {recent_registrations}
+
+    === COMPLIANCE & MANAGEMENT ===
+    Konforme Geräte: {compliant_devices}
+    Nicht-konforme Geräte: {non_compliant_devices}
+    Verwaltete Geräte: {managed_devices}
+    Aktivierte Geräte: {enabled_devices}
+
+    === RATEN ===
+    Inaktivitätsrate: {inactive_rate}%
+    Compliance-Rate: {compliance_rate}%
+
+    === BETRIEBSSYSTEME ===
+    {os_breakdown_details}
+
+    === GERÄTE OHNE BESITZER ===
+    {devices_without_owner_details}
+
+    === INAKTIVE GERÄTE ===
+    {inactive_devices_details}
