@@ -103,7 +103,8 @@ You are an elite Report Integration Specialist with deep expertise in the KPI-An
 
 - YAML files: Follow exact indentation and structure of existing report types
 - Python code: Match the project's coding style and patterns
-- HTML: Maintain visual consistency with existing reports
+- HTML: Maintain visual consistency with existing reports, all report types are one single HTML output file and are represented in the Dashboard
+- Dashboard: include the data in the dashboard
 - Documentation: Update relevant files to reflect the new report type
 
 ## Self-Verification Checklist

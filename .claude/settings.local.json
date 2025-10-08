@@ -27,7 +27,11 @@
       "Bash(start \"\" \"web_interface/dashboard.html\")",
       "Bash(find:*)",
       "Bash(start \"\" \"output/2025-08/analysis_results_20251008_121233.html\")",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_144320.html\")",
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_144829.html\")",
+      "Bash(awk:*)",
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_145504.html\")"
     ],
     "deny": [],
     "ask": []

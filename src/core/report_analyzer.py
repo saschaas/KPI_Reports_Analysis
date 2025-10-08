@@ -26,6 +26,7 @@ class AnalysisResult:
     extracted_data: Dict[str, Any]
     processing_info: Dict[str, Any]
     timestamp: str
+    report_config: Optional[Dict[str, Any]] = None
 
 
 class ReportAnalyzer:
@@ -189,7 +190,8 @@ class ReportAnalyzer:
                 'parser_used': parser.__class__.__name__,
                 'data_shape': f"{len(df)} rows x {len(df.columns)} columns"
             },
-            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ')
+            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            report_config=detection_result.report_config
         )
     
     def _run_algorithmic_checks(self, df: pd.DataFrame, 
@@ -637,7 +639,8 @@ class ReportAnalyzer:
                 'parser_used': parser.__class__.__name__,
                 'llm_duration_ms': response.duration_ms
             },
-            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ')
+            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            report_config=detection_result.report_config
         )
     
     def _create_failed_result(self, file_path: Path, detection_result: DetectionResult,
@@ -669,5 +672,6 @@ class ReportAnalyzer:
                 'parser_used': 'none',
                 'error': error_message
             },
-            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ')
+            timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            report_config=detection_result.report_config
         )

@@ -786,11 +786,7 @@
                         </div>
                         <div class="mt-2">
                             <small>
-                                <i class="fas fa-check-circle text-success me-1"></i>
-                                ${report.extracted_data.successful_backups || 0} erfolgreich
-                                ${report.extracted_data.failed_backups > 0 ?
-                                    '<i class="fas fa-times-circle text-danger ms-2 me-1"></i>' + report.extracted_data.failed_backups + ' fehlgeschlagen' :
-                                    ''}
+                                ${getReportMetrics(report)}
                             </small>
                         </div>
                     </div>
@@ -1115,6 +1111,38 @@
         }
 
         // Helper functions
+        function getReportMetrics(report) {
+            // Get dashboard metrics configuration from report config
+            const config = report.report_config;
+            if (!config || !config.output || !config.output.dashboard_metrics) {
+                // Fallback to default backup metrics if no config
+                const successfulBackups = report.extracted_data.successful_backups || 0;
+                const failedBackups = report.extracted_data.failed_backups || 0;
+                return `
+                    <i class="fas fa-check-circle text-success me-1"></i>
+                    ${successfulBackups} erfolgreich
+                    <i class="fas fa-times-circle text-danger ms-2 me-1"></i>
+                    ${failedBackups} fehlgeschlagen
+                `;
+            }
+
+            const metrics = config.output.dashboard_metrics;
+            const data = report.extracted_data;
+
+            // Build metric display
+            let html = '';
+
+            // Metric 1 - always show
+            const metric1Value = data[metrics.metric1_field] || 0;
+            html += `<i class="${metrics.metric1_icon} me-1"></i> ${metric1Value} ${metrics.metric1_label}`;
+
+            // Metric 2 - always show
+            const metric2Value = data[metrics.metric2_field] || 0;
+            html += ` <i class="${metrics.metric2_icon} ms-2 me-1"></i> ${metric2Value} ${metrics.metric2_label}`;
+
+            return html;
+        }
+
         function getScoreClass(score) {
             if (score >= 80) return 'score-high';
             if (score >= 60) return 'score-medium';

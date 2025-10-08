@@ -4,6 +4,7 @@ report_type:
   description: "Keepit backup report analysis for Microsoft 365 services (OneDrive, SharePoint, Exchange, Teams)"
   enabled: true
   priority: 2
+  category: "Backup"
 
 identification:
   filename_patterns:
@@ -278,6 +279,14 @@ analysis:
         color: "#00FF00"
 
 output:
+  dashboard_metrics:
+    metric1_label: "erfolgreich"
+    metric1_field: "successful_backups"
+    metric1_icon: "fas fa-check-circle text-success"
+    metric2_label: "fehlgeschlagen"
+    metric2_field: "failed_backups"
+    metric2_icon: "fas fa-times-circle text-danger"
+
   custom_fields:
     total_backups: "integer"
     successful_backups: "integer"

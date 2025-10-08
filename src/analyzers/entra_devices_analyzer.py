@@ -449,6 +449,9 @@ class EntraDevicesAnalyzer(BaseAnalyzer):
         # Inactive devices
         fields['inactive_devices'] = int(df['_inactive_device'].sum())
 
+        # Active devices (total minus inactive)
+        fields['active_devices'] = fields['total_devices'] - fields['inactive_devices']
+
         # Get list of inactive devices
         inactive_df = df[df['_inactive_device'] == True]
         fields['inactive_devices_list'] = []

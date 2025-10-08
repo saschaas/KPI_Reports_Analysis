@@ -4,6 +4,7 @@ report_type:
   description: "Microsoft Entra (Azure AD) devices report analysis - tracks device registrations, compliance, and ownership"
   enabled: true
   priority: 3
+  category: "Devices"
 
 identification:
   filename_patterns:
@@ -272,8 +273,17 @@ analysis:
         color: "#00FF00"
 
 output:
+  dashboard_metrics:
+    metric1_label: "aktiv"
+    metric1_field: "active_devices"
+    metric1_icon: "fas fa-check-circle text-success"
+    metric2_label: "inaktiv"
+    metric2_field: "inactive_devices"
+    metric2_icon: "fas fa-times-circle text-warning"
+
   custom_fields:
     total_devices: "integer"
+    active_devices: "integer"
     devices_without_owner: "integer"
     inactive_devices: "integer"
     recent_registrations: "integer"

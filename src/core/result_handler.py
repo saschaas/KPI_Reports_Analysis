@@ -181,7 +181,8 @@ class ResultHandler:
             "extracted_data": result.extracted_data,
             "processing_info": result.processing_info,
             "timestamp": result.timestamp,
-            "summary": self._create_summary(result)
+            "summary": self._create_summary(result),
+            "report_config": result.report_config
         }
     
     def _extract_report_period(self, result: AnalysisResult) -> str:
