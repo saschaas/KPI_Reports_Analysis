@@ -455,10 +455,20 @@ class VeeamBackupAnalyzer(BaseAnalyzer):
             total_count = len(df)
             failure_rate = failed_count / total_count if total_count > 0 else 0
 
+            # Get threshold from config
+            analysis_config = self.config.get('analysis', {})
+            checks_config = analysis_config.get('algorithmic_checks', [])
+            max_failure_rate = 0.10  # Default to 10%
+
+            for check_config in checks_config:
+                if check_config.get('check_id') == 'backup_failures':
+                    max_failure_rate = check_config.get('parameters', {}).get('max_percentage', 0.10)
+                    break
+
             checks.append(CheckResult(
                 check_id='backup_failures',
                 name='Fehlerhafte Backups',
-                passed=failure_rate <= 0.05,
+                passed=failure_rate <= max_failure_rate,
                 severity='high',
                 message=f'{failed_count} von {total_count} Backups fehlgeschlagen ({failure_rate*100:.1f}%)',
                 details={

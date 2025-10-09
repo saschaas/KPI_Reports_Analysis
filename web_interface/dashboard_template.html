@@ -718,10 +718,13 @@
                 return;
             }
 
-            // Collect all reports from all months with timestamps
+            // Collect reports only from the currently selected month
             const allReportsWithMonth = [];
 
-            Object.keys(EMBEDDED_DATA_ALL_MONTHS).forEach(month => {
+            // Use currentMonth if set, otherwise use all months
+            const monthsToShow = currentMonth ? [currentMonth] : Object.keys(EMBEDDED_DATA_ALL_MONTHS);
+
+            monthsToShow.forEach(month => {
                 const monthData = EMBEDDED_DATA_ALL_MONTHS[month];
                 if (monthData && monthData.reports) {
                     monthData.reports.forEach(report => {
@@ -734,7 +737,7 @@
                 }
             });
 
-            console.log('allReportsWithMonth:', allReportsWithMonth.length, 'reports found');
+            console.log('allReportsWithMonth:', allReportsWithMonth.length, 'reports found for month(s):', monthsToShow);
 
             // Sort by category first, then by timestamp descending, and take configured number
             allReportsWithMonth.sort((a, b) => {
@@ -823,21 +826,25 @@
             // Generate URL to the detailed HTML report
             // Since multiple reports are analyzed together in one batch,
             // they all share the same combined HTML file.
-            // The combined HTML file has the timestamp from when the batch was saved.
 
-            // Use the batch_timestamp from embedded data metadata
             const monthData = EMBEDDED_DATA_ALL_MONTHS[month];
             if (!monthData || !monthData.analysis_metadata) return null;
 
-            const metadataTimestamp = monthData.analysis_metadata.analysis_timestamp;
-            if (!metadataTimestamp) return null;
+            // Use html_filename from metadata if available (preferred)
+            let filename = monthData.analysis_metadata.html_filename;
 
-            // Extract timestamp from ISO format (e.g., "2025-10-08T12:58:52.123456")
-            const match = metadataTimestamp.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
-            if (!match) return null;
+            // Fallback: construct from timestamp if html_filename not in metadata
+            if (!filename) {
+                const metadataTimestamp = monthData.analysis_metadata.analysis_timestamp;
+                if (!metadataTimestamp) return null;
 
-            const [_, year, mon, day, hour, min, sec] = match;
-            const filename = `analysis_results_${year}${mon}${day}_${hour}${min}${sec}.html`;
+                // Extract timestamp from ISO format (e.g., "2025-10-08T12:58:52.123456")
+                const match = metadataTimestamp.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+                if (!match) return null;
+
+                const [_, year, mon, day, hour, min, sec] = match;
+                filename = `analysis_results_${year}${mon}${day}_${hour}${min}${sec}.html`;
+            }
 
             // Find the report index within the month's reports array
             const reportIndex = monthData.reports.findIndex(r =>

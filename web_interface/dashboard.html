@@ -2332,11 +2332,1170 @@
         }
       }
     ]
+  },
+  "2025-07": {
+    "analysis_metadata": {
+      "tool_version": "1.0.0",
+      "analysis_timestamp": "2025-10-09T14:41:04.322835",
+      "total_files": 1,
+      "successful": 1,
+      "failed": 0,
+      "success_rate": 100.0,
+      "average_score": 100.0,
+      "total_processing_time_seconds": 0.2,
+      "report_types": {
+        "veeam_backup": 1
+      },
+      "risk_distribution": {
+        "niedrig": 1,
+        "mittel": 0,
+        "hoch": 0,
+        "kritisch": 0
+      },
+      "config_used": {
+        "ollama_model": "llama3.2",
+        "supported_formats": [
+          "pdf",
+          "xlsx",
+          "xls",
+          "csv",
+          "html",
+          "htm"
+        ],
+        "fallback_to_llm": true
+      },
+      "html_filename": "analysis_results_20251009_144104.html"
+    },
+    "reports": [
+      {
+        "file_info": {
+          "name": "Veeam Backup report July.xlsx",
+          "path": "C:\\Users\\sseidel\\Coding\\ClaudeCode\\KPI-Analyse Tool\\report_analysis_tool\\input\\Veeam Backup report July.xlsx",
+          "size_bytes": 40992,
+          "format": "xlsx",
+          "report_period": "2025-07"
+        },
+        "report_type": "veeam_backup",
+        "result_status": "ok",
+        "risk_level": "niedrig",
+        "score": 100,
+        "analysis_details": {
+          "method": "algorithmic",
+          "checks_performed": 4,
+          "checks_passed": 4,
+          "checks_failed": 0,
+          "issues": [],
+          "warnings": [],
+          "score_details": []
+        },
+        "extracted_data": {
+          "total_backups": 269,
+          "successful_backups": 210,
+          "failed_backups": 18,
+          "warning_backups": 0,
+          "success_rate": 78.07,
+          "failure_rate": 6.69,
+          "total_capacity_gb": 46950.0,
+          "period_start": "2025-07-02",
+          "period_end": "2025-07-31",
+          "unique_vms": 8,
+          "failed_vms": [
+            {
+              "vm_name": "0012-DURPRCTXMCS01",
+              "start_time": "2025-07-22 23:00:15"
+            },
+            {
+              "vm_name": "0012-DURPRCCC01.Stopped",
+              "start_time": "2025-07-22 23:00:18"
+            },
+            {
+              "vm_name": "0012-DURPRBS02",
+              "start_time": "2025-07-22 23:00:18"
+            },
+            {
+              "vm_name": "0012-DURPRDC02",
+              "start_time": "2025-07-22 23:00:19"
+            },
+            {
+              "vm_name": "0012-DURPRMGT01",
+              "start_time": "2025-07-22 23:00:20"
+            },
+            {
+              "vm_name": "0012-DURPREXC02",
+              "start_time": "2025-07-22 23:00:41"
+            },
+            {
+              "vm_name": "0012-DURPRNS01",
+              "start_time": "2025-07-22 23:00:41"
+            },
+            {
+              "vm_name": "0012-DURPRCTXMCS01",
+              "start_time": "2025-07-22 23:20:28"
+            },
+            {
+              "vm_name": "0012-DURPRDC02",
+              "start_time": "2025-07-22 23:20:30"
+            },
+            {
+              "vm_name": "0012-DURPRBS02",
+              "start_time": "2025-07-22 23:20:30"
+            },
+            {
+              "vm_name": "0012-DURPRCCC01.Stopped",
+              "start_time": "2025-07-22 23:20:30"
+            },
+            {
+              "vm_name": "0012-DURPRMGT01",
+              "start_time": "2025-07-22 23:20:31"
+            },
+            {
+              "vm_name": "0012-DURPREXC02",
+              "start_time": "2025-07-22 23:20:31"
+            },
+            {
+              "vm_name": "0012-DURPRCCC01.Stopped",
+              "start_time": "2025-07-22 23:31:15"
+            },
+            {
+              "vm_name": "0012-DURPRDC02",
+              "start_time": "2025-07-22 23:31:15"
+            },
+            {
+              "vm_name": "0012-DURPREXC02",
+              "start_time": "2025-07-22 23:31:16"
+            },
+            {
+              "vm_name": "0012-DURPRMGT01",
+              "start_time": "2025-07-22 23:31:17"
+            },
+            {
+              "vm_name": "0012-DURPREXC02",
+              "start_time": "2025-07-22 23:51:42"
+            }
+          ],
+          "vm_analysis": {
+            "report_month": "2025-07",
+            "vms": {
+              "0012-DURPRBS02": {
+                "total_backups": 32,
+                "successful_backups": 30,
+                "failed_backups": 2,
+                "warning_backups": 0,
+                "success_rate": 93.75,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPRBS02",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:18",
+                    "Stop Time": "2025-07-22 23:00:36",
+                    "Duration (HH:MM:SS)": "00:00:18",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRBS02",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 1)",
+                    "Start Time": "2025-07-22 23:20:30",
+                    "Stop Time": "2025-07-22 23:20:40",
+                    "Duration (HH:MM:SS)": "00:00:10",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 93.75,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              },
+              "0012-DURPRCCC01.Stopped": {
+                "total_backups": 33,
+                "successful_backups": 30,
+                "failed_backups": 3,
+                "warning_backups": 0,
+                "success_rate": 90.91,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPRCCC01.Stopped",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:18",
+                    "Stop Time": "2025-07-22 23:00:33",
+                    "Duration (HH:MM:SS)": "00:00:15",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRCCC01.Stopped",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 1)",
+                    "Start Time": "2025-07-22 23:20:30",
+                    "Stop Time": "2025-07-22 23:20:41",
+                    "Duration (HH:MM:SS)": "00:00:11",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRCCC01.Stopped",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 2)",
+                    "Start Time": "2025-07-22 23:31:15",
+                    "Stop Time": "2025-07-22 23:31:27",
+                    "Duration (HH:MM:SS)": "00:00:12",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 90.91,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              },
+              "0012-DURPRCTXMCS01": {
+                "total_backups": 32,
+                "successful_backups": 30,
+                "failed_backups": 2,
+                "warning_backups": 0,
+                "success_rate": 93.75,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPRCTXMCS01",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:15",
+                    "Stop Time": "2025-07-22 23:00:32",
+                    "Duration (HH:MM:SS)": "00:00:17",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRCTXMCS01",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 1)",
+                    "Start Time": "2025-07-22 23:20:28",
+                    "Stop Time": "2025-07-22 23:20:40",
+                    "Duration (HH:MM:SS)": "00:00:12",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 93.75,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              },
+              "0012-DURPRDC02": {
+                "total_backups": 33,
+                "successful_backups": 30,
+                "failed_backups": 3,
+                "warning_backups": 0,
+                "success_rate": 90.91,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPRDC02",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:19",
+                    "Stop Time": "2025-07-22 23:00:32",
+                    "Duration (HH:MM:SS)": "00:00:13",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRDC02",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 1)",
+                    "Start Time": "2025-07-22 23:20:30",
+                    "Stop Time": "2025-07-22 23:20:41",
+                    "Duration (HH:MM:SS)": "00:00:11",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRDC02",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 2)",
+                    "Start Time": "2025-07-22 23:31:15",
+                    "Stop Time": "2025-07-22 23:31:27",
+                    "Duration (HH:MM:SS)": "00:00:12",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 90.91,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              },
+              "0012-DURPREXC02": {
+                "total_backups": 34,
+                "successful_backups": 30,
+                "failed_backups": 4,
+                "warning_backups": 0,
+                "success_rate": 88.24,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPREXC02",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:41",
+                    "Stop Time": "2025-07-22 23:10:05",
+                    "Duration (HH:MM:SS)": "00:09:24",
+                    "Avg Speed (MB/s)": 433.06,
+                    "Total (GB)": 90.0,
+                    "Processed (GB)": 65.69,
+                    "Data Read (GB)": 36.48,
+                    "Transferred (GB)": 10.33,
+                    "Details": "Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPREXC02",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 1)",
+                    "Start Time": "2025-07-22 23:20:31",
+                    "Stop Time": "2025-07-22 23:20:35",
+                    "Duration (HH:MM:SS)": "00:00:04",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPREXC02",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 2)",
+                    "Start Time": "2025-07-22 23:31:16",
+                    "Stop Time": "2025-07-22 23:31:21",
+                    "Duration (HH:MM:SS)": "00:00:05",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPREXC02",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 3)",
+                    "Start Time": "2025-07-22 23:51:42",
+                    "Stop Time": "2025-07-22 23:51:49",
+                    "Duration (HH:MM:SS)": "00:00:07",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 88.24,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              },
+              "0012-DURPRMGT01": {
+                "total_backups": 33,
+                "successful_backups": 30,
+                "failed_backups": 3,
+                "warning_backups": 0,
+                "success_rate": 90.91,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPRMGT01",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:20",
+                    "Stop Time": "2025-07-22 23:00:31",
+                    "Duration (HH:MM:SS)": "00:00:11",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRMGT01",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 1)",
+                    "Start Time": "2025-07-22 23:20:31",
+                    "Stop Time": "2025-07-22 23:20:41",
+                    "Duration (HH:MM:SS)": "00:00:10",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  },
+                  {
+                    "VM Name": "0012-DURPRMGT01",
+                    "Job Name": "0012-DUR-B (Incremental) (Retry 2)",
+                    "Start Time": "2025-07-22 23:31:17",
+                    "Stop Time": "2025-07-22 23:31:27",
+                    "Duration (HH:MM:SS)": "00:00:10",
+                    "Avg Speed (MB/s)": 0.0,
+                    "Total (GB)": 0.0,
+                    "Processed (GB)": 0.0,
+                    "Data Read (GB)": 0.0,
+                    "Transferred (GB)": 0.0,
+                    "Details": "Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 90.91,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              },
+              "0012-DURPRNS01": {
+                "total_backups": 31,
+                "successful_backups": 30,
+                "failed_backups": 1,
+                "warning_backups": 0,
+                "success_rate": 96.77,
+                "missing_days_total": 2,
+                "missing_days_recoverable": 2,
+                "missing_days_critical": 0,
+                "missing_days_list": [
+                  "2025-07-01",
+                  "2025-07-15"
+                ],
+                "failed_backup_details": [
+                  {
+                    "VM Name": "0012-DURPRNS01",
+                    "Job Name": "0012-DUR-B (Incremental)",
+                    "Start Time": "2025-07-22 23:00:41",
+                    "Stop Time": "2025-07-22 23:01:41",
+                    "Duration (HH:MM:SS)": "00:01:00",
+                    "Avg Speed (MB/s)": 522.25,
+                    "Total (GB)": 20.0,
+                    "Processed (GB)": 18.26,
+                    "Data Read (GB)": 5.17,
+                    "Transferred (GB)": 1.5,
+                    "Details": "Failed to delete '0012-DURPRNS01.vm-12707D2025-06-18T230015_6545.vib' per retention policy",
+                    "Status": "Failed"
+                  }
+                ],
+                "score": 96.77,
+                "backup_dates": [
+                  "2025-07-02",
+                  "2025-07-03",
+                  "2025-07-04",
+                  "2025-07-05",
+                  "2025-07-06",
+                  "2025-07-07",
+                  "2025-07-08",
+                  "2025-07-09",
+                  "2025-07-10",
+                  "2025-07-11",
+                  "2025-07-12",
+                  "2025-07-13",
+                  "2025-07-14",
+                  "2025-07-16",
+                  "2025-07-17",
+                  "2025-07-18",
+                  "2025-07-19",
+                  "2025-07-20",
+                  "2025-07-21",
+                  "2025-07-22",
+                  "2025-07-23",
+                  "2025-07-24",
+                  "2025-07-25",
+                  "2025-07-26",
+                  "2025-07-27",
+                  "2025-07-28",
+                  "2025-07-29",
+                  "2025-07-30",
+                  "2025-07-31"
+                ]
+              }
+            },
+            "summary": {
+              "total_vms": 7,
+              "vms_with_failures": 7,
+              "vms_with_missing_days": 0,
+              "average_success_rate": 92.18,
+              "average_score": 92.18
+            }
+          },
+          "missing_backup_days": [],
+          "missing_backup_days_count": 0
+        },
+        "processing_info": {
+          "processing_time_seconds": 0.2,
+          "retry_count": 0,
+          "parser_used": "ExcelParser",
+          "data_shape": "269 rows x 13 columns"
+        },
+        "timestamp": "2025-10-09T14:41:04Z",
+        "summary": "Bericht: Veeam Backup\n        Zeitraum: 2025-07\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 0.2s\n        - Checks: 4/4\n        \n        Kennzahlen:\n- total_backups: 269\n- successful_backups: 210\n- failed_backups: 18\n- warning_backups: 0\n- success_rate: 78.1%\n- failure_rate: 6.7%\n- total_capacity_gb: 46950.00\n- period_start: 2025-07-02\n- period_end: 2025-07-31\n- unique_vms: 8\n- failed_vms: [{'vm_name': '0012-DURPRCTXMCS01', 'start_time': '2025-07-22 23:00:15'}, {'vm_name': '0012-DURPRCCC01.Stopped', 'start_time': '2025-07-22 23:00:18'}, {'vm_name': '0012-DURPRBS02', 'start_time': '2025-07-22 23:00:18'}, {'vm_name': '0012-DURPRDC02', 'start_time': '2025-07-22 23:00:19'}, {'vm_name': '0012-DURPRMGT01', 'start_time': '2025-07-22 23:00:20'}, {'vm_name': '0012-DURPREXC02', 'start_time': '2025-07-22 23:00:41'}, {'vm_name': '0012-DURPRNS01', 'start_time': '2025-07-22 23:00:41'}, {'vm_name': '0012-DURPRCTXMCS01', 'start_time': '2025-07-22 23:20:28'}, {'vm_name': '0012-DURPRDC02', 'start_time': '2025-07-22 23:20:30'}, {'vm_name': '0012-DURPRBS02', 'start_time': '2025-07-22 23:20:30'}, {'vm_name': '0012-DURPRCCC01.Stopped', 'start_time': '2025-07-22 23:20:30'}, {'vm_name': '0012-DURPRMGT01', 'start_time': '2025-07-22 23:20:31'}, {'vm_name': '0012-DURPREXC02', 'start_time': '2025-07-22 23:20:31'}, {'vm_name': '0012-DURPRCCC01.Stopped', 'start_time': '2025-07-22 23:31:15'}, {'vm_name': '0012-DURPRDC02', 'start_time': '2025-07-22 23:31:15'}, {'vm_name': '0012-DURPREXC02', 'start_time': '2025-07-22 23:31:16'}, {'vm_name': '0012-DURPRMGT01', 'start_time': '2025-07-22 23:31:17'}, {'vm_name': '0012-DURPREXC02', 'start_time': '2025-07-22 23:51:42'}]\n- vm_analysis: {'report_month': '2025-07', 'vms': {'0012-DURPRBS02': {'total_backups': 32, 'successful_backups': 30, 'failed_backups': 2, 'warning_backups': 0, 'success_rate': 93.75, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPRBS02', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:18', 'Stop Time': '2025-07-22 23:00:36', 'Duration (HH:MM:SS)': datetime.time(0, 0, 18), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRBS02', 'Job Name': '0012-DUR-B (Incremental) (Retry 1)', 'Start Time': '2025-07-22 23:20:30', 'Stop Time': '2025-07-22 23:20:40', 'Duration (HH:MM:SS)': datetime.time(0, 0, 10), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}], 'score': 93.75, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}, '0012-DURPRCCC01.Stopped': {'total_backups': 33, 'successful_backups': 30, 'failed_backups': 3, 'warning_backups': 0, 'success_rate': 90.91, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPRCCC01.Stopped', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:18', 'Stop Time': '2025-07-22 23:00:33', 'Duration (HH:MM:SS)': datetime.time(0, 0, 15), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRCCC01.Stopped', 'Job Name': '0012-DUR-B (Incremental) (Retry 1)', 'Start Time': '2025-07-22 23:20:30', 'Stop Time': '2025-07-22 23:20:41', 'Duration (HH:MM:SS)': datetime.time(0, 0, 11), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRCCC01.Stopped', 'Job Name': '0012-DUR-B (Incremental) (Retry 2)', 'Start Time': '2025-07-22 23:31:15', 'Stop Time': '2025-07-22 23:31:27', 'Duration (HH:MM:SS)': datetime.time(0, 0, 12), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}], 'score': 90.91, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}, '0012-DURPRCTXMCS01': {'total_backups': 32, 'successful_backups': 30, 'failed_backups': 2, 'warning_backups': 0, 'success_rate': 93.75, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPRCTXMCS01', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:15', 'Stop Time': '2025-07-22 23:00:32', 'Duration (HH:MM:SS)': datetime.time(0, 0, 17), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRCTXMCS01', 'Job Name': '0012-DUR-B (Incremental) (Retry 1)', 'Start Time': '2025-07-22 23:20:28', 'Stop Time': '2025-07-22 23:20:40', 'Duration (HH:MM:SS)': datetime.time(0, 0, 12), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}], 'score': 93.75, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}, '0012-DURPRDC02': {'total_backups': 33, 'successful_backups': 30, 'failed_backups': 3, 'warning_backups': 0, 'success_rate': 90.91, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPRDC02', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:19', 'Stop Time': '2025-07-22 23:00:32', 'Duration (HH:MM:SS)': datetime.time(0, 0, 13), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRDC02', 'Job Name': '0012-DUR-B (Incremental) (Retry 1)', 'Start Time': '2025-07-22 23:20:30', 'Stop Time': '2025-07-22 23:20:41', 'Duration (HH:MM:SS)': datetime.time(0, 0, 11), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRDC02', 'Job Name': '0012-DUR-B (Incremental) (Retry 2)', 'Start Time': '2025-07-22 23:31:15', 'Stop Time': '2025-07-22 23:31:27', 'Duration (HH:MM:SS)': datetime.time(0, 0, 12), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}], 'score': 90.91, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}, '0012-DURPREXC02': {'total_backups': 34, 'successful_backups': 30, 'failed_backups': 4, 'warning_backups': 0, 'success_rate': 88.24, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPREXC02', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:41', 'Stop Time': '2025-07-22 23:10:05', 'Duration (HH:MM:SS)': datetime.time(0, 9, 24), 'Avg Speed (MB/s)': 433.06, 'Total (GB)': 90.0, 'Processed (GB)': 65.69, 'Data Read (GB)': 36.48, 'Transferred (GB)': 10.33, 'Details': 'Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]', 'Status': 'Failed'}, {'VM Name': '0012-DURPREXC02', 'Job Name': '0012-DUR-B (Incremental) (Retry 1)', 'Start Time': '2025-07-22 23:20:31', 'Stop Time': '2025-07-22 23:20:35', 'Duration (HH:MM:SS)': datetime.time(0, 0, 4), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]', 'Status': 'Failed'}, {'VM Name': '0012-DURPREXC02', 'Job Name': '0012-DUR-B (Incremental) (Retry 2)', 'Start Time': '2025-07-22 23:31:16', 'Stop Time': '2025-07-22 23:31:21', 'Duration (HH:MM:SS)': datetime.time(0, 0, 5), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]', 'Status': 'Failed'}, {'VM Name': '0012-DURPREXC02', 'Job Name': '0012-DUR-B (Incremental) (Retry 3)', 'Start Time': '2025-07-22 23:51:42', 'Stop Time': '2025-07-22 23:51:49', 'Duration (HH:MM:SS)': datetime.time(0, 0, 7), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Unable to apply retention policy: failed to delete backup files Error: Item [0012-DURPREXC02.vm-337459D2025-06-15T230019_7554.vib] is locked by running session SOBR Download [Backup Download]', 'Status': 'Failed'}], 'score': 88.24, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}, '0012-DURPRMGT01': {'total_backups': 33, 'successful_backups': 30, 'failed_backups': 3, 'warning_backups': 0, 'success_rate': 90.91, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPRMGT01', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:20', 'Stop Time': '2025-07-22 23:00:31', 'Duration (HH:MM:SS)': datetime.time(0, 0, 11), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRMGT01', 'Job Name': '0012-DUR-B (Incremental) (Retry 1)', 'Start Time': '2025-07-22 23:20:31', 'Stop Time': '2025-07-22 23:20:41', 'Duration (HH:MM:SS)': datetime.time(0, 0, 10), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}, {'VM Name': '0012-DURPRMGT01', 'Job Name': '0012-DUR-B (Incremental) (Retry 2)', 'Start Time': '2025-07-22 23:31:17', 'Stop Time': '2025-07-22 23:31:27', 'Duration (HH:MM:SS)': datetime.time(0, 0, 10), 'Avg Speed (MB/s)': 0.0, 'Total (GB)': 0.0, 'Processed (GB)': 0.0, 'Data Read (GB)': 0.0, 'Transferred (GB)': 0.0, 'Details': 'Failed to pre-process the job Error: Extent 0012_DUR-B is not accessible because it is in Maintenance mode.', 'Status': 'Failed'}], 'score': 90.91, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}, '0012-DURPRNS01': {'total_backups': 31, 'successful_backups': 30, 'failed_backups': 1, 'warning_backups': 0, 'success_rate': 96.77, 'missing_days_total': 2, 'missing_days_recoverable': 2, 'missing_days_critical': 0, 'missing_days_list': ['2025-07-01', '2025-07-15'], 'failed_backup_details': [{'VM Name': '0012-DURPRNS01', 'Job Name': '0012-DUR-B (Incremental)', 'Start Time': '2025-07-22 23:00:41', 'Stop Time': '2025-07-22 23:01:41', 'Duration (HH:MM:SS)': datetime.time(0, 1), 'Avg Speed (MB/s)': 522.25, 'Total (GB)': 20.0, 'Processed (GB)': 18.26, 'Data Read (GB)': 5.17, 'Transferred (GB)': 1.5, 'Details': \"Failed to delete '0012-DURPRNS01.vm-12707D2025-06-18T230015_6545.vib' per retention policy\", 'Status': 'Failed'}], 'score': 96.77, 'backup_dates': ['2025-07-02', '2025-07-03', '2025-07-04', '2025-07-05', '2025-07-06', '2025-07-07', '2025-07-08', '2025-07-09', '2025-07-10', '2025-07-11', '2025-07-12', '2025-07-13', '2025-07-14', '2025-07-16', '2025-07-17', '2025-07-18', '2025-07-19', '2025-07-20', '2025-07-21', '2025-07-22', '2025-07-23', '2025-07-24', '2025-07-25', '2025-07-26', '2025-07-27', '2025-07-28', '2025-07-29', '2025-07-30', '2025-07-31']}}, 'summary': {'total_vms': 7, 'vms_with_failures': 7, 'vms_with_missing_days': 0, 'average_success_rate': 92.18, 'average_score': 92.18}}\n- missing_backup_days: []\n- missing_backup_days_count: 0\n        \n        ",
+        "report_config": {
+          "report_type": {
+            "id": "veeam_backup",
+            "name": "Veeam Backup Report",
+            "description": "Veeam backup job report analysis with success rate calculation",
+            "enabled": true,
+            "priority": 1,
+            "category": "Backup"
+          },
+          "identification": {
+            "filename_patterns": [
+              ".*veeam.*backup.*\\.(pdf|html?|xlsx?)$",
+              ".*backup.*report.*\\.(pdf|html?|xlsx?)$",
+              ".*veeam.*monthly.*\\.(pdf|html?|xlsx?)$",
+              ".*veeam.*\\.(pdf|html?|xlsx?)$"
+            ],
+            "content_identifiers": {
+              "required_columns": [
+                "vm name",
+                "status"
+              ],
+              "optional_columns": [
+                "start time",
+                "stop time",
+                "duration",
+                "total",
+                "job name"
+              ],
+              "required_keywords": [
+                "veeam",
+                "backup"
+              ],
+              "optional_keywords": [
+                "virtual machine",
+                "vm",
+                "success",
+                "failed"
+              ],
+              "min_matches": 2
+            },
+            "fuzzy_matching": {
+              "enabled": true,
+              "threshold": 0.85,
+              "normalization": [
+                "trim",
+                "lowercase",
+                "unicode_normalize",
+                "remove_diacritics"
+              ],
+              "field_mappings": {
+                "vm_name": {
+                  "alternatives": [
+                    "vm name",
+                    "vmname",
+                    "virtual machine",
+                    "vm",
+                    "machine name"
+                  ],
+                  "priority": "high"
+                },
+                "start_time": {
+                  "alternatives": [
+                    "start time",
+                    "starttime",
+                    "start",
+                    "begin time",
+                    "started"
+                  ],
+                  "priority": "high"
+                },
+                "stop_time": {
+                  "alternatives": [
+                    "stop time",
+                    "stoptime",
+                    "stop",
+                    "end time",
+                    "ended",
+                    "finish time"
+                  ],
+                  "priority": "medium"
+                },
+                "duration": {
+                  "alternatives": [
+                    "duration",
+                    "time taken",
+                    "elapsed",
+                    "runtime"
+                  ],
+                  "priority": "medium"
+                },
+                "total_gb": {
+                  "alternatives": [
+                    "total (gb)",
+                    "total",
+                    "size (gb)",
+                    "size",
+                    "capacity",
+                    "total gb"
+                  ],
+                  "priority": "low"
+                },
+                "status": {
+                  "alternatives": [
+                    "status",
+                    "result",
+                    "state"
+                  ],
+                  "priority": "high",
+                  "values": {
+                    "success": [
+                      "success",
+                      "successful",
+                      "succeeded",
+                      "ok",
+                      "passed"
+                    ],
+                    "failed": [
+                      "failed",
+                      "failure",
+                      "error",
+                      "fail"
+                    ],
+                    "warning": [
+                      "warning",
+                      "warn",
+                      "attention"
+                    ]
+                  }
+                },
+                "job_name": {
+                  "alternatives": [
+                    "job name",
+                    "jobname",
+                    "job",
+                    "backup job"
+                  ],
+                  "priority": "low"
+                }
+              }
+            },
+            "llm_classification": {
+              "enabled": true,
+              "confidence_threshold": 0.8,
+              "prompt": "Analysiere den folgenden Dateiinhalt und bestimme, ob es sich um einen Veeam Backup Report handelt.\n\nKriterien:\n- Enthält Informationen zu Backup-Jobs\n- Enthält VM-Namen oder virtuelle Maschinen\n- Enthält Status (Erfolgreich/Fehlgeschlagen)\n- Enthält Zeitangaben (Start/Stop)\n- Bezieht sich auf Veeam Backup Software\n\nInhalt: {content}\n\nAntworte nur mit 'JA' oder 'NEIN' gefolgt von einer einzeiligen Begründung.\n"
+            }
+          },
+          "supported_formats": [
+            "pdf",
+            "xlsx",
+            "xls",
+            "csv"
+          ],
+          "analysis": {
+            "algorithmic_checks": [
+              {
+                "check_id": "completeness",
+                "name": "Vollständigkeitsprüfung",
+                "type": "column_validation",
+                "parameters": {
+                  "required_columns": [
+                    "vm_name",
+                    "status"
+                  ],
+                  "severity": "high",
+                  "error_message": "Pflichtfelder (VM Name, Status) fehlen"
+                }
+              },
+              {
+                "check_id": "backup_failures",
+                "name": "Fehlerhafte Backups",
+                "type": "threshold",
+                "parameters": {
+                  "column": "status",
+                  "value": "failed",
+                  "max_count": 0,
+                  "max_percentage": 0.1,
+                  "severity": "high",
+                  "error_message": "Zu viele fehlgeschlagene Backups"
+                }
+              },
+              {
+                "check_id": "backup_warnings",
+                "name": "Backup-Warnungen",
+                "type": "threshold",
+                "parameters": {
+                  "column": "status",
+                  "value": "warning",
+                  "max_count": 0,
+                  "max_percentage": 0.1,
+                  "severity": "medium",
+                  "error_message": "Zu viele Backup-Warnungen"
+                }
+              },
+              {
+                "check_id": "missing_backups",
+                "name": "Fehlende Backups",
+                "type": "date_continuity",
+                "parameters": {
+                  "column": "start_time",
+                  "check_daily": true,
+                  "severity": "medium",
+                  "error_message": "Tage ohne Backups gefunden"
+                }
+              },
+              {
+                "check_id": "date_range",
+                "name": "Datumsbereich-Prüfung",
+                "type": "date_validation",
+                "parameters": {
+                  "column": "start_time",
+                  "check_continuity": false,
+                  "severity": "low"
+                }
+              }
+            ],
+            "llm_analysis": {
+              "enabled": true,
+              "max_retries": 2,
+              "prompt": "Analysiere diesen Veeam Backup Bericht und extrahiere:\n\n1. Gesamtanzahl durchgeführter Backups\n2. Anzahl erfolgreicher Backups\n3. Anzahl fehlgeschlagener Backups\n4. Anzahl von Backups mit Warnungen\n5. Liste der VMs mit fehlgeschlagenen Backups\n6. Zeitraum des Berichts (von - bis)\n7. Auffälligkeiten oder kritische Probleme\n\nBericht: {content}\n\nAntworte im JSON-Format:\n{\n  \"total_backups\": 0,\n  \"successful_backups\": 0,\n  \"failed_backups\": 0,\n  \"warning_backups\": 0,\n  \"failed_vms\": [],\n  \"period_start\": \"\",\n  \"period_end\": \"\",\n  \"issues\": [],\n  \"summary\": \"\"\n}\n"
+            },
+            "extraction_fields": [
+              {
+                "field": "total_backups",
+                "type": "count",
+                "source": "all_rows",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "successful_backups",
+                "type": "count",
+                "source": "status == 'success'",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "failed_backups",
+                "type": "count",
+                "source": "status == 'failed'",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "warning_backups",
+                "type": "count",
+                "source": "status == 'warning'",
+                "required": false,
+                "default": 0
+              },
+              {
+                "field": "success_rate",
+                "type": "calculated",
+                "formula": "(successful_backups / total_backups * 100) if total_backups > 0 else 100",
+                "format": "percentage",
+                "required": true,
+                "default": 100.0
+              },
+              {
+                "field": "failure_rate",
+                "type": "calculated",
+                "formula": "(failed_backups / total_backups * 100) if total_backups > 0 else 0",
+                "format": "percentage",
+                "required": true,
+                "default": 0.0
+              },
+              {
+                "field": "total_capacity_gb",
+                "type": "sum",
+                "source": "total_gb",
+                "required": false,
+                "format": "float",
+                "default": 0.0
+              },
+              {
+                "field": "period_start",
+                "type": "min",
+                "source": "start_time",
+                "required": true,
+                "format": "date"
+              },
+              {
+                "field": "period_end",
+                "type": "max",
+                "source": "start_time",
+                "required": true,
+                "format": "date"
+              },
+              {
+                "field": "unique_vms",
+                "type": "count_distinct",
+                "source": "vm_name",
+                "required": false,
+                "default": 0
+              },
+              {
+                "field": "missing_backup_days",
+                "type": "calculated",
+                "formula": "get_missing_backup_days(start_time)",
+                "required": false,
+                "default": []
+              }
+            ],
+            "scoring": {
+              "base_score": 100,
+              "deductions": [
+                {
+                  "condition": "failed_backups > 0",
+                  "points": 10,
+                  "per_occurrence": true,
+                  "max_deduction": 50,
+                  "description": "Fehlgeschlagene Backups"
+                },
+                {
+                  "condition": "warning_backups > 0",
+                  "points": 2,
+                  "per_occurrence": true,
+                  "max_deduction": 10,
+                  "description": "Backup-Warnungen"
+                },
+                {
+                  "condition": "missing_backup_days > 0",
+                  "points": 5,
+                  "per_occurrence": true,
+                  "max_deduction": 20,
+                  "description": "Tage ohne Backups"
+                },
+                {
+                  "condition": "success_rate < 95",
+                  "points": 15,
+                  "per_occurrence": false,
+                  "description": "Erfolgsrate unter 95%"
+                },
+                {
+                  "condition": "success_rate < 90",
+                  "points": 25,
+                  "per_occurrence": false,
+                  "description": "Erfolgsrate unter 90%"
+                },
+                {
+                  "condition": "missing_required_columns",
+                  "points": 30,
+                  "per_occurrence": false,
+                  "description": "Pflichtfelder fehlen"
+                }
+              ],
+              "risk_levels": {
+                "high": {
+                  "score_range": [
+                    0,
+                    60
+                  ],
+                  "triggers": [
+                    "failed_backups > 5",
+                    "success_rate < 90",
+                    "critical_errors > 0"
+                  ],
+                  "color": "#FF0000"
+                },
+                "medium": {
+                  "score_range": [
+                    61,
+                    85
+                  ],
+                  "triggers": [
+                    "failed_backups > 0",
+                    "success_rate < 95"
+                  ],
+                  "color": "#FFA500"
+                },
+                "low": {
+                  "score_range": [
+                    86,
+                    100
+                  ],
+                  "color": "#00FF00"
+                }
+              }
+            }
+          },
+          "output": {
+            "dashboard_metrics": {
+              "metric1_label": "erfolgreich",
+              "metric1_field": "successful_backups",
+              "metric1_icon": "fas fa-check-circle text-success",
+              "metric2_label": "fehlgeschlagen",
+              "metric2_field": "failed_backups",
+              "metric2_icon": "fas fa-times-circle text-danger"
+            },
+            "custom_fields": {
+              "total_backups": "integer",
+              "successful_backups": "integer",
+              "failed_backups": "integer",
+              "warning_backups": "integer",
+              "success_rate": "percentage",
+              "failure_rate": "percentage",
+              "total_capacity_gb": "float",
+              "unique_vms": "integer",
+              "period_start": "date",
+              "period_end": "date",
+              "failed_vms": "array",
+              "missing_backup_days": "array"
+            },
+            "summary_template": "=== VEEAM BACKUP REPORT ===\nBericht: {report_name}\nZeitraum: {period_start} bis {period_end}\nStatus: {status}\nScore: {score}/100\nRisiko-Level: {risk_level}\n\n=== BACKUP STATISTIKEN ===\nGesamtanzahl Backups: {total_backups}\nErfolgreiche Backups: {successful_backups}\nFehlgeschlagene Backups: {failed_backups}\nWarnungen: {warning_backups}\n\n=== ERFOLGSRATE ===\nErfolgsrate: {success_rate}%\nFehlerrate: {failure_rate}%\n\n=== WEITERE DETAILS ===\nAnzahl VMs: {unique_vms}\nGesamtkapazität: {total_capacity_gb} GB\nTage ohne Backups: {missing_backup_days_count}\n\n=== FEHLGESCHLAGENE BACKUPS ===\n{failed_backups_details}\n\n=== FEHLENDE BACKUP-TAGE ===\n{missing_days_list}\n"
+          }
+        }
+      }
+    ]
   }
 };
 
         const EMBEDDED_MANIFEST = {
-  "generated_at": "2025-10-09T13:41:15.820910",
+  "generated_at": "2025-10-09T14:45:04.477448",
   "months": {
     "2025-08": {
       "count": 1,
@@ -2347,14 +3506,29 @@
           "modified": "2025-10-08T15:03:30.894247"
         }
       ]
+    },
+    "2025-07": {
+      "count": 2,
+      "files": [
+        {
+          "filename": "analysis_results_20251009_144104.json",
+          "size": 58625,
+          "modified": "2025-10-09T14:41:04.335533"
+        },
+        {
+          "filename": "analysis_results_20251009_143200.json",
+          "size": 58562,
+          "modified": "2025-10-09T14:32:00.852032"
+        }
+      ]
     }
   }
 };
 
         const DATA_SOURCE = {
             defaultMonth: "2025-08",
-            totalMonths: 1,
-            generated: "2025-10-09T13:41:15.822520"
+            totalMonths: 2,
+            generated: "2025-10-09T14:45:04.530046"
         };
 
         const CONFIG = {
@@ -2789,10 +3963,13 @@
                 return;
             }
 
-            // Collect all reports from all months with timestamps
+            // Collect reports only from the currently selected month
             const allReportsWithMonth = [];
 
-            Object.keys(EMBEDDED_DATA_ALL_MONTHS).forEach(month => {
+            // Use currentMonth if set, otherwise use all months
+            const monthsToShow = currentMonth ? [currentMonth] : Object.keys(EMBEDDED_DATA_ALL_MONTHS);
+
+            monthsToShow.forEach(month => {
                 const monthData = EMBEDDED_DATA_ALL_MONTHS[month];
                 if (monthData && monthData.reports) {
                     monthData.reports.forEach(report => {
@@ -2805,7 +3982,7 @@
                 }
             });
 
-            console.log('allReportsWithMonth:', allReportsWithMonth.length, 'reports found');
+            console.log('allReportsWithMonth:', allReportsWithMonth.length, 'reports found for month(s):', monthsToShow);
 
             // Sort by category first, then by timestamp descending, and take configured number
             allReportsWithMonth.sort((a, b) => {
@@ -2894,21 +4071,25 @@
             // Generate URL to the detailed HTML report
             // Since multiple reports are analyzed together in one batch,
             // they all share the same combined HTML file.
-            // The combined HTML file has the timestamp from when the batch was saved.
 
-            // Use the batch_timestamp from embedded data metadata
             const monthData = EMBEDDED_DATA_ALL_MONTHS[month];
             if (!monthData || !monthData.analysis_metadata) return null;
 
-            const metadataTimestamp = monthData.analysis_metadata.analysis_timestamp;
-            if (!metadataTimestamp) return null;
+            // Use html_filename from metadata if available (preferred)
+            let filename = monthData.analysis_metadata.html_filename;
 
-            // Extract timestamp from ISO format (e.g., "2025-10-08T12:58:52.123456")
-            const match = metadataTimestamp.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
-            if (!match) return null;
+            // Fallback: construct from timestamp if html_filename not in metadata
+            if (!filename) {
+                const metadataTimestamp = monthData.analysis_metadata.analysis_timestamp;
+                if (!metadataTimestamp) return null;
 
-            const [_, year, mon, day, hour, min, sec] = match;
-            const filename = `analysis_results_${year}${mon}${day}_${hour}${min}${sec}.html`;
+                // Extract timestamp from ISO format (e.g., "2025-10-08T12:58:52.123456")
+                const match = metadataTimestamp.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
+                if (!match) return null;
+
+                const [_, year, mon, day, hour, min, sec] = match;
+                filename = `analysis_results_${year}${mon}${day}_${hour}${min}${sec}.html`;
+            }
 
             // Find the report index within the month's reports array
             const reportIndex = monthData.reports.findIndex(r =>

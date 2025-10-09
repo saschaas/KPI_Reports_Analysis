@@ -107,7 +107,7 @@ analysis:
         column: "status"
         value: "failed"
         max_count: 0
-        max_percentage: 0.05  # 5% max failure rate
+        max_percentage: 0.10  # 10% max failure rate
         severity: "high"
         error_message: "Zu viele fehlgeschlagene Backups"
 

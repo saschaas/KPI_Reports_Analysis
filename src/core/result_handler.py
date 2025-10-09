@@ -27,32 +27,33 @@ class ResultHandler:
         # Ensure output directory exists
         self.output_dir.mkdir(parents=True, exist_ok=True)
     
-    def process_results(self, results: List[AnalysisResult]) -> Dict[str, Any]:
+    def process_results(self, results: List[AnalysisResult], html_filename: Optional[str] = None) -> Dict[str, Any]:
         """
         Process and format analysis results.
-        
+
         Args:
             results: List of analysis results
-            
+            html_filename: Optional HTML filename to store in metadata
+
         Returns:
             Formatted results dictionary
         """
-        # Create metadata
-        metadata = self._create_metadata(results)
-        
+        # Create metadata with HTML filename
+        metadata = self._create_metadata(results, html_filename)
+
         # Format individual results
         formatted_results = []
-        
+
         for result in results:
             formatted_result = self._format_result(result)
             formatted_results.append(formatted_result)
-        
+
         # Create final output structure
         output = {
             "analysis_metadata": metadata,
             "reports": formatted_results
         }
-        
+
         return output
     
     def save_results(self, results: List[AnalysisResult],
@@ -67,8 +68,6 @@ class ResultHandler:
         Returns:
             Path to saved file
         """
-        output = self.process_results(results)
-
         if not filename:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"analysis_results_{timestamp}.json"
@@ -92,57 +91,63 @@ class ResultHandler:
         month_dir.mkdir(parents=True, exist_ok=True)
 
         output_path = month_dir / filename
-        
+
+        # Determine HTML filename (same timestamp as JSON)
+        html_filename = filename.replace('.json', '.html')
+
+        # Process results with HTML filename for metadata
+        output = self.process_results(results, html_filename)
+
         try:
             with open(output_path, 'w', encoding='utf-8') as f:
                 json.dump(output, f, indent=2, ensure_ascii=False, default=str)
-            
+
             logger.info(f"Results saved to: {output_path}")
-            
+
             # Generate HTML report if enabled
             if self.generate_html:
                 html_path = self._generate_html_report(output, output_path.with_suffix('.html'))
                 logger.info(f"HTML report generated: {html_path}")
-            
+
             return output_path
-            
+
         except Exception as e:
             logger.error(f"Failed to save results: {e}")
             raise
     
-    def _create_metadata(self, results: List[AnalysisResult]) -> Dict[str, Any]:
+    def _create_metadata(self, results: List[AnalysisResult], html_filename: Optional[str] = None) -> Dict[str, Any]:
         """Create metadata for the analysis run."""
-        successful = sum(1 for r in results 
+        successful = sum(1 for r in results
                         if r.result_status not in ['nicht_erfolgreich_analysiert', 'fehler'])
         failed = len(results) - successful
-        
+
         # Calculate statistics
         if results:
             avg_score = sum(r.score for r in results) / len(results)
-            processing_times = [r.processing_info.get('processing_time_seconds', 0) 
+            processing_times = [r.processing_info.get('processing_time_seconds', 0)
                               for r in results]
             total_processing_time = sum(processing_times)
         else:
             avg_score = 0
             total_processing_time = 0
-        
+
         # Count by report type
         report_types = {}
         risk_levels = {'niedrig': 0, 'mittel': 0, 'hoch': 0, 'kritisch': 0}
-        
+
         for result in results:
             # Count report types
             report_type = result.report_type
             if report_type not in report_types:
                 report_types[report_type] = 0
             report_types[report_type] += 1
-            
+
             # Count risk levels
             risk_level = result.risk_level
             if risk_level in risk_levels:
                 risk_levels[risk_level] += 1
-        
-        return {
+
+        metadata = {
             "tool_version": "1.0.0",
             "analysis_timestamp": datetime.now().isoformat(),
             "total_files": len(results),
@@ -159,6 +164,12 @@ class ResultHandler:
                 "fallback_to_llm": self.config.get("processing", {}).get("fallback_to_llm")
             }
         }
+
+        # Add HTML filename if provided (so dashboard can construct correct links)
+        if html_filename:
+            metadata["html_filename"] = html_filename
+
+        return metadata
     
     def _format_result(self, result: AnalysisResult) -> Dict[str, Any]:
         """Format a single analysis result."""

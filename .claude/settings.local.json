@@ -35,7 +35,9 @@
       "Bash(claude mcp add:*)",
       "Bash(start \"\" \"output/2025-08/analysis_results_20251008_150330.html\")",
       "mcp__chrome-devtools__navigate_page",
-      "mcp__playwright__browser_navigate"
+      "mcp__playwright__browser_navigate",
+      "Bash(start \"\" \"output/2025-07/analysis_results_20251009_140545.html\")",
+      "Bash(npx playwright:*)"
     ],
     "deny": [],
     "ask": []
