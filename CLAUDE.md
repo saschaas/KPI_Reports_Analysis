@@ -227,3 +227,17 @@ The analyzer will be automatically used when `report_type` matches the key.
 - `input/` - Drop files here for analysis
 - `output/YYYY-MM/` - Results organized by month
 - `logs/` - Daily log files
+
+### Testing and tool use
+
+## Tool use
+When implementing new functions in the tool, please make sure to test them in a meaningful way. Make sure the result is what the user asked for and that the results are as expected.
+
+## Tool use (mcp)
+The following mcp tools should be available to you. If not please make sure to install them.
+
+- playwright - To validate the correct implementation of user interface and design
+- chrome-devtools - Mainly for debugging
+
+
+

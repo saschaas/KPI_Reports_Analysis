@@ -31,7 +31,11 @@
       "Bash(start \"\" \"output/2025-08/analysis_results_20251008_144320.html\")",
       "Bash(start \"\" \"output/2025-08/analysis_results_20251008_144829.html\")",
       "Bash(awk:*)",
-      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_145504.html\")"
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_145504.html\")",
+      "Bash(claude mcp add:*)",
+      "Bash(start \"\" \"output/2025-08/analysis_results_20251008_150330.html\")",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__playwright__browser_navigate"
     ],
     "deny": [],
     "ask": []

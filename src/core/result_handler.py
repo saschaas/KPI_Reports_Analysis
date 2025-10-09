@@ -541,6 +541,46 @@ class ResultHandler:
                     color: #6c757d;
                     font-size: 0.9em;
                 }
+                .filter-section {
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin-bottom: 30px;
+                    border: 1px solid #dee2e6;
+                }
+                .filter-label {
+                    font-weight: 600;
+                    color: #2c3e50;
+                    margin-bottom: 10px;
+                    display: block;
+                    font-size: 1em;
+                }
+                .report-select {
+                    width: 100%;
+                    padding: 12px 16px;
+                    font-size: 1em;
+                    border: 2px solid #dee2e6;
+                    border-radius: 6px;
+                    background-color: white;
+                    color: #2c3e50;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+                .report-select:hover {
+                    border-color: #0066cc;
+                }
+                .report-select:focus {
+                    outline: none;
+                    border-color: #0066cc;
+                    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+                }
+                .report-card {
+                    display: none;
+                }
+                .report-card.active {
+                    display: block;
+                }
             </style>
         </head>
         <body>
@@ -548,6 +588,21 @@ class ResultHandler:
                 <div class="header">
                     <h1>🔍 Backup Report Analysis</h1>
                     <p>Analyse erstellt am {{ metadata.analysis_timestamp }}</p>
+                </div>
+
+                <div class="filter-section">
+                    <label class="filter-label" for="reportSelector">Bericht auswählen:</label>
+                    <select id="reportSelector" class="report-select">
+                        <option value="all">Alle Berichte anzeigen ({{ metadata.total_files }} Berichte)</option>
+                        {% for report in reports %}
+                        <option value="report-{{ loop.index0 }}"
+                                data-score="{{ report.score }}"
+                                data-risk="{{ report.risk_level }}">
+                            {{ report.report_type.replace('_', ' ').title() }} - {{ report.file_info.name }}
+                            (Score: {{ report.score }}/100)
+                        </option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="metadata">
@@ -566,7 +621,7 @@ class ResultHandler:
                 </div>
 
                 {% for report in reports %}
-                <div class="report-card">
+                <div class="report-card" data-report-index="report-{{ loop.index0 }}">
                     <div class="report-header risk-{{ report.risk_level }}">
                         <span>{{ report.report_type.replace('_', ' ').title() }} - {{ report.file_info.name }}</span>
                         <span class="score">{{ report.score }}/100</span>
@@ -925,6 +980,73 @@ class ResultHandler:
                     <p>🤖 Powered by Claude Code & Ollama LLM</p>
                 </div>
             </div>
+
+            <script>
+                // Report filtering functionality
+                (function() {
+                    const selector = document.getElementById('reportSelector');
+                    const reportCards = document.querySelectorAll('.report-card');
+                    const metadataSection = document.querySelector('.metadata');
+
+                    // Function to show/hide reports based on selection
+                    function filterReports(selectedValue) {
+                        if (selectedValue === 'all') {
+                            // Show all reports and metadata
+                            reportCards.forEach(card => card.classList.add('active'));
+                            if (metadataSection) metadataSection.style.display = 'grid';
+                        } else {
+                            // Hide all first
+                            reportCards.forEach(card => card.classList.remove('active'));
+
+                            // Show only selected report
+                            const selectedCard = document.querySelector(`[data-report-index="${selectedValue}"]`);
+                            if (selectedCard) {
+                                selectedCard.classList.add('active');
+                            }
+
+                            // Hide metadata when single report is shown
+                            if (metadataSection) metadataSection.style.display = 'none';
+                        }
+
+                        // Update URL without reloading page
+                        const url = new URL(window.location);
+                        if (selectedValue === 'all') {
+                            url.searchParams.delete('report');
+                        } else {
+                            url.searchParams.set('report', selectedValue);
+                        }
+                        window.history.pushState({}, '', url);
+                    }
+
+                    // Handle selection change
+                    selector.addEventListener('change', function() {
+                        filterReports(this.value);
+                    });
+
+                    // Check URL parameters on page load
+                    function initializeFromURL() {
+                        const params = new URLSearchParams(window.location.search);
+                        const reportParam = params.get('report');
+
+                        if (reportParam) {
+                            // Set the selector to the specified report
+                            selector.value = reportParam;
+                            filterReports(reportParam);
+                        } else {
+                            // Default: show all reports
+                            filterReports('all');
+                        }
+                    }
+
+                    // Initialize on page load
+                    initializeFromURL();
+
+                    // Handle browser back/forward buttons
+                    window.addEventListener('popstate', function() {
+                        initializeFromURL();
+                    });
+                })();
+            </script>
         </body>
         </html>
         """

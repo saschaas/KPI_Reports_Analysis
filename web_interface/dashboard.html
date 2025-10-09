@@ -2336,7 +2336,7 @@
 };
 
         const EMBEDDED_MANIFEST = {
-  "generated_at": "2025-10-08T15:23:43.965387",
+  "generated_at": "2025-10-09T13:41:15.820910",
   "months": {
     "2025-08": {
       "count": 1,
@@ -2354,7 +2354,7 @@
         const DATA_SOURCE = {
             defaultMonth: "2025-08",
             totalMonths: 1,
-            generated: "2025-10-08T15:23:44.011985"
+            generated: "2025-10-09T13:41:15.822520"
         };
 
         const CONFIG = {
@@ -2910,9 +2910,22 @@
             const [_, year, mon, day, hour, min, sec] = match;
             const filename = `analysis_results_${year}${mon}${day}_${hour}${min}${sec}.html`;
 
+            // Find the report index within the month's reports array
+            const reportIndex = monthData.reports.findIndex(r =>
+                r.file_info.name === report.file_info.name &&
+                r.report_type === report.report_type
+            );
+
             // Build relative path from dashboard to the HTML report
             // Dashboard is in web_interface/, reports are in output/YYYY-MM/
-            return `../output/${month}/${filename}`;
+            const baseUrl = `../output/${month}/${filename}`;
+
+            // Add report parameter if found
+            if (reportIndex >= 0) {
+                return `${baseUrl}?report=report-${reportIndex}`;
+            }
+
+            return baseUrl;
         }
 
         function formatDate(date) {
