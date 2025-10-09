@@ -37,7 +37,10 @@
       "mcp__chrome-devtools__navigate_page",
       "mcp__playwright__browser_navigate",
       "Bash(start \"\" \"output/2025-07/analysis_results_20251009_140545.html\")",
-      "Bash(npx playwright:*)"
+      "Bash(npx playwright:*)",
+      "Bash(node:*)",
+      "Bash(start \"\" \"test_dashboard.html\")",
+      "Bash(start \"\" \"test_dashboard_simple.html\")"
     ],
     "deny": [],
     "ask": []

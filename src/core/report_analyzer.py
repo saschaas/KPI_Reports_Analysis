@@ -145,7 +145,12 @@ class ReportAnalyzer:
         if report_type in self.analyzers:
             logger.info(f"Using report-specific analyzer for {report_type}")
             analyzer_class = self.analyzers[report_type]
-            analyzer = analyzer_class(config)
+
+            # Pass filename for analyzers that need it (e.g., EntraDevicesAnalyzer)
+            if report_type == 'entra_devices':
+                analyzer = analyzer_class(config, filename=file_path.name)
+            else:
+                analyzer = analyzer_class(config)
 
             # Use analyzer's methods
             checks = analyzer.run_checks(df)

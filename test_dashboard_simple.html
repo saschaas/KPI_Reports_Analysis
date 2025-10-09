@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Dashboard Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Dashboard Test Results</h1>
+    <div id="output"></div>
+
+    <script>
+        // Load dashboard in hidden iframe and test
+        const iframe = document.createElement('iframe');
+        iframe.src = 'web_interface/dashboard.html';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        iframe.onload = function() {
+            setTimeout(() => {
+                const output = document.getElementById('output');
+                const lines = [];
+
+                try {
+                    const iframeDoc = iframe.contentDocument;
+                    const iframeWin = iframe.contentWindow;
+
+                    lines.push('<h2 class="success">✓ Dashboard loaded successfully</h2>');
+
+                    // Check data structures
+                    if (typeof iframeWin.EMBEDDED_DATA_ALL_MONTHS !== 'undefined') {
+                        const months = Object.keys(iframeWin.EMBEDDED_DATA_ALL_MONTHS);
+                        lines.push(`<p class="success">✓ EMBEDDED_DATA_ALL_MONTHS found with ${months.length} months: ${months.join(', ')}</p>`);
+
+                        // Check each month
+                        months.forEach(month => {
+                            const monthData = iframeWin.EMBEDDED_DATA_ALL_MONTHS[month];
+                            const reportCount = monthData.reports ? monthData.reports.length : 0;
+                            lines.push(`<p class="info">  Month ${month}: ${reportCount} reports</p>`);
+
+                            if (monthData.analysis_metadata && monthData.analysis_metadata.html_filename) {
+                                lines.push(`<p class="success">    ✓ html_filename: ${monthData.analysis_metadata.html_filename}</p>`);
+                            } else {
+                                lines.push(`<p class="error">    ✗ html_filename missing!</p>`);
+                            }
+
+                            // List reports
+                            if (monthData.reports) {
+                                monthData.reports.forEach((report, idx) => {
+                                    lines.push(`<p class="info">    Report ${idx + 1}: ${report.file_info.name}</p>`);
+                                });
+                            }
+                        });
+                    } else {
+                        lines.push('<p class="error">✗ EMBEDDED_DATA_ALL_MONTHS not found!</p>');
+                    }
+
+                    // Check DOM elements
+                    const recentReportsList = iframeDoc.getElementById('recentReportsList');
+                    const reportsList = iframeDoc.getElementById('reportsList');
+                    const noDataMessage = iframeDoc.getElementById('noDataMessage');
+
+                    lines.push('<h2>DOM Elements</h2>');
+
+                    if (recentReportsList) {
+                        const hasContent = recentReportsList.innerHTML.trim().length > 0;
+                        const children = recentReportsList.children.length;
+                        lines.push(`<p class="${hasContent ? 'success' : 'error'}">recentReportsList: ${children} children, ${recentReportsList.innerHTML.length} chars</p>`);
+                        if (hasContent) {
+                            lines.push(`<pre style="background: #f0f0f0; padding: 10px; max-height: 200px; overflow: auto;">${recentReportsList.innerHTML.substring(0, 1000)}</pre>`);
+                        }
+                    } else {
+                        lines.push('<p class="error">✗ recentReportsList element not found!</p>');
+                    }
+
+                    if (reportsList) {
+                        const hasContent = reportsList.innerHTML.trim().length > 0;
+                        const children = reportsList.children.length;
+                        lines.push(`<p class="${hasContent ? 'success' : 'error'}">reportsList: ${children} children, ${reportsList.innerHTML.length} chars</p>`);
+                        if (hasContent) {
+                            lines.push(`<pre style="background: #f0f0f0; padding: 10px; max-height: 200px; overflow: auto;">${reportsList.innerHTML.substring(0, 1000)}</pre>`);
+                        }
+                    } else {
+                        lines.push('<p class="error">✗ reportsList element not found!</p>');
+                    }
+
+                    if (noDataMessage) {
+                        const isVisible = window.getComputedStyle(noDataMessage).display !== 'none';
+                        lines.push(`<p class="${isVisible ? 'error' : 'success'}">noDataMessage visible: ${isVisible}</p>`);
+                    }
+
+                } catch (error) {
+                    lines.push(`<p class="error">✗ Error: ${error.message}</p>`);
+                }
+
+                output.innerHTML = lines.join('\n');
+            }, 3000); // Wait 3 seconds for dashboard to initialize
+        };
+    </script>
+</body>
+</html>

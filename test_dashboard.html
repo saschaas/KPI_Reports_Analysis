@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Test</title>
+    <script>
+        // Extract and test the dashboard initialization
+        function testDashboard() {
+            const iframe = document.getElementById('dashboardFrame');
+            const iframeWindow = iframe.contentWindow;
+
+            setTimeout(() => {
+                console.log('=== DASHBOARD TEST RESULTS ===');
+
+                // Check if data is defined
+                console.log('1. EMBEDDED_DATA_ALL_MONTHS defined:',
+                    typeof iframeWindow.EMBEDDED_DATA_ALL_MONTHS !== 'undefined');
+                console.log('2. EMBEDDED_MANIFEST defined:',
+                    typeof iframeWindow.EMBEDDED_MANIFEST !== 'undefined');
+
+                if (typeof iframeWindow.EMBEDDED_DATA_ALL_MONTHS !== 'undefined') {
+                    const months = Object.keys(iframeWindow.EMBEDDED_DATA_ALL_MONTHS);
+                    console.log('3. Available months:', months);
+
+                    months.forEach(month => {
+                        const data = iframeWindow.EMBEDDED_DATA_ALL_MONTHS[month];
+                        console.log(`   - ${month}: ${data.reports.length} reports`);
+                    });
+                }
+
+                // Check DOM elements
+                const recentReportsList = iframe.contentDocument.getElementById('recentReportsList');
+                const reportsList = iframe.contentDocument.getElementById('reportsList');
+
+                console.log('4. Recent reports element:', recentReportsList ? 'FOUND' : 'NOT FOUND');
+                if (recentReportsList) {
+                    console.log('   Content length:', recentReportsList.innerHTML.length);
+                    console.log('   Children count:', recentReportsList.children.length);
+                }
+
+                console.log('5. Reports list element:', reportsList ? 'FOUND' : 'NOT FOUND');
+                if (reportsList) {
+                    console.log('   Content length:', reportsList.innerHTML.length);
+                    console.log('   Children count:', reportsList.children.length);
+                }
+
+                // Check for errors in console
+                console.log('\n=== END TEST ===');
+
+                // Output visible content
+                document.getElementById('results').innerHTML = `
+                    <h2>Test Results</h2>
+                    <p><strong>Recent Reports List Content:</strong></p>
+                    <pre>${recentReportsList ? recentReportsList.innerHTML.substring(0, 500) : 'NOT FOUND'}</pre>
+                    <p><strong>Reports List Content:</strong></p>
+                    <pre>${reportsList ? reportsList.innerHTML.substring(0, 500) : 'NOT FOUND'}</pre>
+                `;
+            }, 2000);
+        }
+    </script>
+</head>
+<body onload="testDashboard()">
+    <h1>Dashboard Test</h1>
+    <div id="results"></div>
+    <hr>
+    <iframe id="dashboardFrame" src="web_interface/dashboard.html" width="100%" height="800px"></iframe>
+</body>
+</html>

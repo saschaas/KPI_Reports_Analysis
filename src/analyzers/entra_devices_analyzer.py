@@ -14,18 +14,20 @@ logger = logging.getLogger(__name__)
 class EntraDevicesAnalyzer(BaseAnalyzer):
     """Analyzer for Microsoft Entra (Azure AD) Devices Reports."""
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any], filename: str = None):
         """
         Initialize EntraDevicesAnalyzer.
 
         Args:
             config: Analysis configuration dictionary from entra_devices.yaml
+            filename: Optional filename being analyzed (for user prompts)
         """
         super().__init__(config)
         self.fuzzy_config = config.get('identification', {}).get('fuzzy_matching', {})
         self.field_mappings = self.fuzzy_config.get('field_mappings', {})
         self.fuzzy_threshold = self.fuzzy_config.get('threshold', 0.85)
         self.report_month = None  # Will be set via user input
+        self.filename = filename  # Store filename for user prompts
 
     def _normalize_string(self, text: str) -> str:
         """
@@ -232,6 +234,8 @@ class EntraDevicesAnalyzer(BaseAnalyzer):
         print("\n" + "="*60)
         print("ENTRA DEVICES REPORT - MONAT EINGABE")
         print("="*60)
+        if self.filename:
+            print(f"\nDatei: {self.filename}")
         print("\nBitte geben Sie den Berichtszeitraum für diesen Entra Devices Report ein.")
         print("Format: YYYY-MM (z.B. 2024-10 für Oktober 2024)")
         print()
