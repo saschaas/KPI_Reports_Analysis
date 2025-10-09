@@ -40,7 +40,8 @@
       "Bash(npx playwright:*)",
       "Bash(node:*)",
       "Bash(start \"\" \"test_dashboard.html\")",
-      "Bash(start \"\" \"test_dashboard_simple.html\")"
+      "Bash(start \"\" \"test_dashboard_simple.html\")",
+      "mcp__playwright__browser_install"
     ],
     "deny": [],
     "ask": []

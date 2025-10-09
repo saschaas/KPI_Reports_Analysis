@@ -147,11 +147,15 @@ class ReportAnalysisTool:
             # Save results
             if results:
                 output_path = self.result_handler.save_results(results, output_filename)
-                
+
                 # Generate summary
                 self._print_summary(results)
-                
+
                 logger.info(f"✅ Analysis completed. Results saved to: {output_path}")
+
+                # Regenerate dashboard with new data
+                self._regenerate_dashboard()
+
                 return True
             else:
                 logger.error("No results generated")
@@ -282,6 +286,42 @@ class ReportAnalysisTool:
             timestamp=time.strftime('%Y-%m-%dT%H:%M:%SZ')
         )
     
+    def _regenerate_dashboard(self) -> None:
+        """Regenerate the dashboard with latest analysis data."""
+        try:
+            logger.info("Regenerating dashboard...")
+
+            # Import the dashboard generation function
+            dashboard_script = Path(__file__).parent.parent / "web_interface" / "generate_dashboard.py"
+
+            if not dashboard_script.exists():
+                logger.warning(f"Dashboard generation script not found: {dashboard_script}")
+                return
+
+            # Get max_months from config
+            max_months = self.config.get('dashboard', {}).get('max_months_to_load', 6)
+
+            # Import and call the generate_dashboard function
+            import sys
+            import importlib.util
+
+            spec = importlib.util.spec_from_file_location("generate_dashboard", dashboard_script)
+            dashboard_module = importlib.util.module_from_spec(spec)
+            sys.modules["generate_dashboard"] = dashboard_module
+            spec.loader.exec_module(dashboard_module)
+
+            # Call the generation function
+            success = dashboard_module.generate_dashboard(max_months)
+
+            if success:
+                logger.info("✅ Dashboard regenerated successfully")
+            else:
+                logger.warning("⚠️  Dashboard regeneration failed")
+
+        except Exception as e:
+            logger.warning(f"Failed to regenerate dashboard: {e}")
+            logger.info("💡 You can manually regenerate with: python web_interface/generate_dashboard.py")
+
     def _print_summary(self, results: List) -> None:
         """Print analysis summary to console."""
         print("\n" + "="*60)

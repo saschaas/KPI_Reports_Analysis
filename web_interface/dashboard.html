@@ -4271,11 +4271,785 @@
         }
       }
     ]
+  },
+  "2025-05": {
+    "analysis_metadata": {
+      "tool_version": "1.0.0",
+      "analysis_timestamp": "2025-10-09T15:26:30.936480",
+      "total_files": 1,
+      "successful": 1,
+      "failed": 0,
+      "success_rate": 100.0,
+      "average_score": 100.0,
+      "total_processing_time_seconds": 0.24,
+      "report_types": {
+        "entra_devices": 1
+      },
+      "risk_distribution": {
+        "niedrig": 1,
+        "mittel": 0,
+        "hoch": 0,
+        "kritisch": 0
+      },
+      "config_used": {
+        "ollama_model": "llama3.2",
+        "supported_formats": [
+          "pdf",
+          "xlsx",
+          "xls",
+          "csv",
+          "html",
+          "htm"
+        ],
+        "fallback_to_llm": true
+      },
+      "html_filename": "analysis_results_20251009_152630.html"
+    },
+    "reports": [
+      {
+        "file_info": {
+          "name": "2025-05-EntraRegisteredDevices.csv",
+          "path": "C:\\Users\\sseidel\\Coding\\ClaudeCode\\KPI-Analyse Tool\\report_analysis_tool\\input\\2025-05-EntraRegisteredDevices.csv",
+          "size_bytes": 14897,
+          "format": "csv",
+          "report_period": "2025-05"
+        },
+        "report_type": "entra_devices",
+        "result_status": "ok",
+        "risk_level": "niedrig",
+        "score": 100,
+        "analysis_details": {
+          "method": "algorithmic",
+          "checks_performed": 3,
+          "checks_passed": 1,
+          "checks_failed": 2,
+          "issues": [
+            "37 inaktive Geräte gefunden (58.7%)",
+            "11 nicht-konforme Geräte gefunden (17.5%)"
+          ],
+          "warnings": [],
+          "score_details": []
+        },
+        "extracted_data": {
+          "total_devices": 63,
+          "report_month": "2025-05",
+          "devices_without_owner": 10,
+          "devices_without_owner_list": [
+            {
+              "displayName": "displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object",
+              "operatingSystem": "IPhone",
+              "deviceId": "a6762661-bcd5-4195-9695-9752bbc74c92"
+            },
+            {
+              "displayName": "displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "00c70eba-b6a0-41f1-bf6b-abf4a3deb5ec"
+            },
+            {
+              "displayName": "displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object",
+              "operatingSystem": "iOS",
+              "deviceId": "a6c88d3f-d3c4-4645-8b61-d25e8891f500"
+            },
+            {
+              "displayName": "displayName    iPhone XS Max\ndisplayName              NaN\nName: 23, dtype: object",
+              "operatingSystem": "iOS",
+              "deviceId": "8b7fa14a-fb31-4590-a724-489e6735b2fb"
+            },
+            {
+              "displayName": "displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "1921dc38-2687-4a0f-9c14-27b3fde021e1"
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object",
+              "operatingSystem": "Windows",
+              "deviceId": "f18e3e52-4b92-4624-a761-36485f7c27e2"
+            },
+            {
+              "displayName": "displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "1ac256c1-bde2-4aa7-93a7-4a2041c4d264"
+            },
+            {
+              "displayName": "displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "d001c720-c466-48c8-ab59-95b83ed36dc7"
+            },
+            {
+              "displayName": "displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 45, dtype: object",
+              "operatingSystem": "Android",
+              "deviceId": "23817784-aa16-4c88-aa89-c88a17661726"
+            },
+            {
+              "displayName": "displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object",
+              "operatingSystem": "IPad",
+              "deviceId": "d6e86df5-ed4b-4315-9a77-026d78b0bfbc"
+            }
+          ],
+          "inactive_devices": 37,
+          "active_devices": 26,
+          "inactive_devices_list": [
+            {
+              "displayName": "displayName    iPhone RBS\ndisplayName           NaN\nName: 0, dtype: object",
+              "operatingSystem": "IPhone",
+              "approximateLastSignInDateTime": "2023-11-17 17:26:00",
+              "days_since_signin": 560
+            },
+            {
+              "displayName": "displayName    DURLAP01\ndisplayName         NaN\nName: 1, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2020-12-08 07:12:00",
+              "days_since_signin": 1634
+            },
+            {
+              "displayName": "displayName    iPhone 11\ndisplayName          NaN\nName: 2, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-02-04 16:46:00",
+              "days_since_signin": 481
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 4, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-18 16:23:00",
+              "days_since_signin": 316
+            },
+            {
+              "displayName": "displayName    HUAWEISTF-L09\ndisplayName              NaN\nName: 5, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-02-16 10:34:00",
+              "days_since_signin": 469
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 6, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2023-04-30 12:08:00",
+              "days_since_signin": 761
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 8, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-07-15 09:13:00",
+              "days_since_signin": 319
+            },
+            {
+              "displayName": "displayName    iPad\ndisplayName     NaN\nName: 9, dtype: object",
+              "operatingSystem": "IPad",
+              "approximateLastSignInDateTime": "2024-07-02 13:12:00",
+              "days_since_signin": 332
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 10, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-15 07:42:00",
+              "days_since_signin": 746
+            },
+            {
+              "displayName": "displayName    iPhone 8\ndisplayName         NaN\nName: 11, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-01-04 09:18:00",
+              "days_since_signin": 512
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 12, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-24 09:42:00",
+              "days_since_signin": 737
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 15, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-07-11 07:46:00",
+              "days_since_signin": 323
+            },
+            {
+              "displayName": "displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object",
+              "operatingSystem": "IPhone",
+              "approximateLastSignInDateTime": "2023-05-04 08:22:00",
+              "days_since_signin": 757
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 18, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-23 06:36:00",
+              "days_since_signin": 311
+            },
+            {
+              "displayName": "displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2025-01-05 09:14:00",
+              "days_since_signin": 145
+            },
+            {
+              "displayName": "displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-04-11 09:09:00",
+              "days_since_signin": 414
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 21, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-24 12:20:00",
+              "days_since_signin": 737
+            },
+            {
+              "displayName": "displayName    iPhone XS Max\ndisplayName              NaN\nName: 23, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2025-01-15 11:03:00",
+              "days_since_signin": 135
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 24, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-09-26 06:13:00",
+              "days_since_signin": 246
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 27, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-07 10:29:00",
+              "days_since_signin": 327
+            },
+            {
+              "displayName": "displayName    DURPRVCTX01\ndisplayName            NaN\nName: 28, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-05-24 10:17:00",
+              "days_since_signin": 737
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 29, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-06-11 15:39:00",
+              "days_since_signin": 353
+            },
+            {
+              "displayName": "displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-04-03 10:58:00",
+              "days_since_signin": 422
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-02-29 09:29:00",
+              "days_since_signin": 456
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 35, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-07-07 10:29:00",
+              "days_since_signin": 327
+            },
+            {
+              "displayName": "displayName    iPhone (3)\ndisplayName           NaN\nName: 37, dtype: object",
+              "operatingSystem": "IPhone",
+              "approximateLastSignInDateTime": "2024-03-17 12:52:00",
+              "days_since_signin": 439
+            },
+            {
+              "displayName": "displayName    DURPRVCTX02\ndisplayName            NaN\nName: 38, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-09-20 17:23:00",
+              "days_since_signin": 618
+            },
+            {
+              "displayName": "displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2023-05-09 15:45:00",
+              "days_since_signin": 752
+            },
+            {
+              "displayName": "displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2023-07-05 18:15:00",
+              "days_since_signin": 695
+            },
+            {
+              "displayName": "displayName    DURTSVCTX01\ndisplayName            NaN\nName: 41, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2023-06-26 08:08:00",
+              "days_since_signin": 704
+            },
+            {
+              "displayName": "displayName    iPhone 8\ndisplayName         NaN\nName: 47, dtype: object",
+              "operatingSystem": "iOS",
+              "approximateLastSignInDateTime": "2024-10-09 06:22:00",
+              "days_since_signin": 233
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 49, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-08-06 08:20:00",
+              "days_since_signin": 297
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 50, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-09-21 12:37:00",
+              "days_since_signin": 251
+            },
+            {
+              "displayName": "displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object",
+              "operatingSystem": "IPad",
+              "approximateLastSignInDateTime": "2024-12-05 07:07:00",
+              "days_since_signin": 176
+            },
+            {
+              "displayName": "displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 54, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-09-03 18:35:00",
+              "days_since_signin": 269
+            },
+            {
+              "displayName": "displayName    VM1\ndisplayName    NaN\nName: 58, dtype: object",
+              "operatingSystem": "Windows",
+              "approximateLastSignInDateTime": "2024-10-11 07:31:00",
+              "days_since_signin": 231
+            },
+            {
+              "displayName": "displayName    samsungSM-S921B\ndisplayName                NaN\nName: 60, dtype: object",
+              "operatingSystem": "Android",
+              "approximateLastSignInDateTime": "2024-11-21 10:22:00",
+              "days_since_signin": 190
+            }
+          ],
+          "recent_registrations": 0,
+          "recent_registrations_list": [],
+          "compliant_devices": 4,
+          "non_compliant_devices": 11,
+          "enabled_devices": 63,
+          "managed_devices": 5,
+          "inactive_rate": 58.73,
+          "compliance_rate": 6.35,
+          "os_breakdown": {
+            "Android": 20,
+            "Windows": 18,
+            "iOS": 15,
+            "IPad": 6,
+            "IPhone": 4
+          },
+          "trust_type_breakdown": {
+            "Azure AD registered": 63
+          }
+        },
+        "processing_info": {
+          "processing_time_seconds": 0.24,
+          "retry_count": 0,
+          "parser_used": "CSVParser",
+          "data_shape": "63 rows x 16 columns"
+        },
+        "timestamp": "2025-10-09T15:26:30Z",
+        "summary": "Bericht: Entra Devices\n        Zeitraum: 2025-05\n        Status: ok\n        Score: 100/100\n        Risiko: niedrig\n        \n        Verarbeitung:\n        - Methode: algorithmic\n        - Dauer: 0.24s\n        - Checks: 1/3\n        \n        Kennzahlen:\n- total_devices: 63\n- report_month: 2025-05\n- devices_without_owner: 10\n- devices_without_owner_list: [{'displayName': displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object, 'operatingSystem': 'IPhone', 'deviceId': 'a6762661-bcd5-4195-9695-9752bbc74c92'}, {'displayName': displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object, 'operatingSystem': 'Android', 'deviceId': '00c70eba-b6a0-41f1-bf6b-abf4a3deb5ec'}, {'displayName': displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object, 'operatingSystem': 'iOS', 'deviceId': 'a6c88d3f-d3c4-4645-8b61-d25e8891f500'}, {'displayName': displayName    iPhone XS Max\ndisplayName              NaN\nName: 23, dtype: object, 'operatingSystem': 'iOS', 'deviceId': '8b7fa14a-fb31-4590-a724-489e6735b2fb'}, {'displayName': displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object, 'operatingSystem': 'Android', 'deviceId': '1921dc38-2687-4a0f-9c14-27b3fde021e1'}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object, 'operatingSystem': 'Windows', 'deviceId': 'f18e3e52-4b92-4624-a761-36485f7c27e2'}, {'displayName': displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object, 'operatingSystem': 'Android', 'deviceId': '1ac256c1-bde2-4aa7-93a7-4a2041c4d264'}, {'displayName': displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object, 'operatingSystem': 'Android', 'deviceId': 'd001c720-c466-48c8-ab59-95b83ed36dc7'}, {'displayName': displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 45, dtype: object, 'operatingSystem': 'Android', 'deviceId': '23817784-aa16-4c88-aa89-c88a17661726'}, {'displayName': displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object, 'operatingSystem': 'IPad', 'deviceId': 'd6e86df5-ed4b-4315-9a77-026d78b0bfbc'}]\n- inactive_devices: 37\n- active_devices: 26\n- inactive_devices_list: [{'displayName': displayName    iPhone RBS\ndisplayName           NaN\nName: 0, dtype: object, 'operatingSystem': 'IPhone', 'approximateLastSignInDateTime': Timestamp('2023-11-17 17:26:00'), 'days_since_signin': 560}, {'displayName': displayName    DURLAP01\ndisplayName         NaN\nName: 1, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2020-12-08 07:12:00'), 'days_since_signin': 1634}, {'displayName': displayName    iPhone 11\ndisplayName          NaN\nName: 2, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-02-04 16:46:00'), 'days_since_signin': 481}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 4, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-18 16:23:00'), 'days_since_signin': 316}, {'displayName': displayName    HUAWEISTF-L09\ndisplayName              NaN\nName: 5, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-02-16 10:34:00'), 'days_since_signin': 469}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 6, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2023-04-30 12:08:00'), 'days_since_signin': 761}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 8, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-07-15 09:13:00'), 'days_since_signin': 319}, {'displayName': displayName    iPad\ndisplayName     NaN\nName: 9, dtype: object, 'operatingSystem': 'IPad', 'approximateLastSignInDateTime': Timestamp('2024-07-02 13:12:00'), 'days_since_signin': 332}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 10, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-15 07:42:00'), 'days_since_signin': 746}, {'displayName': displayName    iPhone 8\ndisplayName         NaN\nName: 11, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-01-04 09:18:00'), 'days_since_signin': 512}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 12, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-24 09:42:00'), 'days_since_signin': 737}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 15, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-07-11 07:46:00'), 'days_since_signin': 323}, {'displayName': displayName    lab’s iPhone\ndisplayName             NaN\nName: 16, dtype: object, 'operatingSystem': 'IPhone', 'approximateLastSignInDateTime': Timestamp('2023-05-04 08:22:00'), 'days_since_signin': 757}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 18, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-23 06:36:00'), 'days_since_signin': 311}, {'displayName': displayName    motorolamoto g13\ndisplayName                 NaN\nName: 19, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2025-01-05 09:14:00'), 'days_since_signin': 145}, {'displayName': displayName    iPad Pro (12.9-inch) (4th generation)\ndisplayName                                      NaN\nName: 20, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-04-11 09:09:00'), 'days_since_signin': 414}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 21, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-24 12:20:00'), 'days_since_signin': 737}, {'displayName': displayName    iPhone XS Max\ndisplayName              NaN\nName: 23, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2025-01-15 11:03:00'), 'days_since_signin': 135}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 24, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-09-26 06:13:00'), 'days_since_signin': 246}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 27, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-07 10:29:00'), 'days_since_signin': 327}, {'displayName': displayName    DURPRVCTX01\ndisplayName            NaN\nName: 28, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-05-24 10:17:00'), 'days_since_signin': 737}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 29, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-06-11 15:39:00'), 'days_since_signin': 353}, {'displayName': displayName    samsungSM-G780G\ndisplayName                NaN\nName: 32, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-04-03 10:58:00'), 'days_since_signin': 422}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 33, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-02-29 09:29:00'), 'days_since_signin': 456}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 35, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-07-07 10:29:00'), 'days_since_signin': 327}, {'displayName': displayName    iPhone (3)\ndisplayName           NaN\nName: 37, dtype: object, 'operatingSystem': 'IPhone', 'approximateLastSignInDateTime': Timestamp('2024-03-17 12:52:00'), 'days_since_signin': 439}, {'displayName': displayName    DURPRVCTX02\ndisplayName            NaN\nName: 38, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-09-20 17:23:00'), 'days_since_signin': 618}, {'displayName': displayName    XiaomiMi 9 SE\ndisplayName              NaN\nName: 39, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2023-05-09 15:45:00'), 'days_since_signin': 752}, {'displayName': displayName    GigasetE940-2849-00\ndisplayName                    NaN\nName: 40, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2023-07-05 18:15:00'), 'days_since_signin': 695}, {'displayName': displayName    DURTSVCTX01\ndisplayName            NaN\nName: 41, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2023-06-26 08:08:00'), 'days_since_signin': 704}, {'displayName': displayName    iPhone 8\ndisplayName         NaN\nName: 47, dtype: object, 'operatingSystem': 'iOS', 'approximateLastSignInDateTime': Timestamp('2024-10-09 06:22:00'), 'days_since_signin': 233}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 49, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-08-06 08:20:00'), 'days_since_signin': 297}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 50, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-09-21 12:37:00'), 'days_since_signin': 251}, {'displayName': displayName     iPad von Tobias\ndisplayName    Microsoft Intune\nName: 51, dtype: object, 'operatingSystem': 'IPad', 'approximateLastSignInDateTime': Timestamp('2024-12-05 07:07:00'), 'days_since_signin': 176}, {'displayName': displayName    HUAWEIYAL-L21\ndisplayName              NaN\nName: 54, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-09-03 18:35:00'), 'days_since_signin': 269}, {'displayName': displayName    VM1\ndisplayName    NaN\nName: 58, dtype: object, 'operatingSystem': 'Windows', 'approximateLastSignInDateTime': Timestamp('2024-10-11 07:31:00'), 'days_since_signin': 231}, {'displayName': displayName    samsungSM-S921B\ndisplayName                NaN\nName: 60, dtype: object, 'operatingSystem': 'Android', 'approximateLastSignInDateTime': Timestamp('2024-11-21 10:22:00'), 'days_since_signin': 190}]\n- recent_registrations: 0\n- recent_registrations_list: []\n- compliant_devices: 4\n- non_compliant_devices: 11\n- enabled_devices: 63\n- managed_devices: 5\n- inactive_rate: 58.7%\n- compliance_rate: 6.3%\n- os_breakdown: {'Android': 20, 'Windows': 18, 'iOS': 15, 'IPad': 6, 'IPhone': 4}\n- trust_type_breakdown: {'Azure AD registered': 63}\n        \n        Probleme:\n- 37 inaktive Geräte gefunden (58.7%)\n- 11 nicht-konforme Geräte gefunden (17.5%)",
+        "report_config": {
+          "report_type": {
+            "id": "entra_devices",
+            "name": "Entra Devices Report",
+            "description": "Microsoft Entra (Azure AD) devices report analysis - tracks device registrations, compliance, and ownership",
+            "enabled": true,
+            "priority": 3,
+            "category": "Devices"
+          },
+          "identification": {
+            "filename_patterns": [
+              ".*entra.*devices.*\\.(csv|pdf|xlsx?|html?)$",
+              ".*azure.*ad.*devices.*\\.(csv|pdf|xlsx?|html?)$",
+              ".*aad.*devices.*\\.(csv|pdf|xlsx?|html?)$",
+              ".*devices.*entra.*\\.(csv|pdf|xlsx?|html?)$"
+            ],
+            "content_identifiers": {
+              "required_columns": [
+                "displayName",
+                "operatingSystem"
+              ],
+              "optional_columns": [
+                "trustType",
+                "accountEnabled",
+                "approximateLastSignInDateTime",
+                "registeredOwners",
+                "registrationDateTime",
+                "deviceId",
+                "isCompliant",
+                "isManaged"
+              ],
+              "required_keywords": [
+                "entra",
+                "device",
+                "azure"
+              ],
+              "optional_keywords": [
+                "displayName",
+                "operatingSystem",
+                "trustType",
+                "registeredOwners",
+                "approximateLastSignInDateTime"
+              ],
+              "min_matches": 2
+            },
+            "fuzzy_matching": {
+              "enabled": true,
+              "threshold": 0.85,
+              "normalization": [
+                "trim",
+                "lowercase",
+                "unicode_normalize",
+                "remove_diacritics"
+              ],
+              "field_mappings": {
+                "displayName": {
+                  "alternatives": [
+                    "displayName",
+                    "display name",
+                    "device name",
+                    "name",
+                    "devicename",
+                    "displayname"
+                  ],
+                  "priority": "high"
+                },
+                "operatingSystem": {
+                  "alternatives": [
+                    "operatingSystem",
+                    "operating system",
+                    "os",
+                    "platform",
+                    "system",
+                    "operatingsystem"
+                  ],
+                  "priority": "high"
+                },
+                "trustType": {
+                  "alternatives": [
+                    "trustType",
+                    "trust type",
+                    "type",
+                    "device type",
+                    "joinType (trustType)",
+                    "jointype",
+                    "join type"
+                  ],
+                  "priority": "medium"
+                },
+                "accountEnabled": {
+                  "alternatives": [
+                    "accountEnabled",
+                    "account enabled",
+                    "enabled",
+                    "active",
+                    "is enabled",
+                    "accountenabled"
+                  ],
+                  "priority": "medium"
+                },
+                "approximateLastSignInDateTime": {
+                  "alternatives": [
+                    "approximateLastSignInDateTime",
+                    "approximate last sign in date time",
+                    "last sign in",
+                    "last signin",
+                    "lastsignin",
+                    "last activity",
+                    "approximatelastsignindatetime"
+                  ],
+                  "priority": "high"
+                },
+                "registeredOwners": {
+                  "alternatives": [
+                    "registeredOwners",
+                    "registered owners",
+                    "owner",
+                    "owners",
+                    "assigned to",
+                    "registeredowners"
+                  ],
+                  "priority": "medium"
+                },
+                "registrationDateTime": {
+                  "alternatives": [
+                    "registrationDateTime",
+                    "registration date time",
+                    "registration date",
+                    "created",
+                    "created date",
+                    "registered",
+                    "registrationTime",
+                    "registration time",
+                    "registrationdatetime",
+                    "registrationtime"
+                  ],
+                  "priority": "high"
+                },
+                "deviceId": {
+                  "alternatives": [
+                    "deviceId",
+                    "device id",
+                    "id",
+                    "device identifier"
+                  ],
+                  "priority": "low"
+                },
+                "isCompliant": {
+                  "alternatives": [
+                    "isCompliant",
+                    "is compliant",
+                    "compliant",
+                    "compliance"
+                  ],
+                  "priority": "medium"
+                },
+                "isManaged": {
+                  "alternatives": [
+                    "isManaged",
+                    "is managed",
+                    "managed",
+                    "management"
+                  ],
+                  "priority": "medium"
+                }
+              }
+            },
+            "llm_classification": {
+              "enabled": true,
+              "confidence_threshold": 0.8,
+              "prompt": "Analysiere den folgenden Dateiinhalt und bestimme, ob es sich um einen Microsoft Entra (Azure AD) Devices Report handelt.\n\nKriterien:\n- Enthält Informationen zu registrierten Geräten\n- Enthält Gerätenamen (displayName) und Betriebssysteme\n- Enthält Device-IDs oder Trust-Types\n- Enthält Zeitangaben wie Registrierungsdatum oder letzter Sign-In\n- Bezieht sich auf Microsoft Entra, Azure AD, oder AAD\n\nInhalt: {content}\n\nAntworte nur mit 'JA' oder 'NEIN' gefolgt von einer einzeiligen Begründung.\n"
+            }
+          },
+          "supported_formats": [
+            "csv",
+            "xlsx",
+            "xls",
+            "pdf",
+            "html",
+            "htm"
+          ],
+          "analysis": {
+            "algorithmic_checks": [
+              {
+                "check_id": "completeness",
+                "name": "Vollständigkeitsprüfung",
+                "type": "column_validation",
+                "parameters": {
+                  "required_columns": [
+                    "displayName",
+                    "operatingSystem"
+                  ],
+                  "severity": "high",
+                  "error_message": "Pflichtfelder (displayName, operatingSystem) fehlen"
+                }
+              },
+              {
+                "check_id": "inactive_devices",
+                "name": "Inaktive Geräte (>90 Tage)",
+                "type": "threshold",
+                "parameters": {
+                  "column": "_inactive_device",
+                  "value": true,
+                  "max_count": 0,
+                  "max_percentage": 0.15,
+                  "severity": "medium",
+                  "error_message": "Zu viele inaktive Geräte (>90 Tage ohne Sign-In)"
+                }
+              },
+              {
+                "check_id": "non_compliant_devices",
+                "name": "Nicht-konforme Geräte",
+                "type": "threshold",
+                "parameters": {
+                  "column": "isCompliant",
+                  "value": "false",
+                  "max_count": 0,
+                  "max_percentage": 0.1,
+                  "severity": "medium",
+                  "error_message": "Zu viele nicht-konforme Geräte"
+                }
+              }
+            ],
+            "llm_analysis": {
+              "enabled": true,
+              "max_retries": 2,
+              "prompt": "Analysiere diesen Microsoft Entra Devices Bericht und extrahiere:\n\n1. Gesamtanzahl registrierter Geräte\n2. Aufschlüsselung nach Betriebssystem (Windows, iOS, Android, etc.)\n3. Anzahl Geräte ohne Besitzer (Owner)\n4. Anzahl inaktiver Geräte (>90 Tage kein Sign-In)\n5. Anzahl kürzlich registrierter Geräte (letzte 30 Tage)\n6. Compliance-Status\n7. Auffälligkeiten oder kritische Probleme\n\nBericht: {content}\n\nAntworte im JSON-Format:\n{\n  \"total_devices\": 0,\n  \"os_breakdown\": {},\n  \"devices_without_owner\": 0,\n  \"inactive_devices\": 0,\n  \"recent_registrations\": 0,\n  \"compliant_devices\": 0,\n  \"non_compliant_devices\": 0,\n  \"issues\": [],\n  \"summary\": \"\"\n}\n"
+            },
+            "extraction_fields": [
+              {
+                "field": "total_devices",
+                "type": "count",
+                "source": "all_rows",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "devices_without_owner",
+                "type": "count",
+                "source": "registeredOwners == ''",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "inactive_devices",
+                "type": "count",
+                "source": "_inactive_device == True",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "recent_registrations",
+                "type": "count",
+                "source": "_recent_registration == True",
+                "required": true,
+                "default": 0
+              },
+              {
+                "field": "compliant_devices",
+                "type": "count",
+                "source": "isCompliant == 'true'",
+                "required": false,
+                "default": 0
+              },
+              {
+                "field": "non_compliant_devices",
+                "type": "count",
+                "source": "isCompliant == 'false'",
+                "required": false,
+                "default": 0
+              },
+              {
+                "field": "enabled_devices",
+                "type": "count",
+                "source": "accountEnabled == 'true'",
+                "required": false,
+                "default": 0
+              },
+              {
+                "field": "managed_devices",
+                "type": "count",
+                "source": "isManaged == 'true'",
+                "required": false,
+                "default": 0
+              },
+              {
+                "field": "inactive_rate",
+                "type": "calculated",
+                "formula": "(inactive_devices / total_devices * 100) if total_devices > 0 else 0",
+                "format": "percentage",
+                "required": true,
+                "default": 0.0
+              },
+              {
+                "field": "compliance_rate",
+                "type": "calculated",
+                "formula": "(compliant_devices / total_devices * 100) if total_devices > 0 else 0",
+                "format": "percentage",
+                "required": false,
+                "default": 0.0
+              }
+            ],
+            "scoring": {
+              "base_score": 100,
+              "deductions": [
+                {
+                  "condition": "inactive_devices > 0",
+                  "points": 2,
+                  "per_occurrence": true,
+                  "max_deduction": 30,
+                  "description": "Inaktive Geräte (>90 Tage)"
+                },
+                {
+                  "condition": "non_compliant_devices > 0",
+                  "points": 3,
+                  "per_occurrence": true,
+                  "max_deduction": 25,
+                  "description": "Nicht-konforme Geräte"
+                },
+                {
+                  "condition": "inactive_rate > 20",
+                  "points": 15,
+                  "per_occurrence": false,
+                  "description": "Inaktivitätsrate über 20%"
+                },
+                {
+                  "condition": "inactive_rate > 30",
+                  "points": 25,
+                  "per_occurrence": false,
+                  "description": "Inaktivitätsrate über 30%"
+                },
+                {
+                  "condition": "missing_required_columns",
+                  "points": 30,
+                  "per_occurrence": false,
+                  "description": "Pflichtfelder fehlen"
+                }
+              ],
+              "risk_levels": {
+                "high": {
+                  "score_range": [
+                    0,
+                    60
+                  ],
+                  "triggers": [
+                    "inactive_devices > 20",
+                    "inactive_rate > 30",
+                    "non_compliant_devices > 10"
+                  ],
+                  "color": "#FF0000"
+                },
+                "medium": {
+                  "score_range": [
+                    61,
+                    85
+                  ],
+                  "triggers": [
+                    "inactive_devices > 5",
+                    "inactive_rate > 15",
+                    "non_compliant_devices > 5"
+                  ],
+                  "color": "#FFA500"
+                },
+                "low": {
+                  "score_range": [
+                    86,
+                    100
+                  ],
+                  "color": "#00FF00"
+                }
+              }
+            }
+          },
+          "output": {
+            "dashboard_metrics": {
+              "metric1_label": "aktiv",
+              "metric1_field": "active_devices",
+              "metric1_icon": "fas fa-check-circle text-success",
+              "metric2_label": "inaktiv",
+              "metric2_field": "inactive_devices",
+              "metric2_icon": "fas fa-times-circle text-warning"
+            },
+            "custom_fields": {
+              "total_devices": "integer",
+              "active_devices": "integer",
+              "devices_without_owner": "integer",
+              "inactive_devices": "integer",
+              "recent_registrations": "integer",
+              "compliant_devices": "integer",
+              "non_compliant_devices": "integer",
+              "enabled_devices": "integer",
+              "managed_devices": "integer",
+              "inactive_rate": "percentage",
+              "compliance_rate": "percentage",
+              "os_breakdown": "dict",
+              "trust_type_breakdown": "dict",
+              "devices_without_owner_list": "array",
+              "inactive_devices_list": "array",
+              "recent_registrations_list": "array",
+              "report_month": "string"
+            },
+            "summary_template": "=== ENTRA DEVICES REPORT ===\nBericht: {report_name}\nBerichtszeitraum: {report_month}\nStatus: {status}\nScore: {score}/100\nRisiko-Level: {risk_level}\n\n=== GERÄTE STATISTIKEN ===\nGesamtanzahl Geräte: {total_devices}\nGeräte ohne Besitzer: {devices_without_owner}\nInaktive Geräte (>90 Tage): {inactive_devices}\nKürzlich registriert (30 Tage): {recent_registrations}\n\n=== COMPLIANCE & MANAGEMENT ===\nKonforme Geräte: {compliant_devices}\nNicht-konforme Geräte: {non_compliant_devices}\nVerwaltete Geräte: {managed_devices}\nAktivierte Geräte: {enabled_devices}\n\n=== RATEN ===\nInaktivitätsrate: {inactive_rate}%\nCompliance-Rate: {compliance_rate}%\n\n=== BETRIEBSSYSTEME ===\n{os_breakdown_details}\n\n=== GERÄTE OHNE BESITZER ===\n{devices_without_owner_details}\n\n=== INAKTIVE GERÄTE ===\n{inactive_devices_details}\n"
+          }
+        }
+      }
+    ]
   }
 };
 
         const EMBEDDED_MANIFEST = {
-  "generated_at": "2025-10-09T15:00:17.573591",
+  "generated_at": "2025-10-09T15:26:31.041620",
   "months": {
     "2025-08": {
       "count": 1,
@@ -4311,14 +5085,29 @@
           "modified": "2025-10-09T14:56:28.176748"
         }
       ]
+    },
+    "2025-05": {
+      "count": 2,
+      "files": [
+        {
+          "filename": "analysis_results_20251009_152630.json",
+          "size": 42362,
+          "modified": "2025-10-09T15:26:30.959945"
+        },
+        {
+          "filename": "analysis_results_20251009_151410.json",
+          "size": 42362,
+          "modified": "2025-10-09T15:14:11.016839"
+        }
+      ]
     }
   }
 };
 
         const DATA_SOURCE = {
             defaultMonth: "2025-08",
-            totalMonths: 3,
-            generated: "2025-10-09T15:00:17.622397"
+            totalMonths: 4,
+            generated: "2025-10-09T15:26:31.045242"
         };
 
         const CONFIG = {
